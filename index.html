@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
-    <title>TrendKart — Gadgets, Home, Kitchen &amp; Wellness</title>
+    <title>Trend Karat — Gadgets, Home, Kitchen &amp; Wellness</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -342,7 +342,7 @@
   <body>
     <header class="site">
       <div class="wrap header-in">
-        <a class="logo" href="#">Trend<span>Kart</span><small>Online Store</small></a>
+        <a class="logo" href="#">Trend <span>Karat</span><small>Online Store</small></a>
         <form class="searchbar" id="searchForm" role="search">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
           <input type="search" id="searchInput" placeholder="Search products…" aria-label="Search products" />
@@ -444,7 +444,7 @@
     <footer class="site">
       <div class="wrap cols">
         <div>
-          <h4>TrendKart</h4>
+          <h4>Trend Karat</h4>
           <p>An online store for gadgets, home, kitchen and wellness products — each with complete details on its features and how to use it.</p>
         </div>
         <div>
@@ -466,7 +466,7 @@
           </ul>
         </div>
       </div>
-      <div class="wrap foot-note">© 2026 TrendKart. All rights reserved. · Card &amp; PayPal accepted.</div>
+      <div class="wrap foot-note">© 2026 Trend Karat. All rights reserved. · Card &amp; PayPal accepted.</div>
     </footer>
 
     <!-- Cart drawer -->
@@ -509,7 +509,7 @@
         <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
         <div class="auth-head">
           <h3 id="authTitle">Welcome back</h3>
-          <p id="authSub">Sign in to your TrendKart account.</p>
+          <p id="authSub">Sign in to your Trend Karat account.</p>
         </div>
         <div class="auth-note" id="authNote"></div>
 
@@ -520,7 +520,7 @@
           <label>Password<input type="password" name="password" autocomplete="current-password" placeholder="Your password" required></label>
           <p class="forgot-row"><button type="button" id="forgotLink">Forgot password?</button></p>
           <button type="submit" class="checkout-btn" id="siBtn">Sign in</button>
-          <p class="auth-switch">New to TrendKart? <button type="button" data-goto="signup">Create account</button></p>
+          <p class="auth-switch">New to Trend Karat? <button type="button" data-goto="signup">Create account</button></p>
         </form>
 
         <form class="co" id="signupForm" novalidate hidden>
@@ -799,9 +799,9 @@
         fetch(SUPABASE_URL + "/rest/v1/orders", {
           method: "POST", headers: h, body: JSON.stringify(order)
         }).then(function (res) {
-          if (!res.ok) console.error("TrendKart: order save to Supabase failed with status " + res.status);
+          if (!res.ok) console.error("Trend Karat: order save to Supabase failed with status " + res.status);
         }).catch(function (err) {
-          console.error("TrendKart: order save to Supabase failed", err);
+          console.error("Trend Karat: order save to Supabase failed", err);
         });
       }
 
@@ -878,7 +878,7 @@
 
       /* Auth modal views */
       var AUTH_VIEWS = {
-        signin: { form: "signinForm", title: "Welcome back", sub: "Sign in to your TrendKart account." },
+        signin: { form: "signinForm", title: "Welcome back", sub: "Sign in to your Trend Karat account." },
         signup: { form: "signupForm", title: "Create your account", sub: "Sign up for faster checkout and order updates." },
         reset:  { form: "resetForm",  title: "Forgot your password?", sub: "Enter your account email and we'll email you a password reset link." },
         newpw:  { form: "newPwForm",  title: "Set a new password", sub: "Choose a new password for your account." }
@@ -1163,7 +1163,7 @@
         var sym = lastOrder.cur === "GBP" ? "£" : "$";
         var rate = lastOrder.cur === "GBP" ? GBP_RATE : 1;
         function m(v) { return sym + (v * rate).toFixed(2); }
-        var txt = "TrendKart — Order " + lastOrder.no + "\n" +
+        var txt = "Trend Karat — Order " + lastOrder.no + "\n" +
           "Customer: " + lastOrder.name + " (" + lastOrder.email + ")\n" +
           "Deliver to: " + lastOrder.address + ", " + lastOrder.zip + ", " + lastOrder.country + "\n" +
           "Payment: " + lastOrder.pay + "\n\nItems:\n" +
@@ -1172,7 +1172,7 @@
           "\nTotal: " + m(lastOrder.total);
         var a = document.createElement("a");
         a.href = URL.createObjectURL(new Blob([txt], { type: "text/plain" }));
-        a.download = "TrendKart-order-" + lastOrder.no + ".txt";
+        a.download = "Trend-Karat-order-" + lastOrder.no + ".txt";
         a.click();
         URL.revokeObjectURL(a.href);
       }
