@@ -1013,7 +1013,7 @@
         setBusy(btn, true);
         fetch(SUPABASE_URL + "/auth/v1/recover", {
           method: "POST", headers: sbHeaders(),
-          body: JSON.stringify({ email: email, redirectTo: "https://fanciful-otter-f8b630.netlify.app/" })
+          body: JSON.stringify({ email: email, redirectTo: "https://trendkart-three.vercel.app/" })
         }).then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             setBusy(btn, false);
