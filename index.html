@@ -2297,8 +2297,20 @@
           return res.json().catch(function () { return {}; }).then(function (data) {
             setBusy(btn, false);
             if (res.ok && data.access_token && data.user) { setSession(data); afterAuth(); return; }
-            if (res.ok && data.user) {
-              if (data.user.identities && data.user.identities.length === 0) {
+            /* Supabase returns a successful sign-up in TWO shapes:
+               - confirmation OFF: a session object with the user nested
+                 under data.user;
+               - confirmation ON (no session issued): the user object
+                 itself at the TOP level — { id, email, identities, ... }
+                 with no data.user wrapper and no access_token.
+               The old code only checked data.user, so with confirmation
+               ON a successful sign-up fell through to the generic
+               "Something went wrong" error and the confirmation popup
+               never appeared. Accept both shapes. */
+            var newUser = (res.ok && data.user) || null;
+            if (!newUser && res.ok && data.id && data.email && !data.access_token) newUser = data;
+            if (newUser) {
+              if (newUser.identities && newUser.identities.length === 0) {
                 showMsg("suErr", "That email already has an account — please sign in instead.");
                 return;
               }
