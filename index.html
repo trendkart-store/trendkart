@@ -344,6 +344,16 @@
       .convo-item small { display: block; color: var(--ink-soft); font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
       .convo-item .convo-time { margin-left: auto; flex: none; color: var(--ink-faint); font-size: 0.76rem; font-weight: 600; text-align: right; }
       .convo-item .convo-count { display: block; margin-top: 3px; color: var(--accent-strong); font-size: 0.76rem; font-weight: 700; }
+      /* Unread chat badges: small red count bubbles + per-conversation pills */
+      .count-badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 99px; background: #d92d20; color: #fff; font-size: 0.72rem; font-weight: 800; line-height: 1; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px var(--bg); z-index: 3; pointer-events: none; }
+      .count-badge[hidden] { display: none; }
+      .admin-tabs button { position: relative; }
+      .admin-tabs .count-badge { box-shadow: 0 0 0 2px var(--surface); }
+      .support-btn { position: relative; }
+      .support-btn .count-badge { box-shadow: 0 0 0 2px var(--surface); }
+      .unread-pill { display: inline-block; background: #d92d20; color: #fff; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.02em; border-radius: 99px; padding: 2px 8px; margin-top: 4px; }
+      .convo-item.has-unread { border-color: #d92d20; }
+      .convo-item.has-unread .convo-preview { color: var(--ink); font-weight: 600; }
       .support-back { border: 0; background: none; color: var(--accent-strong); font-weight: 700; font-size: 0.88rem; padding: 4px 0; min-height: 0; margin-bottom: 10px; }
       .support-thread { background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; max-height: 46dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; margin-bottom: 12px; }
       @media (max-width: 560px) { .chat-panel { right: 16px; } .chat-fab { right: 16px; } .convo-item small { max-width: 170px; } }
@@ -416,6 +426,58 @@
       .recent-row b { font-weight: 700; }
       .recent-row small { display: block; color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
       @media (max-width: 760px) { .admin-stats { grid-template-columns: 1fr 1fr; } }
+
+      /* ---------- Email confirmation popup ---------- */
+      .confirm-wrap { text-align: center; padding: 6px 2px 2px; }
+      .confirm-ic { width: 72px; height: 72px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 2px auto 16px; }
+      .confirm-ic .ic { width: 34px; height: 34px; }
+      .confirm-wrap h3 { font-size: 1.5rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+      .confirm-wrap > p { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; max-width: 38ch; margin: 0 auto; }
+      .confirm-wrap > p b { color: var(--ink); word-break: break-all; }
+      .confirm-steps { text-align: left; background: var(--surface-2); border-radius: 14px; padding: 14px 16px; margin: 18px 0; display: grid; gap: 10px; }
+      .confirm-steps li { display: flex; gap: 11px; align-items: flex-start; font-size: 0.92rem; line-height: 1.45; list-style: none; }
+      .confirm-steps { padding-left: 16px; }
+      .confirm-steps .n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 0.8rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; margin-top: 1px; }
+      .confirm-note { font-size: 0.84rem; color: var(--ink-soft); margin-top: 12px; line-height: 1.55; }
+      .confirm-resend { border: 0; background: none; color: var(--accent-strong); font-weight: 700; font-size: 0.88rem; padding: 4px 2px; min-height: 0; }
+      .confirm-resend:hover { text-decoration: underline; }
+      .confirm-resend:disabled { opacity: 0.5; cursor: not-allowed; text-decoration: none; }
+
+      /* ---------- Admin dashboard charts ---------- */
+      .dash-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+      .dash-kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow-sm); }
+      .dash-kpi small { display: block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+      .dash-kpi b { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; display: block; }
+      .dash-kpi span { display: block; margin-top: 6px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; line-height: 1.4; }
+      .dash-kpi .up { color: var(--accent-strong); font-weight: 800; }
+      .dash-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 14px; margin-bottom: 14px; }
+      .chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: var(--shadow-sm); min-width: 0; }
+      .chart-card h4 { font-size: 1.02rem; margin: 0; letter-spacing: -0.01em; }
+      .chart-card .chart-sub { color: var(--ink-soft); font-size: 0.84rem; font-weight: 600; margin: 3px 0 14px; }
+      .chart-empty { text-align: center; padding: 26px 12px; color: var(--ink-soft); font-size: 0.9rem; background: var(--surface-2); border-radius: 12px; line-height: 1.55; }
+      .chart-empty b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 0.95rem; }
+      .chart-svg { width: 100%; height: auto; display: block; }
+      .chart-svg text { font-family: inherit; }
+      .donut-wrap { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+      .donut-legend { display: grid; gap: 8px; flex: 1; min-width: 140px; }
+      .donut-legend .li { display: flex; align-items: center; gap: 9px; font-size: 0.88rem; font-weight: 600; color: var(--ink-soft); }
+      .donut-legend .dot { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+      .donut-legend .li b { color: var(--ink); margin-left: auto; font-weight: 800; }
+      .top-list { display: grid; gap: 4px; }
+      .top-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; padding: 9px 4px; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+      .top-row:last-child { border-bottom: 0; }
+      .top-row .rank { width: 24px; height: 24px; border-radius: 50%; background: var(--surface-2); color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+      .top-row .tname { font-weight: 700; line-height: 1.3; min-width: 0; }
+      .top-row .tname small { display: block; color: var(--ink-soft); font-weight: 600; font-size: 0.8rem; }
+      .top-row .tval { font-weight: 800; white-space: nowrap; }
+      .cat-bars { display: grid; gap: 12px; }
+      .cat-bar-row { font-size: 0.88rem; }
+      .cat-bar-row .cb-head { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; margin-bottom: 5px; }
+      .cat-bar-row .cb-head span:last-child { color: var(--ink-soft); font-weight: 600; }
+      .cat-bar-track { height: 9px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+      .cat-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; }
+      @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
+      @media (max-width: 760px) { .dash-kpis { grid-template-columns: 1fr 1fr; } }
 
       /* ---------- Footer ---------- */
       footer.site { margin-top: 64px; background: var(--footer-bg); color: #a9adb3; }
@@ -571,7 +633,7 @@
                 <div><b id="menuName">Account</b><small id="menuEmail"></small></div>
               </div>
               <button type="button" class="profile-btn" id="profileBtn">My profile &amp; orders</button>
-              <button type="button" class="profile-btn support-btn" id="supportBtn" hidden>Support inbox</button>
+              <button type="button" class="profile-btn support-btn" id="supportBtn" hidden>Support inbox<span class="count-badge" id="supportBtnBadge" hidden></span></button>
               <button type="button" class="signout-btn" id="signOutBtn">Sign out</button>
             </div>
           </div>
@@ -755,6 +817,27 @@
       </div>
     </div>
 
+    <!-- Email confirmation popup (shown after sign-up when email confirmation is required) -->
+    <div class="modal" id="confirmModal" role="dialog" aria-modal="true">
+      <div class="sheet narrow">
+        <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
+        <div class="confirm-wrap">
+          <div class="confirm-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+          <h3>Check your email</h3>
+          <p>We've sent a confirmation link to <b id="confirmEmail">your email</b>. Confirm your account to finish signing up — it only takes a few seconds.</p>
+          <ol class="confirm-steps">
+            <li><span class="n">1</span><span>Open the email from <b>Trend Karat</b> in your inbox (check spam or promotions too).</span></li>
+            <li><span class="n">2</span><span>Tap the <b>Confirm your account</b> link in that email.</span></li>
+            <li><span class="n">3</span><span>Come back here and <b>refresh this page</b>, then sign in — your account will be ready.</span></li>
+          </ol>
+          <div class="auth-err" id="confirmErr"></div>
+          <div class="auth-ok" id="confirmOk"></div>
+          <button type="button" class="checkout-btn" id="confirmSigninBtn" style="margin-top:14px">I've confirmed — Sign in</button>
+          <p class="confirm-note">Didn't get the email? <button type="button" class="confirm-resend" id="confirmResendBtn">Resend confirmation email</button><br>You won't be able to sign in until your email is confirmed — this keeps fake sign-ups out.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Profile modal -->
     <div class="modal" id="profileModal" role="dialog" aria-modal="true">
       <div class="sheet">
@@ -783,6 +866,7 @@
     <button type="button" class="chat-fab" id="chatFab" aria-label="Chat with support">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Chat
+      <span class="count-badge" id="chatFabBadge" hidden></span>
     </button>
     <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Trend Karat support">
       <div class="chat-head">
@@ -1468,6 +1552,92 @@
           return data.map(normalizeChatMessage).sort(function (a, b) { return new Date(a.created_at || 0) - new Date(b.created_at || 0); });
         }).catch(function () { return null; });
       }
+      /* ---------------- Unread chat badges ----------------
+         "Seen" markers live in localStorage (same store the page already
+         uses for its session/theme keys): for the owner, the latest time
+         each conversation was opened; for a customer, the latest time
+         they viewed their own thread. Anything newer than the marker
+         counts as unread and drives the count badges. */
+      var SEEN_CHATS_KEY = "tk_seen_chats_v1";  // owner: { convoEmail: msEpoch }
+      var SEEN_MINE_KEY = "tk_seen_mine_v1";    // customer: { ownEmail: msEpoch }
+      function readSeenMap(key) {
+        try { var v = JSON.parse(localStorage.getItem(key) || "{}"); return v && typeof v === "object" ? v : {}; }
+        catch (e) { return {}; }
+      }
+      function writeSeenMap(key, map) { try { localStorage.setItem(key, JSON.stringify(map)); } catch (e) {} }
+      function msgMs(m) { var t = m && m.created_at ? Date.parse(m.created_at) : NaN; return isNaN(t) ? 0 : t; }
+      function convoUnreadCount(email, msgs) {
+        var seen = readSeenMap(SEEN_CHATS_KEY)[(email || "").toLowerCase()] || 0;
+        return (msgs || []).filter(function (m) { return !isSupportSender(m) && msgMs(m) > seen; }).length;
+      }
+      function markConvoSeen(email, msgs) {
+        var key = (email || "").toLowerCase(); if (!key) return;
+        var map = readSeenMap(SEEN_CHATS_KEY);
+        var latest = map[key] || 0;
+        (msgs || []).forEach(function (m) { var t = msgMs(m); if (t > latest) latest = t; });
+        map[key] = latest || Date.now();
+        writeSeenMap(SEEN_CHATS_KEY, map);
+      }
+      function myUnreadCount(msgs) {
+        if (!session || !session.user) return 0;
+        var seen = readSeenMap(SEEN_MINE_KEY)[(session.user.email || "").toLowerCase()] || 0;
+        return (msgs || []).filter(function (m) { return isSupportSender(m) && msgMs(m) > seen; }).length;
+      }
+      function markMySeen(msgs) {
+        if (!session || !session.user) return;
+        var key = (session.user.email || "").toLowerCase(); if (!key) return;
+        var map = readSeenMap(SEEN_MINE_KEY);
+        var latest = map[key] || 0;
+        (msgs || []).forEach(function (m) { var t = msgMs(m); if (t > latest) latest = t; });
+        map[key] = latest || Date.now();
+        writeSeenMap(SEEN_MINE_KEY, map);
+      }
+      function setBadge(id, n) {
+        var el = document.getElementById(id); if (!el) return;
+        if (n > 0) { el.textContent = n > 99 ? "99+" : String(n); el.hidden = false; }
+        else { el.textContent = ""; el.hidden = true; }
+      }
+      var ownerChatAll = null;  // latest full chat list loaded for the owner (badges + polls)
+      function refreshOwnerBadges() {
+        var total = 0;
+        if (ownerChatAll) groupConversations(ownerChatAll).forEach(function (c) { total += convoUnreadCount(c.email, c.messages); });
+        setBadge("adminTabBadge", total);
+        setBadge("supportBtnBadge", total);
+        if (isOwner()) setBadge("chatFabBadge", total);
+        return total;
+      }
+      function refreshMyBadge() { if (!isOwner()) setBadge("chatFabBadge", myUnreadCount(chatMessages)); }
+      function clearChatBadges() { setBadge("chatFabBadge", 0); setBadge("supportBtnBadge", 0); setBadge("adminTabBadge", 0); }
+      /* Background poll: keeps the badges live while the page is open —
+         new customer chats light up the owner's badges, and new support
+         replies light up the customer's Chat button. */
+      var badgePoll = null, badgeSig = "";
+      function startBadgePoll() {
+        stopBadgePoll();
+        badgePoll = setInterval(pollChatBadges, 20000);
+      }
+      function stopBadgePoll() { if (badgePoll) { clearInterval(badgePoll); badgePoll = null; } }
+      function pollChatBadges() {
+        if (!session || !session.user) { stopBadgePoll(); return; }
+        if (isOwner()) {
+          fetchAllChat(session.access_token).then(function (data) {
+            if (data === null) return;
+            ownerChatAll = data;
+            var total = refreshOwnerBadges();
+            var sig = data.length + ":" + total;
+            if (sig === badgeSig) return;
+            badgeSig = sig;
+            if (isAdminOpen() && adminTab === "support" && !admChatCustomer) { admChatAll = data; admChatFailed = false; renderAdminTab(); }
+            var sm = document.getElementById("supportModal");
+            if (sm && sm.classList.contains("open") && !supportCustomer) { supportAll = data; supportLoadFailed = false; renderSupportList(); }
+          });
+        } else {
+          var p = document.getElementById("chatPanel");
+          if (p && p.classList.contains("open")) return; // the open panel has its own poll
+          loadChatThread();
+        }
+      }
+
       function bubbleHTML(m, mine, otherLabel) {
         var meta = (mine ? "You" : otherLabel) + (m.created_at ? " · " + formatChatTime(m.created_at) : "");
         var media = "";
@@ -1567,7 +1737,13 @@
         fetchChatThread(session.user.email || "", session.access_token).then(function (data) {
           if (data === null) { chatLoadFailed = true; }
           else { chatLoadFailed = false; chatMessages = data; }
-          if (document.getElementById("chatPanel").classList.contains("open")) renderChatMessages();
+          if (document.getElementById("chatPanel").classList.contains("open")) {
+            markMySeen(chatMessages);   // viewing the thread clears the unread badge
+            setBadge("chatFabBadge", 0);
+            renderChatMessages();
+          } else {
+            refreshMyBadge();
+          }
         });
       }
       function startChatPoll() {
@@ -1587,6 +1763,7 @@
         }
         if (isOwner()) { openSupportInbox(); return; }
         document.getElementById("chatPanel").classList.add("open");
+        setBadge("chatFabBadge", 0);
         renderChatMessages();
         loadChatThread();
         startChatPoll();
@@ -1695,7 +1872,7 @@
         if (!session) return;
         fetchAllChat(session.access_token).then(function (data) {
           if (data === null) { supportLoadFailed = true; supportAll = null; }
-          else { supportLoadFailed = false; supportAll = data; }
+          else { supportLoadFailed = false; supportAll = data; ownerChatAll = data; refreshOwnerBadges(); }
           var modal = document.getElementById("supportModal");
           if (!modal || !modal.classList.contains("open")) return;
           if (supportCustomer) {
@@ -1717,10 +1894,17 @@
         body.innerHTML = head + convos.map(function (c) {
           var last = c.messages[c.messages.length - 1];
           var initial = (c.name || "C").charAt(0).toUpperCase();
-          return '<button type="button" class="convo-item" data-convo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small>' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span></span></button>';
+          var unread = convoUnreadCount(c.email, c.messages);
+          return '<button type="button" class="convo-item' + (unread ? " has-unread" : "") + '" data-convo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small class="convo-preview">' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span>' + (unread ? '<span class="unread-pill">' + unread + ' new</span>' : "") + '</span></button>';
         }).join("");
         body.querySelectorAll("[data-convo]").forEach(function (b) {
-          b.addEventListener("click", function () { supportCustomer = b.getAttribute("data-convo"); renderSupportThread(); });
+          b.addEventListener("click", function () {
+            supportCustomer = b.getAttribute("data-convo");
+            var convos2 = groupConversations(supportAll || []);
+            for (var i = 0; i < convos2.length; i++) if (convos2[i].email.toLowerCase() === supportCustomer.toLowerCase()) markConvoSeen(convos2[i].email, convos2[i].messages);
+            refreshOwnerBadges();
+            renderSupportThread();
+          });
         });
       }
       function currentConvo() {
@@ -1809,6 +1993,9 @@
         var btn = document.getElementById("supportReplySend");
         if (!supportAll) supportAll = [];
         supportAll.push(local);
+        ownerChatAll = supportAll;
+        markConvoSeen(payload.customer_email, supportAll.filter(function (m) { return (m.customer_email || "").toLowerCase() === payload.customer_email.toLowerCase(); }));
+        refreshOwnerBadges();
         var threadEl = document.getElementById("supportMsgs"); if (threadEl) renderSupportThreadMessages(threadEl);
         inp.value = "";
         supportPending = null; renderSupportAttachBar();
@@ -1856,7 +2043,7 @@
         try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
         hideAcctMenu();
         closeCart();
-        try { closeChatPanel(); stopSupportPoll(); } catch (e) {}
+        try { closeChatPanel(); stopSupportPoll(); stopBadgePoll(); clearChatBadges(); } catch (e) {}
         renderCart();
         updateAuthUI();
         toast("You've been signed out. See you soon!");
@@ -1882,6 +2069,23 @@
         }
         var supportBtnEl = document.getElementById("supportBtn");
         if (supportBtnEl) supportBtnEl.hidden = !isOwner();
+        /* Unread chat badges: start the background poll and load the
+           current counts as soon as someone is signed in; clear
+           everything on sign-out. */
+        if (session && session.user) {
+          startBadgePoll();
+          if (isOwner()) {
+            fetchAllChat(session.access_token).then(function (data) {
+              if (data === null) return;
+              ownerChatAll = data; refreshOwnerBadges();
+            });
+          } else {
+            loadChatThread();
+          }
+        } else {
+          stopBadgePoll();
+          clearChatBadges();
+        }
       }
       function hideAcctMenu() { document.getElementById("acctMenu").hidden = true; }
       document.getElementById("acctBtn").addEventListener("click", function (e) {
@@ -1965,7 +2169,7 @@
         if (/already registered|already exists|already been registered/i.test(raw)) return "That email already has an account — please sign in instead.";
         if (/password should be at least/i.test(raw)) return "Please use a password of at least 6 characters.";
         if (/unable to validate email|invalid format|email address.*invalid/i.test(raw)) return "That email address doesn't look right — please check it.";
-        if (/email not confirmed/i.test(raw)) return "Please confirm your email first, then sign in.";
+        if (/email not confirmed/i.test(raw)) return "Your email isn't confirmed yet — open the confirmation link we emailed you, then sign in. Need a new link? Create the account again or use Resend on the confirmation screen.";
         if (/rate limit|too many/i.test(raw)) return "Too many attempts — please wait a minute and try again.";
         return fallback || "Something went wrong — please try again.";
       }
@@ -2030,6 +2234,50 @@
         });
       });
 
+      /* Email confirmation popup — shown when sign-up succeeds but
+         Supabase requires the customer to click the emailed link
+         before they can sign in (no session is returned). */
+      var confirmEmailAddr = "";
+      function showEmailConfirmation(email) {
+        confirmEmailAddr = (email || "").trim();
+        var em = document.getElementById("confirmEmail");
+        if (em) em.textContent = confirmEmailAddr || "your email";
+        var err = document.getElementById("confirmErr"); if (err) { err.textContent = ""; err.classList.remove("show"); }
+        var ok = document.getElementById("confirmOk"); if (ok) { ok.textContent = ""; ok.classList.remove("show"); }
+        var keepAction = pendingAction; // keep e.g. a pending add-to-cart for after the confirmed sign-in
+        closeModals();
+        pendingAction = keepAction;
+        openModal("confirmModal");
+      }
+      document.getElementById("confirmSigninBtn").addEventListener("click", function () {
+        closeModals();
+        openAuth("signin", "Once you've clicked the link in your email, sign in here to finish.");
+        var siEmail = document.querySelector('#signinForm input[name="email"]');
+        if (siEmail && confirmEmailAddr) siEmail.value = confirmEmailAddr;
+      });
+      document.getElementById("confirmResendBtn").addEventListener("click", function () {
+        var btn = this;
+        var err = document.getElementById("confirmErr");
+        var ok = document.getElementById("confirmOk");
+        function cErr(m) { if (err) { err.textContent = m; err.classList.add("show"); } if (ok) ok.classList.remove("show"); }
+        function cOk(m) { if (ok) { ok.textContent = m; ok.classList.add("show"); } if (err) err.classList.remove("show"); }
+        if (!confirmEmailAddr) { cErr("We don't have your email address — please close this and sign up again."); return; }
+        btn.disabled = true; btn.textContent = "Sending…";
+        fetch(SUPABASE_URL + "/auth/v1/resend", {
+          method: "POST", headers: sbHeaders(),
+          body: JSON.stringify({ type: "signup", email: confirmEmailAddr, redirectTo: "https://trendkart-three.vercel.app/" })
+        }).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            btn.disabled = false; btn.textContent = "Resend confirmation email";
+            if (res.ok) cOk("A new confirmation link is on its way to " + confirmEmailAddr + " — give it a minute and check spam too.");
+            else cErr(friendlyAuthError(data, "Couldn't resend the link just now — please wait a minute and try again."));
+          });
+        }).catch(function () {
+          btn.disabled = false; btn.textContent = "Resend confirmation email";
+          cErr("Couldn't reach the email service — check your connection and try again.");
+        });
+      });
+
       /* Sign up */
       document.getElementById("signupForm").addEventListener("submit", function (ev) {
         ev.preventDefault();
@@ -2039,11 +2287,12 @@
         clearAuthMsgs();
         var fd = new FormData(ev.target);
         var name = (fd.get("name") || "").trim();
+        var emailVal = (fd.get("email") || "").trim();
         var btn = document.getElementById("suBtn");
         setBusy(btn, true);
         fetch(SUPABASE_URL + "/auth/v1/signup", {
           method: "POST", headers: sbHeaders(),
-          body: JSON.stringify({ email: (fd.get("email") || "").trim(), password: fd.get("password"), data: { full_name: name } })
+          body: JSON.stringify({ email: emailVal, password: fd.get("password"), data: { full_name: name }, redirectTo: "https://trendkart-three.vercel.app/" })
         }).then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             setBusy(btn, false);
@@ -2053,8 +2302,12 @@
                 showMsg("suErr", "That email already has an account — please sign in instead.");
                 return;
               }
-              showAuthView("signin");
-              showMsg("siOk", "Account created — please sign in.");
+              /* No session back = email confirmation is required.
+                 Show the professional confirmation popup, exactly
+                 like the big stores: link sent → confirm → refresh
+                 → sign in and the account is done. */
+              ev.target.reset();
+              showEmailConfirmation(emailVal);
               return;
             }
             showMsg("suErr", friendlyAuthError(data));
@@ -2458,11 +2711,12 @@
         var body = document.getElementById("adminBody"); if (!body) return;
         var tabs = [["dashboard", "Dashboard"], ["orders", "Orders"], ["products", "Products"], ["categories", "Categories"], ["support", "Support inbox"]];
         body.innerHTML =
-          '<div class="admin-head"><h3>Admin panel</h3><p>Store owner · ' + esc(session.user.email || "") + '</p></div>' +
+          '<div class="admin-head"><p style="font-size:0.74rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin:0 0 4px">Seller dashboard</p><h3>Admin panel</h3><p>Store owner · ' + esc(session.user.email || "") + ' · Sales, orders, products and support in one place</p></div>' +
           '<div class="admin-tabs" role="tablist">' + tabs.map(function (t) {
-            return '<button type="button" role="tab" data-atab="' + t[0] + '"' + (adminTab === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>';
+            return '<button type="button" role="tab" data-atab="' + t[0] + '"' + (adminTab === t[0] ? ' class="on"' : '') + '>' + t[1] + (t[0] === "support" ? '<span class="count-badge" id="adminTabBadge" hidden></span>' : '') + '</button>';
           }).join("") + '</div>' +
           '<div id="adminContent"></div>';
+        refreshOwnerBadges();
         body.querySelectorAll("[data-atab]").forEach(function (b) {
           b.addEventListener("click", function () {
             adminTab = b.getAttribute("data-atab");
@@ -2535,24 +2789,146 @@
           });
         });
       }
-      function renderAdminDashboard(el) {
-        var revenue = 0, recent = "";
-        if (adminOrders) {
-          revenue = adminOrders.reduce(function (s, o) { return o.status === "cancelled" ? s : s + orderTotalInUSD(o); }, 0);
-          recent = adminOrders.slice(0, 5).map(function (o) { return adminOrderRowHTML(o, true); }).join("");
+      /* ----- Admin dashboard: charts from real orders/products only ----- */
+      function dashDayKey(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+      function revenueLast7Days(orders) {
+        var days = [];
+        var now = new Date();
+        for (var i = 6; i >= 0; i--) {
+          var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+          days.push({ key: dashDayKey(d), label: d.toLocaleDateString(undefined, { weekday: "short" }), full: d.toLocaleDateString(undefined, { month: "short", day: "numeric" }), total: 0, count: 0 });
         }
+        var byKey = {};
+        days.forEach(function (x) { byKey[x.key] = x; });
+        (orders || []).forEach(function (o) {
+          if (o.status === "cancelled" || !o.created_at) return;
+          var d = new Date(o.created_at); if (isNaN(d.getTime())) return;
+          var slot = byKey[dashDayKey(d)];
+          if (slot) { slot.total += orderTotalInUSD(o); slot.count += 1; }
+        });
+        return days;
+      }
+      function revenueBarChartSVG(days) {
+        var W = 640, H = 240, padL = 52, padR = 10, padT = 18, padB = 34;
+        var cw = W - padL - padR, ch = H - padT - padB;
+        var max = 0; days.forEach(function (d) { if (d.total > max) max = d.total; });
+        var niceMax = max <= 0 ? 10 : Math.pow(10, Math.floor(Math.log10(max))) * Math.ceil(max / Math.pow(10, Math.floor(Math.log10(max))));
+        if (niceMax <= max) niceMax = max * 1.2;
+        var bw = cw / days.length;
+        var grid = "", bars = "", labels = "";
+        for (var g = 0; g <= 4; g++) {
+          var gy = padT + ch - (ch * g / 4);
+          var gv = niceMax * g / 4;
+          grid += '<line x1="' + padL + '" y1="' + gy.toFixed(1) + '" x2="' + (W - padR) + '" y2="' + gy.toFixed(1) + '" stroke="var(--line)" stroke-width="1"/>' +
+            '<text x="' + (padL - 8) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" font-size="11" fill="var(--ink-faint)" font-weight="600">$' + (gv >= 100 ? Math.round(gv) : gv.toFixed(gv % 1 ? 1 : 0)) + '</text>';
+        }
+        days.forEach(function (d, i) {
+          var bh = niceMax > 0 ? (d.total / niceMax) * ch : 0;
+          var bx = padL + bw * i + bw * 0.22, bwid = bw * 0.56;
+          var by = padT + ch - bh;
+          var isToday = i === days.length - 1;
+          bars += '<rect x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + bwid.toFixed(1) + '" height="' + Math.max(bh, d.total > 0 ? 3 : 0).toFixed(1) + '" rx="5" fill="' + (isToday ? "var(--accent)" : "var(--ink)") + '" opacity="' + (isToday ? "1" : "0.82") + '"><title>' + esc(d.full) + ': ' + money(d.total) + ' · ' + d.count + (d.count === 1 ? " order" : " orders") + '</title></rect>' +
+            (d.total > 0 ? '<text x="' + (bx + bwid / 2).toFixed(1) + '" y="' + (by - 6).toFixed(1) + '" text-anchor="middle" font-size="11.5" font-weight="800" fill="var(--ink)">' + money(d.total) + '</text>' : '');
+          labels += '<text x="' + (padL + bw * i + bw / 2).toFixed(1) + '" y="' + (H - 18) + '" text-anchor="middle" font-size="11.5" font-weight="' + (isToday ? "800" : "600") + '" fill="' + (isToday ? "var(--ink)" : "var(--ink-faint)") + '">' + esc(d.label) + '</text>' +
+            '<text x="' + (padL + bw * i + bw / 2).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle" font-size="10" fill="var(--ink-faint)">' + esc(d.full) + '</text>';
+        });
+        return '<svg class="chart-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Revenue for the last 7 days">' + grid + bars + labels + '</svg>';
+      }
+      function statusDonutSVG(counts) {
+        var segs = [
+          { key: "pending", label: "Pending", color: "#e8930c" },
+          { key: "shipped", label: "Shipped", color: "#2563eb" },
+          { key: "delivered", label: "Delivered", color: "#0b6b4f" },
+          { key: "cancelled", label: "Cancelled", color: "#b3261e" }
+        ];
+        var total = segs.reduce(function (s, x) { return s + (counts[x.key] || 0); }, 0);
+        var cx = 80, cy = 80, r = 62, sw = 26, circ = 2 * Math.PI * r;
+        var offset = 0, arcs = "";
+        if (total > 0) {
+          segs.forEach(function (s) {
+            var c = counts[s.key] || 0; if (!c) return;
+            var frac = c / total;
+            var dash = Math.max(frac * circ - 2.5, 0.5);
+            arcs += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + s.color + '" stroke-width="' + sw + '" stroke-dasharray="' + dash.toFixed(1) + ' ' + (circ - dash).toFixed(1) + '" stroke-dashoffset="' + (-offset).toFixed(1) + '" transform="rotate(-90 ' + cx + ' ' + cy + ')"><title>' + s.label + ': ' + c + '</title></circle>';
+            offset += frac * circ;
+          });
+        } else {
+          arcs = '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="var(--surface-3)" stroke-width="' + sw + '"/>';
+        }
+        var legend = segs.map(function (s) {
+          return '<div class="li"><span class="dot" style="background:' + s.color + '"></span>' + s.label + '<b>' + (counts[s.key] || 0) + '</b></div>';
+        }).join("");
+        return '<div class="donut-wrap"><svg class="chart-svg" style="width:160px;flex:none" viewBox="0 0 160 160" role="img" aria-label="Orders by status">' + arcs +
+          '<text x="' + cx + '" y="' + (cy - 2) + '" text-anchor="middle" font-size="26" font-weight="900" fill="var(--ink)">' + total + '</text>' +
+          '<text x="' + cx + '" y="' + (cy + 18) + '" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink-faint)">ORDERS</text></svg>' +
+          '<div class="donut-legend">' + legend + '</div></div>';
+      }
+      function topProductsFromOrders(orders) {
+        var map = {};
+        (orders || []).forEach(function (o) {
+          if (o.status === "cancelled") return;
+          (o.items || []).forEach(function (it) {
+            var key = it.name || "Item";
+            if (!map[key]) map[key] = { name: key, qty: 0, revenueUSD: 0 };
+            map[key].qty += it.quantity || 1;
+            map[key].revenueUSD += (o.currency === "CAD" ? (it.total || 0) / CAD_RATE : (it.total || 0));
+          });
+        });
+        return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return b.qty - a.qty || b.revenueUSD - a.revenueUSD; }).slice(0, 5);
+      }
+      function renderAdminDashboard(el) {
+        var orders = adminOrders || [];
+        var revenue = 0, pendingCount = 0;
+        var statusCounts = { pending: 0, shipped: 0, delivered: 0, cancelled: 0 };
+        orders.forEach(function (o) {
+          if (statusCounts[o.status] != null) statusCounts[o.status]++;
+          if (o.status === "pending") pendingCount++;
+          if (o.status !== "cancelled") revenue += orderTotalInUSD(o);
+        });
+        var avgOrder = orders.filter(function (o) { return o.status !== "cancelled"; }).length ? revenue / orders.filter(function (o) { return o.status !== "cancelled"; }).length : 0;
+        var days = revenueLast7Days(orders);
+        var weekRevenue = days.reduce(function (s, d) { return s + d.total; }, 0);
+        var weekOrders = days.reduce(function (s, d) { return s + d.count; }, 0);
+        var top = topProductsFromOrders(orders);
+        var maxCatCount = 1;
+        CATEGORIES.forEach(function (c) { var n = ALL_PRODUCTS.filter(function (p) { return p.cat === c.slug; }).length; if (n > maxCatCount) maxCatCount = n; });
+        var recent = orders.slice(0, 5).map(function (o) { return adminOrderRowHTML(o, true); }).join("");
+        var loading = !adminOrders && !adminOrdersFailed;
         el.innerHTML =
-          '<div class="admin-stats">' +
-          '<div class="stat-card"><small>Total orders</small><b>' + (adminOrders ? adminOrders.length : "—") + '</b><span>All time</span></div>' +
-          '<div class="stat-card"><small>Total revenue</small><b>' + (adminOrders ? money(revenue) : "—") + '</b><span>Excluding cancelled orders</span></div>' +
-          '<div class="stat-card"><small>Total products</small><b>' + ALL_PRODUCTS.length + '</b><span>' + ALL_PRODUCTS.filter(function (p) { return p.hidden; }).length + ' hidden</span></div>' +
-          '<div class="stat-card"><small>Categories</small><b>' + CATEGORIES.length + '</b><span>On the store</span></div>' +
+          '<div class="dash-kpis">' +
+          '<div class="dash-kpi"><small>Total revenue</small><b>' + (adminOrders ? money(revenue) : "—") + '</b><span>All time · excluding cancelled orders</span></div>' +
+          '<div class="dash-kpi"><small>Orders</small><b>' + (adminOrders ? orders.length : "—") + '</b><span>' + (adminOrders ? pendingCount + (pendingCount === 1 ? " order" : " orders") + ' waiting as pending' : 'All time') + '</span></div>' +
+          '<div class="dash-kpi"><small>Average order value</small><b>' + (adminOrders ? money(avgOrder) : "—") + '</b><span>Across non-cancelled orders</span></div>' +
+          '<div class="dash-kpi"><small>Last 7 days</small><b>' + (adminOrders ? money(weekRevenue) : "—") + '</b><span>' + (adminOrders ? weekOrders + (weekOrders === 1 ? " order" : " orders") + ' in the last 7 days' : 'Revenue') + '</span></div>' +
+          '</div>' +
+          '<div class="dash-kpis" style="grid-template-columns:repeat(2,1fr)">' +
+          '<div class="dash-kpi"><small>Products live</small><b>' + ALL_PRODUCTS.filter(function (p) { return !p.hidden; }).length + '</b><span>' + ALL_PRODUCTS.length + ' total · ' + ALL_PRODUCTS.filter(function (p) { return p.hidden; }).length + ' hidden</span></div>' +
+          '<div class="dash-kpi"><small>Categories</small><b>' + CATEGORIES.length + '</b><span>Shown in the store filter bar</span></div>' +
           '</div>' +
           (productsNote ? '<div class="admin-note"><b>Products:</b> ' + esc(productsNote) + '</div>' : '') +
+          (adminOrdersFailed ? '<div class="profile-empty"><b>Could not load orders</b><p>The sales charts need your orders — please try Refresh in a moment.</p></div>'
+            : loading ? '<div class="profile-loading">Loading your sales data…</div>'
+            : '<div class="dash-grid">' +
+              '<div class="chart-card"><h4>Revenue — last 7 days</h4><p class="chart-sub">' + money(weekRevenue) + ' from ' + weekOrders + (weekOrders === 1 ? ' order' : ' orders') + ' · cancelled orders excluded</p>' +
+              (weekRevenue > 0 || weekOrders > 0 ? revenueBarChartSVG(days) : '<div class="chart-empty"><b>No sales in the last 7 days yet</b>When orders come in, daily revenue will appear here as a chart.</div>') + '</div>' +
+              '<div class="chart-card"><h4>Orders by status</h4><p class="chart-sub">Where every order stands right now</p>' + statusDonutSVG(statusCounts) + '</div>' +
+              '</div>' +
+              '<div class="dash-grid">' +
+              '<div class="chart-card"><h4>Top products</h4><p class="chart-sub">Best sellers by quantity ordered</p>' +
+              (top.length ? '<div class="top-list">' + top.map(function (t, i) {
+                return '<div class="top-row"><span class="rank">' + (i + 1) + '</span><span class="tname">' + esc(t.name) + '<small>' + t.qty + (t.qty === 1 ? ' sold' : ' sold') + '</small></span><span class="tval">' + money(t.revenueUSD) + '</span></div>';
+              }).join("") + '</div>' : '<div class="chart-empty"><b>No product sales yet</b>Your best sellers will be ranked here once orders come in.</div>') + '</div>' +
+              '<div class="chart-card"><h4>Catalogue by category</h4><p class="chart-sub">Products in each category</p><div class="cat-bars">' +
+              CATEGORIES.map(function (c) {
+                var n = ALL_PRODUCTS.filter(function (p) { return p.cat === c.slug; }).length;
+                var pct = Math.round((n / maxCatCount) * 100);
+                return '<div class="cat-bar-row"><div class="cb-head"><span>' + esc(c.name) + '</span><span>' + n + (n === 1 ? ' product' : ' products') + '</span></div><div class="cat-bar-track"><div class="cat-bar-fill" style="width:' + pct + '%"></div></div></div>';
+              }).join("") + '</div></div>' +
+              '</div>') +
           '<div class="admin-sec-head"><h4>Recent orders</h4><button type="button" class="mini-btn" id="admRefreshOrders">Refresh</button></div>' +
           (adminOrdersFailed ? '<div class="profile-empty"><b>Could not load orders</b><p>The orders list could not be loaded right now — please try Refresh in a moment.</p></div>'
             : !adminOrders ? '<div class="profile-loading">Loading orders…</div>'
-            : !adminOrders.length ? '<div class="profile-empty"><b>No orders yet</b><p>When a customer places an order, it will show up here with full details.</p></div>'
+            : !orders.length ? '<div class="profile-empty"><b>No orders yet</b><p>When a customer places an order, it will show up here with full details.</p></div>'
             : recent);
         var rb = document.getElementById("admRefreshOrders");
         if (rb) rb.addEventListener("click", function () { adminOrders = null; renderAdminTab(); loadAdminOrders(); });
@@ -2810,7 +3186,7 @@
         if (!session) return;
         fetchAllChat(session.access_token).then(function (data) {
           if (data === null) { admChatFailed = true; admChatAll = null; }
-          else { admChatFailed = false; admChatAll = data; }
+          else { admChatFailed = false; admChatAll = data; ownerChatAll = data; refreshOwnerBadges(); }
           if (isAdminOpen() && adminTab === "support") renderAdminTab();
         });
       }
@@ -2826,10 +3202,17 @@
             el.innerHTML = head + convos.map(function (c) {
               var last = c.messages[c.messages.length - 1];
               var initial = (c.name || "C").charAt(0).toUpperCase();
-              return '<button type="button" class="convo-item" data-aconvo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small>' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span></span></button>';
+              var unread = convoUnreadCount(c.email, c.messages);
+              return '<button type="button" class="convo-item' + (unread ? " has-unread" : "") + '" data-aconvo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small class="convo-preview">' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span>' + (unread ? '<span class="unread-pill">' + unread + ' new</span>' : "") + '</span></button>';
             }).join("");
             el.querySelectorAll("[data-aconvo]").forEach(function (b) {
-              b.addEventListener("click", function () { admChatCustomer = b.getAttribute("data-aconvo"); admPending = null; admUploading = null; renderAdminTab(); });
+              b.addEventListener("click", function () {
+                admChatCustomer = b.getAttribute("data-aconvo"); admPending = null; admUploading = null;
+                var convos2 = groupConversations(admChatAll || []);
+                for (var i = 0; i < convos2.length; i++) if (convos2[i].email.toLowerCase() === String(admChatCustomer).toLowerCase()) markConvoSeen(convos2[i].email, convos2[i].messages);
+                refreshOwnerBadges();
+                renderAdminTab();
+              });
             });
           }
         }
@@ -2914,6 +3297,9 @@
         if (admPending) { payload.attachment_url = admPending.url; payload.attachment_type = admPending.type; local.attachment_url = admPending.url; local.attachment_type = admPending.type; }
         if (!admChatAll) admChatAll = [];
         admChatAll.push(local);
+        ownerChatAll = admChatAll;
+        markConvoSeen(payload.customer_email, admChatAll.filter(function (m) { return (m.customer_email || "").toLowerCase() === payload.customer_email.toLowerCase(); }));
+        refreshOwnerBadges();
         inp.value = "";
         admPending = null;
         renderAdminTab();
@@ -2928,8 +3314,9 @@
       function checkAdminHash() { if (location.hash === "#admin") openAdmin(); }
       window.addEventListener("hashchange", checkAdminHash);
 
-      /* Password-reset return: the email link lands back here with
-         #access_token=…&type=recovery in the URL hash. */
+      /* Password-reset + email-confirmation returns: the email link
+         lands back here with #access_token=…&type=recovery|signup
+         in the URL hash. */
       (function () {
         if (!location.hash || location.hash.length < 2) return;
         var params = new URLSearchParams(location.hash.slice(1));
@@ -2937,10 +3324,24 @@
           recoveryToken = params.get("access_token");
           history.replaceState(null, "", location.pathname + location.search);
           openAuth("newpw", "You're setting a new password — enter it below to finish.");
+        } else if (params.get("type") === "signup" && params.get("access_token")) {
+          var signupToken = params.get("access_token");
+          history.replaceState(null, "", location.pathname + location.search);
+          fetch(SUPABASE_URL + "/auth/v1/user", { method: "GET", headers: sbHeaders(signupToken) })
+            .then(function (res) { return res.ok ? res.json().catch(function () { return null; }) : null; })
+            .then(function (user) {
+              if (user && user.id) {
+                setSession({ access_token: signupToken, user: user });
+                toast("Email confirmed — welcome to Trend Karat, " + displayName(user).split(" ")[0] + "! Your account is ready.");
+              } else {
+                openAuth("signin", "Your email is confirmed — sign in to finish.");
+              }
+            })
+            .catch(function () { openAuth("signin", "Your email is confirmed — sign in to finish."); });
         } else if (params.get("error")) {
           history.replaceState(null, "", location.pathname + location.search);
           openAuth("signin");
-          showMsg("siErr", "That password reset link has expired or was already used — please request a new one.");
+          showMsg("siErr", "That email link has expired or was already used — if it was a confirmation link, try signing in, or sign up again to get a fresh link.");
         }
       })();
 
