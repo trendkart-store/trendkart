@@ -378,7 +378,7 @@
       .photo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
       /* ---------- Admin panel (owner only, hidden entry) ---------- */
-      .admin-dot { width: 9px; height: 9px; min-height: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,0.13); padding: 0; margin-left: 12px; vertical-align: middle; cursor: pointer; }
+      .admin-dot { width: 9px; height: 9px; min-height: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,0.13); padding: 0; margin-right: 9px; vertical-align: middle; cursor: pointer; }
       .admin-dot:hover { background: rgba(255,255,255,0.3); }
       .modal .sheet.wide { width: min(1060px, 100vw); }
       .admin-head h3 { font-size: 1.5rem; margin: 0 0 4px; }
@@ -664,14 +664,14 @@
         <div>
           <h4>Good to know</h4>
           <ul>
-            <li>30-day return window</li>
+            <li><button type="button" class="admin-dot" id="adminDot" aria-label=" " tabindex="-1"></button>30-day return window</li>
             <li>Secure checkout — Card &amp; PayPal</li>
             <li>Prices shown in USD or CAD</li>
             <li>Full details on every product page</li>
           </ul>
         </div>
       </div>
-      <div class="wrap foot-note">© 2026 Trend Karat. All rights reserved. · Card &amp; PayPal accepted.<button type="button" class="admin-dot" id="adminDot" aria-label=" " tabindex="-1"></button></div>
+      <div class="wrap foot-note">© 2026 Trend Karat. All rights reserved. · Card &amp; PayPal accepted.</div>
     </footer>
 
     <!-- Cart drawer -->
@@ -725,7 +725,7 @@
           <label>Password<input type="password" name="password" autocomplete="current-password" placeholder="Your password" required></label>
           <p class="forgot-row"><button type="button" id="forgotLink">Forgot password?</button></p>
           <button type="submit" class="checkout-btn" id="siBtn">Sign in</button>
-          <p class="auth-switch">New to Trend Karat? <button type="button" data-goto="signup">Create account</button></p>
+          <p class="auth-switch" id="siSwitch">New to Trend Karat? <button type="button" data-goto="signup">Create account</button></p>
         </form>
 
         <form class="co" id="signupForm" novalidate hidden>
@@ -984,7 +984,7 @@
 
       function openModal(id) { document.getElementById(id).classList.add("open"); }
       function closeModals() {
-        if (document.getElementById("authModal").classList.contains("open")) pendingAction = null;
+        if (document.getElementById("authModal").classList.contains("open")) { pendingAction = null; authAdminOnly = false; }
         document.querySelectorAll(".modal").forEach(function (m) { m.classList.remove("open"); });
       }
       document.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", closeModals); });
@@ -1909,6 +1909,11 @@
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeChatPanel(); });
 
       /* Auth modal views */
+      /* Admin sign-in is sign-in ONLY: when the auth dialog is opened for
+         the admin panel (footer dot / #admin), there is no sign-up option —
+         no "Create account" link and the sign-up form can never be shown.
+         Normal customer flows keep sign-up exactly as before. */
+      var authAdminOnly = false;
       var AUTH_VIEWS = {
         signin: { form: "signinForm", title: "Welcome back", sub: "Sign in to your Trend Karat account." },
         signup: { form: "signupForm", title: "Create your account", sub: "Sign up for faster checkout and order updates." },
@@ -1919,7 +1924,12 @@
         document.querySelectorAll(".auth-err, .auth-ok").forEach(function (el) { el.classList.remove("show"); el.textContent = ""; });
       }
       function showAuthView(view) {
+        /* Admin flow: sign-up is not offered — any attempt to switch to
+           the sign-up form falls back to sign-in. */
+        if (authAdminOnly && view === "signup") view = "signin";
         var v = AUTH_VIEWS[view]; if (!v) return;
+        var siSwitch = document.getElementById("siSwitch");
+        if (siSwitch) siSwitch.style.display = authAdminOnly ? "none" : "";
         Object.keys(AUTH_VIEWS).forEach(function (k) {
           var f = document.getElementById(AUTH_VIEWS[k].form);
           var active = k === view;
@@ -1936,7 +1946,8 @@
         if (sheet) sheet.scrollTop = 0;
         clearAuthMsgs();
       }
-      function openAuth(view, note) {
+      function openAuth(view, note, adminOnly) {
+        authAdminOnly = !!adminOnly;
         showAuthView(view || "signin");
         var n = document.getElementById("authNote");
         if (note) { n.textContent = note; n.classList.add("show"); } else { n.textContent = ""; n.classList.remove("show"); }
@@ -2022,6 +2033,9 @@
       /* Sign up */
       document.getElementById("signupForm").addEventListener("submit", function (ev) {
         ev.preventDefault();
+        /* The admin panel has no sign-up path — never create an account
+           from an admin sign-in dialog, even if the form is reached. */
+        if (authAdminOnly) { showAuthView("signin"); showMsg("siErr", "Sign-up isn't available for the admin panel — please sign in with the store owner account."); return; }
         clearAuthMsgs();
         var fd = new FormData(ev.target);
         var name = (fd.get("name") || "").trim();
@@ -2230,6 +2244,8 @@
          Entry: a tiny dot in the footer, or the URL hash #admin.
          Access: only the signed-in owner account (OWNER_EMAIL above).
          Anyone else gets nothing — no panel, no message.
+         Sign-in for the panel is sign-in ONLY: the auth dialog opened
+         from here offers no sign-up / create-account option at all.
          Data: products from public.products, categories from
          public.categories, orders from public.orders, chats from
          public.chat_messages, images in the "product-images" bucket.
@@ -2427,7 +2443,8 @@
       function openAdmin() {
         if (!session || !session.user) {
           pendingAction = { type: "admin" };
-          openAuth("signin", "Please sign in with the store owner account to open the admin panel.");
+          /* Sign-in only for the admin panel — no sign-up option here. */
+          openAuth("signin", "Please sign in with the store owner account to open the admin panel.", true);
           return;
         }
         if (!isOwner()) return; // no access for anyone else — nothing is shown
