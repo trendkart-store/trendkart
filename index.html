@@ -377,6 +377,46 @@
       .photo-btn:hover { background: var(--accent); color: #fff; }
       .photo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+      /* ---------- Admin panel (owner only, hidden entry) ---------- */
+      .admin-dot { width: 9px; height: 9px; min-height: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,0.13); padding: 0; margin-left: 12px; vertical-align: middle; cursor: pointer; }
+      .admin-dot:hover { background: rgba(255,255,255,0.3); }
+      .modal .sheet.wide { width: min(1060px, 100vw); }
+      .admin-head h3 { font-size: 1.5rem; margin: 0 0 4px; }
+      .admin-head p { color: var(--ink-soft); font-size: 0.92rem; margin: 0; }
+      .admin-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 20px; }
+      .admin-tabs button { border: 1.5px solid var(--line); background: var(--surface); color: var(--ink-soft); border-radius: 99px; padding: 0 18px; min-height: 40px; font-weight: 700; font-size: 0.92rem; }
+      .admin-tabs button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+      .admin-note { background: var(--surface-2); border: 1px dashed var(--line); border-radius: 12px; padding: 12px 14px; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 16px; }
+      .admin-note b { color: var(--ink); }
+      .mini-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 99px; min-height: 34px; padding: 0 14px; font-weight: 700; font-size: 0.82rem; flex: none; }
+      .mini-btn:hover { border-color: var(--ink-faint); }
+      .mini-btn.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+      .mini-btn.danger { color: var(--danger); border-color: var(--danger-soft); }
+      .mini-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+      .status-sel { border: 1.5px solid var(--line); border-radius: 99px; min-height: 36px; padding: 0 10px; font-weight: 700; font-size: 0.85rem; background: var(--surface); color: var(--ink); font-family: inherit; }
+      .prod-row { display: flex; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; background: var(--surface); flex-wrap: wrap; }
+      .prod-row img { width: 52px; height: 52px; object-fit: cover; border-radius: 10px; background: var(--surface-2); flex: none; }
+      .prod-row .grow { flex: 1 1 180px; min-width: 0; }
+      .prod-row .grow b { display: block; font-size: 0.95rem; line-height: 1.3; }
+      .prod-row .grow small { color: var(--ink-soft); font-size: 0.82rem; font-weight: 600; }
+      .prod-row .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+      .hidden-pill { background: var(--danger-soft); color: var(--danger); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 9px; border-radius: 99px; }
+      .visible-pill { background: var(--accent-soft); color: var(--accent-strong); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 9px; border-radius: 99px; }
+      .admin-form { margin-bottom: 22px; border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: var(--surface); }
+      .admin-form h4 { font-size: 1.1rem; margin-bottom: 12px; }
+      .admin-form textarea { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font-family: inherit; font-size: 0.95rem; background: var(--surface); color: var(--ink); resize: vertical; min-height: 84px; width: 100%; }
+      .admin-form textarea:focus { outline: none; border-color: var(--ink); }
+      .admin-form .img-preview { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); }
+      .admin-form .upload-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .admin-sec-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+      .admin-sec-head h4 { font-size: 1.15rem; }
+      .admin-sec-head p { color: var(--ink-soft); font-size: 0.88rem; }
+      .recent-row { display: flex; gap: 10px; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; margin-bottom: 8px; font-size: 0.92rem; flex-wrap: wrap; }
+      .recent-row b { font-weight: 700; }
+      .recent-row small { display: block; color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+      @media (max-width: 760px) { .admin-stats { grid-template-columns: 1fr 1fr; } }
+
       /* ---------- Footer ---------- */
       footer.site { margin-top: 64px; background: var(--footer-bg); color: #a9adb3; }
       footer.site .cols { padding-top: 44px; padding-bottom: 36px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 32px; }
@@ -631,7 +671,7 @@
           </ul>
         </div>
       </div>
-      <div class="wrap foot-note">© 2026 Trend Karat. All rights reserved. · Card &amp; PayPal accepted.</div>
+      <div class="wrap foot-note">© 2026 Trend Karat. All rights reserved. · Card &amp; PayPal accepted.<button type="button" class="admin-dot" id="adminDot" aria-label=" " tabindex="-1"></button></div>
     </footer>
 
     <!-- Cart drawer -->
@@ -728,6 +768,14 @@
       <div class="sheet">
         <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
         <div id="supportBody"></div>
+      </div>
+    </div>
+
+    <!-- Admin panel modal (store owner only, hidden entry) -->
+    <div class="modal" id="adminModal" role="dialog" aria-modal="true">
+      <div class="sheet wide">
+        <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
+        <div id="adminBody"></div>
       </div>
     </div>
 
@@ -1928,6 +1976,7 @@
         else if (a.type === "profile") { openProfile(); }
         else if (a.type === "chat") { openChat(); }
         else if (a.type === "support") { openSupportInbox(); }
+        else if (a.type === "admin") { openAdmin(); }
       }
       function gateAdd(id, qty, openCartAfter) {
         if (session) {
@@ -2177,6 +2226,691 @@
         URL.revokeObjectURL(a.href);
       }
 
+      /* ---------------- Admin panel (owner only) ----------------
+         Entry: a tiny dot in the footer, or the URL hash #admin.
+         Access: only the signed-in owner account (OWNER_EMAIL above).
+         Anyone else gets nothing — no panel, no message.
+         Data: products from public.products, categories from
+         public.categories, orders from public.orders, chats from
+         public.chat_messages, images in the "product-images" bucket.
+         Until those tables exist, reads fail gracefully: the embedded
+         13 products stay on the store and the panel shows a note. */
+      var DEFAULT_CATEGORIES = [
+        { slug: "gadgets", name: "Gadgets & Tech" },
+        { slug: "home", name: "Home & Living" },
+        { slug: "kitchen", name: "Kitchen" },
+        { slug: "wellness", name: "Wellness" }
+      ];
+      var CATEGORIES = DEFAULT_CATEGORIES.map(function (c) { return { _dbId: null, slug: c.slug, name: c.name }; });
+      var ALL_PRODUCTS = PRODUCTS.map(function (p) { var c = {}; for (var k in p) c[k] = p[k]; c.hidden = !!p.hidden; return c; });
+      var EMBEDDED_PRODUCTS = PRODUCTS.map(function (p) { return { id: String(p.id), name: p.name || "", img: p.img || "", alt: p.alt || "", badge: p.badge || "", badgeCls: p.badgeCls || "" }; });
+      function embeddedProduct(id, name) {
+        var key = String(id == null ? "" : id);
+        for (var i = 0; i < EMBEDDED_PRODUCTS.length; i++) if (EMBEDDED_PRODUCTS[i].id === key) return EMBEDDED_PRODUCTS[i];
+        var nameKey = String(name == null ? "" : name).trim().toLowerCase();
+        if (nameKey) {
+          for (var j = 0; j < EMBEDDED_PRODUCTS.length; j++) if (String(EMBEDDED_PRODUCTS[j].name || "").trim().toLowerCase() === nameKey) return EMBEDDED_PRODUCTS[j];
+        }
+        return null;
+      }
+      var productsFromDB = false, productsNote = "";
+      var categoriesFromDB = false;
+
+      function slugify(s) {
+        var out = String(s == null ? "" : s).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        return out || "item";
+      }
+      function catName(slug) {
+        for (var i = 0; i < CATEGORIES.length; i++) if (CATEGORIES[i].slug === slug) return CATEGORIES[i].name;
+        return String(slug || "").replace(/-/g, " ").replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
+      }
+      function ensureCategory(slug, label) {
+        if (!slug) return;
+        for (var i = 0; i < CATEGORIES.length; i++) if (CATEGORIES[i].slug === slug) return;
+        CATEGORIES.push({ _dbId: null, slug: slug, name: label || catName(slug) });
+      }
+      function renderCatNav() {
+        var nav = document.getElementById("catNav"); if (!nav) return;
+        var html = '<button type="button" data-cat="all"' + (activeCat === "all" ? ' class="on"' : '') + '>All products</button>';
+        CATEGORIES.forEach(function (c) {
+          html += '<button type="button" data-cat="' + esc(c.slug) + '"' + (activeCat === c.slug ? ' class="on"' : '') + '>' + esc(c.name) + '</button>';
+        });
+        nav.innerHTML = html;
+      }
+      function parsePoints(v) {
+        if (Array.isArray(v)) return v.map(function (x) { return String(x); }).filter(Boolean);
+        if (v == null) return [];
+        var s = String(v).trim();
+        if (!s) return [];
+        if (s.charAt(0) === "[") { try { var p = JSON.parse(s); if (Array.isArray(p)) return p.map(function (x) { return String(x); }).filter(Boolean); } catch (e) {} }
+        return s.split(/\r?\n/).map(function (x) { return x.replace(/^\s*[•\-]\s*/, "").trim(); }).filter(Boolean);
+      }
+      function normalizeProductRow(row) {
+        var catRaw = row.cat || row.category || row.category_slug || "home";
+        var cat = slugify(catRaw);
+        var label = row.cat_label || row.catLabel || row.category_label || null;
+        ensureCategory(cat, label || (String(catRaw).indexOf(" ") > -1 ? String(catRaw) : null));
+        var price = Number(row.price) || 0;
+        var was = Number(row.was != null ? row.was : (row.old_price != null ? row.old_price : row.compare_at_price));
+        if (!was || isNaN(was)) was = price;
+        var productId = String(row.id != null ? row.id : (row.slug || slugify(row.name || "product")));
+        var fallback = embeddedProduct(productId, row.name || row.title || "");
+        var dbImg = row.img || row.image_url || row.image || "";
+        if ((!dbImg || !String(dbImg).trim()) && fallback && fallback.img) dbImg = fallback.img;
+        var dbAlt = row.alt || "";
+        if ((!dbAlt || !String(dbAlt).trim()) && fallback && fallback.alt) dbAlt = fallback.alt;
+        if (!dbAlt) dbAlt = row.name || "";
+        var dbBadge = row.badge || "";
+        if ((!dbBadge || !String(dbBadge).trim()) && fallback && fallback.badge) dbBadge = fallback.badge;
+        var dbBadgeCls = row.badge_cls || row.badgeCls || "";
+        if ((!dbBadgeCls || !String(dbBadgeCls).trim()) && fallback && fallback.badgeCls) dbBadgeCls = fallback.badgeCls;
+        return {
+          _dbId: row.id != null ? row.id : null,
+          id: productId,
+          name: row.name || row.title || "",
+          cat: cat,
+          catLabel: label || catName(cat),
+          price: price,
+          was: was,
+          badge: dbBadge,
+          badgeCls: dbBadgeCls,
+          img: dbImg,
+          alt: dbAlt,
+          desc: row.desc || row.description || "",
+          points: parsePoints(row.points != null ? row.points : row.features),
+          hidden: row.hidden === true || row.is_hidden === true || row.visible === false || row.active === false || String(row.status || "").toLowerCase() === "hidden"
+        };
+      }
+      function applyProductsToStore() {
+        PRODUCTS = ALL_PRODUCTS.filter(function (p) { return !p.hidden && p.img && p.name; });
+        for (var k in cart) if (!byId(k)) delete cart[k];
+        renderGrid();
+        renderCart();
+      }
+      function loadCategories() {
+        return fetch(SUPABASE_URL + "/rest/v1/categories?select=*", { method: "GET", headers: sbHeaders() })
+          .then(function (res) { return res.ok ? res.json().catch(function () { return null; }) : null; })
+          .then(function (data) {
+            if (Array.isArray(data) && data.length) {
+              var cats = data.map(function (row) {
+                var name = row.name || row.label || row.title || "";
+                var slug = slugify(row.slug || row.key || row.cat || name);
+                return { _dbId: row.id != null ? row.id : null, slug: slug, name: name || catName(slug) };
+              }).filter(function (c) { return c.slug && c.name; });
+              if (cats.length) { CATEGORIES = cats; categoriesFromDB = true; }
+            }
+            renderCatNav();
+          })
+          .catch(function () { renderCatNav(); });
+      }
+      function loadProducts() {
+        return fetch(SUPABASE_URL + "/rest/v1/products?select=*", { method: "GET", headers: sbHeaders() })
+          .then(function (res) { return res.ok ? res.json().catch(function () { return null; }) : null; })
+          .then(function (data) {
+            if (Array.isArray(data) && data.length) {
+              var norm = data.map(normalizeProductRow).filter(function (p) { return p.name; });
+              if (norm.length) {
+                ALL_PRODUCTS = norm;
+                productsFromDB = true;
+                productsNote = "";
+                renderCatNav();
+              } else {
+                productsNote = "The products table returned rows that could not be read — showing the built-in products.";
+              }
+            } else if (Array.isArray(data)) {
+              productsNote = "The products table is empty — showing the built-in products.";
+            } else {
+              productsNote = "Could not load the products table yet — showing the built-in products.";
+            }
+            applyProductsToStore();
+          })
+          .catch(function () {
+            productsNote = "Could not load the products table yet — showing the built-in products.";
+            applyProductsToStore();
+          });
+      }
+      function sbWrite(path, method, body, token) {
+        var h = sbHeaders(token || (session ? session.access_token : null));
+        h["Prefer"] = "return=minimal";
+        return fetch(SUPABASE_URL + "/rest/v1/" + path, { method: method, headers: h, body: body ? JSON.stringify(body) : undefined })
+          .then(function (res) { return { ok: res.ok, status: res.status }; })
+          .catch(function () { return { ok: false, status: 0 }; });
+      }
+      function tryPayloads(path, method, variants, token) {
+        var chain = Promise.resolve({ ok: false, status: 0 });
+        variants.forEach(function (v) {
+          chain = chain.then(function (r) { return r.ok ? r : sbWrite(path, method, v, token); });
+        });
+        return chain;
+      }
+      function productPayloadVariants(p, includeId) {
+        var a = { name: p.name, price: p.price, was: p.was, cat: p.cat, cat_label: p.catLabel, img: p.img, alt: p.alt, desc: p.desc, points: p.points, badge: p.badge, badge_cls: p.badgeCls, hidden: !!p.hidden };
+        var b = { name: p.name, price: p.price, old_price: p.was, category: p.cat, image_url: p.img, alt: p.alt, description: p.desc, features: p.points, badge: p.badge, hidden: !!p.hidden };
+        if (includeId) { a.id = p.id; b.id = p.id; }
+        return [a, b];
+      }
+
+      /* ----- Admin: orders ----- */
+      function normalizeAdminOrder(row) {
+        var base = normalizeOrder(row);
+        var st = String(row.status || base.status || "pending").toLowerCase();
+        if (["pending", "shipped", "delivered", "cancelled"].indexOf(st) === -1) st = "pending";
+        base._dbId = row.id != null ? row.id : null;
+        base.phone = row.customer_phone || row.phone || "";
+        base.status = st;
+        return base;
+      }
+      function fetchAllOrders() {
+        var url = SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc";
+        return fetch(url, { method: "GET", headers: sbHeaders(session ? session.access_token : null) })
+          .then(function (res) { return res.ok ? res.json().catch(function () { return null; }) : null; })
+          .then(function (data) { return Array.isArray(data) ? data.map(normalizeAdminOrder) : null; })
+          .catch(function () { return null; });
+      }
+      function updateOrderStatus(order, newStatus) {
+        var filter = order._dbId != null ? "id=eq." + encodeURIComponent(order._dbId) : "order_number=eq." + encodeURIComponent(order.order_number);
+        return tryPayloads("orders?" + filter, "PATCH", [{ status: newStatus }]).then(function (r) {
+          if (r.ok) { order.status = newStatus; toast("Order " + order.order_number + " marked " + newStatus + "."); }
+          else { toast("Couldn't update that order's status — please try again."); }
+          return r.ok;
+        });
+      }
+
+      /* ----- Admin: shell + tabs ----- */
+      var adminTab = "dashboard";
+      var adminOrders = null, adminOrdersFailed = false, adminOrdersLoading = false;
+      var admChatAll = null, admChatFailed = false, admChatCustomer = null, admPending = null, admUploading = null;
+      var adminProductEditId = null, adminProductFormOpen = false;
+      var adminDeleteArm = null, adminCatDeleteArm = null, adminCatRenameSlug = null;
+
+      function isAdminOpen() { var m = document.getElementById("adminModal"); return !!(m && m.classList.contains("open")); }
+      function openAdmin() {
+        if (!session || !session.user) {
+          pendingAction = { type: "admin" };
+          openAuth("signin", "Please sign in with the store owner account to open the admin panel.");
+          return;
+        }
+        if (!isOwner()) return; // no access for anyone else — nothing is shown
+        hideAcctMenu();
+        closeChatPanel();
+        renderAdminShell();
+        openModal("adminModal");
+        loadAdminOrders();
+      }
+      function renderAdminShell() {
+        var body = document.getElementById("adminBody"); if (!body) return;
+        var tabs = [["dashboard", "Dashboard"], ["orders", "Orders"], ["products", "Products"], ["categories", "Categories"], ["support", "Support inbox"]];
+        body.innerHTML =
+          '<div class="admin-head"><h3>Admin panel</h3><p>Store owner · ' + esc(session.user.email || "") + '</p></div>' +
+          '<div class="admin-tabs" role="tablist">' + tabs.map(function (t) {
+            return '<button type="button" role="tab" data-atab="' + t[0] + '"' + (adminTab === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>';
+          }).join("") + '</div>' +
+          '<div id="adminContent"></div>';
+        body.querySelectorAll("[data-atab]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            adminTab = b.getAttribute("data-atab");
+            adminProductFormOpen = false; adminProductEditId = null; adminDeleteArm = null; adminCatDeleteArm = null; adminCatRenameSlug = null;
+            renderAdminShell();
+            if (adminTab === "support") loadAdminSupport();
+          });
+        });
+        renderAdminTab();
+      }
+      function renderAdminTab() {
+        if (!isAdminOpen() && adminTab !== "dashboard") { /* still render content if shell exists */ }
+        var el = document.getElementById("adminContent"); if (!el) return;
+        if (adminTab === "dashboard") renderAdminDashboard(el);
+        else if (adminTab === "orders") renderAdminOrders(el);
+        else if (adminTab === "products") renderAdminProducts(el);
+        else if (adminTab === "categories") renderAdminCategories(el);
+        else if (adminTab === "support") renderAdminSupport(el);
+      }
+      function loadAdminOrders() {
+        if (adminOrdersLoading) return;
+        adminOrdersLoading = true;
+        fetchAllOrders().then(function (orders) {
+          adminOrdersLoading = false;
+          if (orders === null) { adminOrdersFailed = true; adminOrders = null; }
+          else { adminOrdersFailed = false; adminOrders = orders; }
+          if (isAdminOpen() && (adminTab === "dashboard" || adminTab === "orders")) renderAdminTab();
+        });
+      }
+      function adminOrderRowHTML(o, compact) {
+        var dateStr = formatReviewDate(o.created_at) || "—";
+        var timeStr = "";
+        if (o.created_at) { try { var d = new Date(o.created_at); if (!isNaN(d.getTime())) timeStr = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); } catch (e) {} }
+        if (compact) {
+          return '<div class="recent-row"><span><b>Order ' + esc(String(o.order_number)) + '</b><small>' + esc(dateStr + (timeStr ? " · " + timeStr : "")) + ' · ' + esc(o.customer_name || o.customer_email || "Customer") + '</small></span>' +
+            '<span style="display:flex;gap:8px;align-items:center"><b>' + moneyInCurrency(o.total, o.currency) + '</b><span class="status-pill">' + esc(o.status) + '</span></span></div>';
+        }
+        var itemsHTML = o.items.length ? o.items.map(function (it) {
+          return '<div class="order-line"><span>' + esc(it.name) + ' × ' + it.quantity + '</span><span>' + moneyInCurrency(it.total, o.currency) + '</span></div>';
+        }).join("") : '<div class="order-line"><span>Items</span><span>—</span></div>';
+        var addressFull = [o.address, o.city, o.zip, o.country].filter(Boolean).join(", ");
+        var statusOpts = ["pending", "shipped", "delivered", "cancelled"].map(function (s) {
+          return '<option value="' + s + '"' + (o.status === s ? " selected" : "") + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>';
+        }).join("");
+        return '<article class="order-card"><div class="order-card-head"><div><b>Order ' + esc(String(o.order_number)) + '</b><small>' + esc(dateStr + (timeStr ? " · " + timeStr : "")) + '</small></div>' +
+          '<label style="display:flex;gap:8px;align-items:center;font-size:0.82rem;font-weight:700">Status <select class="status-sel" data-ostatus="' + esc(String(o.order_number)) + '">' + statusOpts + '</select></label></div>' +
+          '<div class="order-card-body">' + itemsHTML +
+          (o.shipping ? '<div class="order-line"><span>Shipping</span><span>' + moneyInCurrency(o.shipping, o.currency) + '</span></div>' : '<div class="order-line"><span>Shipping</span><span>FREE</span></div>') +
+          '<div class="order-meta">' +
+          '<div><small>Customer</small><b>' + esc(o.customer_name || "—") + '</b></div>' +
+          '<div><small>Email</small><b>' + esc(o.customer_email || "—") + '</b></div>' +
+          '<div><small>Phone</small><b>' + esc(o.phone || "—") + '</b></div>' +
+          '<div><small>Payment method</small><b>' + esc(o.payment_method || "—") + '</b></div>' +
+          '<div><small>Total</small><b>' + moneyInCurrency(o.total, o.currency) + (o.currency && o.currency !== "USD" ? " (" + esc(o.currency) + ")" : "") + '</b></div>' +
+          '<div style="grid-column:1/-1"><small>Delivery address</small><b>' + esc(addressFull || "—") + '</b></div>' +
+          '</div></div></article>';
+      }
+      function bindAdminOrderStatus(scope) {
+        scope.querySelectorAll("[data-ostatus]").forEach(function (sel) {
+          sel.addEventListener("change", function () {
+            var no = sel.getAttribute("data-ostatus");
+            var order = (adminOrders || []).filter(function (o) { return String(o.order_number) === no; })[0];
+            if (!order) return;
+            var prev = order.status;
+            sel.disabled = true;
+            updateOrderStatus(order, sel.value).then(function (ok) {
+              sel.disabled = false;
+              if (!ok) sel.value = prev;
+            });
+          });
+        });
+      }
+      function renderAdminDashboard(el) {
+        var revenue = 0, recent = "";
+        if (adminOrders) {
+          revenue = adminOrders.reduce(function (s, o) { return o.status === "cancelled" ? s : s + orderTotalInUSD(o); }, 0);
+          recent = adminOrders.slice(0, 5).map(function (o) { return adminOrderRowHTML(o, true); }).join("");
+        }
+        el.innerHTML =
+          '<div class="admin-stats">' +
+          '<div class="stat-card"><small>Total orders</small><b>' + (adminOrders ? adminOrders.length : "—") + '</b><span>All time</span></div>' +
+          '<div class="stat-card"><small>Total revenue</small><b>' + (adminOrders ? money(revenue) : "—") + '</b><span>Excluding cancelled orders</span></div>' +
+          '<div class="stat-card"><small>Total products</small><b>' + ALL_PRODUCTS.length + '</b><span>' + ALL_PRODUCTS.filter(function (p) { return p.hidden; }).length + ' hidden</span></div>' +
+          '<div class="stat-card"><small>Categories</small><b>' + CATEGORIES.length + '</b><span>On the store</span></div>' +
+          '</div>' +
+          (productsNote ? '<div class="admin-note"><b>Products:</b> ' + esc(productsNote) + '</div>' : '') +
+          '<div class="admin-sec-head"><h4>Recent orders</h4><button type="button" class="mini-btn" id="admRefreshOrders">Refresh</button></div>' +
+          (adminOrdersFailed ? '<div class="profile-empty"><b>Could not load orders</b><p>The orders list could not be loaded right now — please try Refresh in a moment.</p></div>'
+            : !adminOrders ? '<div class="profile-loading">Loading orders…</div>'
+            : !adminOrders.length ? '<div class="profile-empty"><b>No orders yet</b><p>When a customer places an order, it will show up here with full details.</p></div>'
+            : recent);
+        var rb = document.getElementById("admRefreshOrders");
+        if (rb) rb.addEventListener("click", function () { adminOrders = null; renderAdminTab(); loadAdminOrders(); });
+      }
+      function renderAdminOrders(el) {
+        el.innerHTML =
+          '<div class="admin-sec-head"><div><h4>All orders</h4><p>Full customer, address, items and payment details for every order.</p></div><button type="button" class="mini-btn" id="admRefreshOrders2">Refresh</button></div>' +
+          (adminOrdersFailed ? '<div class="profile-empty"><b>Could not load orders</b><p>The orders list could not be loaded right now — please try Refresh in a moment.</p></div>'
+            : !adminOrders ? '<div class="profile-loading">Loading orders…</div>'
+            : !adminOrders.length ? '<div class="profile-empty"><b>No orders yet</b><p>When a customer places an order, it will show up here with full details.</p></div>'
+            : adminOrders.map(function (o) { return adminOrderRowHTML(o, false); }).join(""));
+        bindAdminOrderStatus(el);
+        var rb = document.getElementById("admRefreshOrders2");
+        if (rb) rb.addEventListener("click", function () { adminOrders = null; renderAdminTab(); loadAdminOrders(); });
+      }
+
+      /* ----- Admin: products ----- */
+      function renderAdminProducts(el) {
+        var formHTML = "";
+        if (adminProductFormOpen) formHTML = adminProductFormHTML(adminProductEditId ? ALL_PRODUCTS.filter(function (p) { return p.id === adminProductEditId; })[0] : null);
+        el.innerHTML =
+          '<div class="admin-sec-head"><div><h4>Products &amp; listings</h4><p>' + ALL_PRODUCTS.length + ' products · ' + (productsFromDB ? 'loaded from the products table' : 'built-in list (products table not loaded)') + '</p></div>' +
+          '<button type="button" class="mini-btn solid" id="admAddProduct">+ Add product</button></div>' +
+          (productsNote ? '<div class="admin-note"><b>Note:</b> ' + esc(productsNote) + ' Changes you save are applied on this page and sent to the database — if the database write fails, the note here will say so.</div>' : '') +
+          '<div id="admProductFormWrap">' + formHTML + '</div>' +
+          '<div id="admProductList">' + ALL_PRODUCTS.map(function (p) {
+            var armed = adminDeleteArm === p.id;
+            return '<div class="prod-row"><img src="' + esc(p.img) + '" alt="">' +
+              '<span class="grow"><b>' + esc(p.name) + '</b><small>' + esc(p.catLabel) + ' · ' + money(p.price) + (p.was > p.price ? ' · was ' + money(p.was) : '') + '</small></span>' +
+              (p.hidden ? '<span class="hidden-pill">Hidden</span>' : '<span class="visible-pill">Live</span>') +
+              '<span class="acts"><button type="button" class="mini-btn" data-pedit="' + esc(p.id) + '">Edit</button>' +
+              '<button type="button" class="mini-btn" data-phide="' + esc(p.id) + '">' + (p.hidden ? "Unhide" : "Hide") + '</button>' +
+              '<button type="button" class="mini-btn danger" data-pdel="' + esc(p.id) + '">' + (armed ? "Confirm delete?" : "Delete") + '</button></span></div>';
+          }).join("") + '</div>';
+        document.getElementById("admAddProduct").addEventListener("click", function () {
+          adminProductFormOpen = true; adminProductEditId = null; adminDeleteArm = null;
+          renderAdminTab();
+          var w = document.getElementById("admProductFormWrap"); if (w) w.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        el.querySelectorAll("[data-pedit]").forEach(function (b) {
+          b.addEventListener("click", function () { adminProductFormOpen = true; adminProductEditId = b.getAttribute("data-pedit"); adminDeleteArm = null; renderAdminTab(); });
+        });
+        el.querySelectorAll("[data-phide]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var p = ALL_PRODUCTS.filter(function (x) { return x.id === b.getAttribute("data-phide"); })[0];
+            if (!p) return;
+            p.hidden = !p.hidden;
+            saveProductToDB(p, false);
+            applyProductsToStore();
+            renderAdminTab();
+            toast(p.hidden ? "Product hidden from the store." : "Product is live on the store.");
+          });
+        });
+        el.querySelectorAll("[data-pdel]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var id = b.getAttribute("data-pdel");
+            if (adminDeleteArm !== id) { adminDeleteArm = id; renderAdminTab(); return; }
+            adminDeleteArm = null;
+            var p = ALL_PRODUCTS.filter(function (x) { return x.id === id; })[0];
+            ALL_PRODUCTS = ALL_PRODUCTS.filter(function (x) { return x.id !== id; });
+            applyProductsToStore();
+            renderAdminTab();
+            if (p) deleteProductFromDB(p);
+            toast("Product deleted.");
+          });
+        });
+        if (adminProductFormOpen) bindAdminProductForm(el);
+      }
+      function adminProductFormHTML(p) {
+        var isEdit = !!p;
+        p = p || { name: "", price: "", was: "", cat: CATEGORIES.length ? CATEGORIES[0].slug : "home", catLabel: "", img: "", alt: "", desc: "", points: [], badge: "", hidden: false };
+        var catOpts = CATEGORIES.map(function (c) {
+          return '<option value="' + esc(c.slug) + '"' + (p.cat === c.slug ? " selected" : "") + '>' + esc(c.name) + '</option>';
+        }).join("");
+        return '<form class="co admin-form" id="admProductForm">' +
+          '<h4>' + (isEdit ? "Edit product" : "Add a new product") + '</h4>' +
+          '<div class="review-err" id="admProdErr"></div><div class="review-ok" id="admProdOk"></div>' +
+          '<label>Product name<input required name="name" value="' + esc(p.name) + '" placeholder="e.g. Heated Jacket"></label>' +
+          '<div class="two"><label>Price (USD)<input required name="price" type="number" min="0" step="0.01" value="' + (p.price === "" ? "" : p.price) + '" placeholder="29.99"></label>' +
+          '<label>Old price (USD, for discount)<input name="was" type="number" min="0" step="0.01" value="' + (p.was === "" ? "" : p.was) + '" placeholder="59.99"></label></div>' +
+          '<div class="two"><label>Category<select name="cat">' + catOpts + '</select></label>' +
+          '<label>Status<select name="status"><option value="visible"' + (!p.hidden ? " selected" : "") + '>Visible on store</option><option value="hidden"' + (p.hidden ? " selected" : "") + '>Hidden from store</option></select></label></div>' +
+          '<label>Badge (optional)<input name="badge" value="' + esc(p.badge || "") + '" placeholder="e.g. Best seller"></label>' +
+          '<label>Image URL<input name="img" id="admProdImgUrl" value="' + esc(p.img) + '" placeholder="https://… or upload a photo below"></label>' +
+          '<div class="upload-row"><img class="img-preview" id="admProdPreview" src="' + esc(p.img) + '" alt="" ' + (p.img ? "" : "hidden") + '>' +
+          '<button type="button" class="mini-btn" id="admProdUploadBtn">Upload image</button>' +
+          '<input type="file" id="admProdFile" accept="image/jpeg,image/png,image/webp" hidden>' +
+          '<span id="admProdUploadNote" style="font-size:0.85rem;color:var(--ink-soft);font-weight:600"></span></div>' +
+          '<label>Image alt text<input name="alt" value="' + esc(p.alt) + '" placeholder="Short description of the photo"></label>' +
+          '<label>Description<textarea name="desc" placeholder="What the product is, who it is for, how to use it">' + esc(p.desc) + '</textarea></label>' +
+          '<label>Features (one per line)<textarea name="points" placeholder="Feature one&#10;Feature two">' + esc((p.points || []).join("\n")) + '</textarea></label>' +
+          '<div style="display:flex;gap:10px;flex-wrap:wrap"><button type="submit" class="checkout-btn" id="admProdSave" style="flex:1;margin-top:0">' + (isEdit ? "Save changes" : "Add product") + '</button>' +
+          '<button type="button" class="mini-btn" id="admProdCancel" style="min-height:52px;padding:0 22px">Cancel</button></div></form>';
+      }
+      function bindAdminProductForm(scope) {
+        var form = document.getElementById("admProductForm"); if (!form) return;
+        document.getElementById("admProdCancel").addEventListener("click", function () { adminProductFormOpen = false; adminProductEditId = null; renderAdminTab(); });
+        var urlInput = document.getElementById("admProdImgUrl");
+        urlInput.addEventListener("input", function () {
+          var pv = document.getElementById("admProdPreview");
+          if (pv) { pv.src = urlInput.value; pv.hidden = !urlInput.value; }
+        });
+        document.getElementById("admProdUploadBtn").addEventListener("click", function () { document.getElementById("admProdFile").click(); });
+        document.getElementById("admProdFile").addEventListener("change", function () {
+          var f = this.files && this.files[0]; this.value = "";
+          if (!f) return;
+          if (!typeAllowed(f, CHAT_IMAGE_TYPES, ["jpg", "jpeg", "png", "webp"])) { toast("Please choose a JPG, PNG or WebP image."); return; }
+          var note = document.getElementById("admProdUploadNote");
+          note.textContent = "Uploading…";
+          var path = "products/" + Date.now() + "-" + slugify(f.name.replace(/\.[^.]+$/, "")) + "." + fileExt(f);
+          uploadToStorage("product-images", path, f, session.access_token).then(function (url) {
+            urlInput.value = url;
+            var pv = document.getElementById("admProdPreview"); if (pv) { pv.src = url; pv.hidden = false; }
+            note.textContent = "Uploaded — remember to save the product.";
+          }).catch(function () {
+            note.textContent = "Upload failed — the product-images bucket may not be ready yet. You can paste an image URL instead.";
+          });
+        });
+        form.addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var errEl = document.getElementById("admProdErr");
+          function showErr(m) { if (errEl) { errEl.textContent = m; errEl.classList.add("show"); } }
+          var fd = new FormData(form);
+          var name = String(fd.get("name") || "").trim();
+          var price = parseFloat(fd.get("price"));
+          var was = parseFloat(fd.get("was"));
+          if (!name) { showErr("Please enter a product name."); return; }
+          if (isNaN(price) || price < 0) { showErr("Please enter a valid price."); return; }
+          if (isNaN(was) || was < price) was = price;
+          var cat = String(fd.get("cat") || "home");
+          var editing = adminProductEditId ? ALL_PRODUCTS.filter(function (x) { return x.id === adminProductEditId; })[0] : null;
+          var p = {
+            _dbId: editing ? editing._dbId : null,
+            id: editing ? editing.id : "",
+            name: name, price: price, was: was, cat: cat, catLabel: catName(cat),
+            badge: String(fd.get("badge") || "").trim(), badgeCls: editing ? editing.badgeCls : "",
+            img: String(fd.get("img") || "").trim(),
+            alt: String(fd.get("alt") || "").trim() || name,
+            desc: String(fd.get("desc") || "").trim(),
+            points: parsePoints(String(fd.get("points") || "")),
+            hidden: String(fd.get("status")) === "hidden"
+          };
+          if (!p.img) { showErr("Please add an image — upload a photo or paste an image URL."); return; }
+          if (!p.id) {
+            p.id = slugify(name);
+            var base = p.id, n = 2;
+            while (ALL_PRODUCTS.some(function (x) { return x.id === p.id; })) { p.id = base + "-" + n; n++; }
+          }
+          var saveBtn = document.getElementById("admProdSave");
+          saveBtn.disabled = true; saveBtn.textContent = "Saving…";
+          saveProductToDB(p, !editing).then(function (saved) {
+            if (editing) { for (var k in p) editing[k] = p[k]; }
+            else ALL_PRODUCTS.unshift(p);
+            adminProductFormOpen = false; adminProductEditId = null;
+            applyProductsToStore();
+            renderAdminTab();
+            toast(saved ? (editing ? "Product updated." : "Product added to the store.") : "Saved on this page — the database write did not go through, so it may not survive a reload yet.");
+          });
+        });
+      }
+      function saveProductToDB(p, isNew) {
+        if (isNew) {
+          return tryPayloads("products", "POST", productPayloadVariants(p, true)).then(function (r) { if (r.ok) productsFromDB = true; return r.ok; });
+        }
+        var filter = "id=eq." + encodeURIComponent(p._dbId != null ? p._dbId : p.id);
+        return tryPayloads("products?" + filter, "PATCH", productPayloadVariants(p, false)).then(function (r) { return r.ok; });
+      }
+      function deleteProductFromDB(p) {
+        var filter = "id=eq." + encodeURIComponent(p._dbId != null ? p._dbId : p.id);
+        return sbWrite("products?" + filter, "DELETE", null).then(function (r) { return r.ok; });
+      }
+
+      /* ----- Admin: categories ----- */
+      function renderAdminCategories(el) {
+        el.innerHTML =
+          '<div class="admin-sec-head"><div><h4>Categories</h4><p>These appear in the store filter bar and the product form.</p></div></div>' +
+          (categoriesFromDB ? '' : '<div class="admin-note"><b>Note:</b> the categories table could not be loaded — showing the built-in categories. Changes are applied on this page and sent to the database.</div>') +
+          '<form class="co admin-form" id="admCatAddForm"><h4>Add a category</h4>' +
+          '<div class="review-err" id="admCatErr"></div>' +
+          '<label>Category name<input required name="name" placeholder="e.g. Heated Clothing"></label>' +
+          '<button type="submit" class="checkout-btn" style="margin-top:2px">Add category</button></form>' +
+          '<div>' + CATEGORIES.map(function (c) {
+            var count = ALL_PRODUCTS.filter(function (p) { return p.cat === c.slug; }).length;
+            if (adminCatRenameSlug === c.slug) {
+              return '<div class="prod-row"><span class="grow"><input type="text" id="admCatRenameInput" value="' + esc(c.name) + '" style="border:1.5px solid var(--line);border-radius:10px;min-height:42px;padding:0 12px;font:inherit;width:100%;background:var(--surface);color:var(--ink)"><small>' + esc(c.slug) + ' · ' + count + (count === 1 ? " product" : " products") + '</small></span>' +
+                '<span class="acts"><button type="button" class="mini-btn solid" data-catrename-save="' + esc(c.slug) + '">Save</button><button type="button" class="mini-btn" data-catrename-cancel="1">Cancel</button></span></div>';
+            }
+            var armed = adminCatDeleteArm === c.slug;
+            return '<div class="prod-row"><span class="grow"><b>' + esc(c.name) + '</b><small>' + esc(c.slug) + ' · ' + count + (count === 1 ? " product" : " products") + '</small></span>' +
+              '<span class="acts"><button type="button" class="mini-btn" data-catrename="' + esc(c.slug) + '">Rename</button>' +
+              '<button type="button" class="mini-btn danger" data-catdel="' + esc(c.slug) + '">' + (armed ? "Confirm delete?" : "Delete") + '</button></span></div>';
+          }).join("") + '</div>';
+        document.getElementById("admCatAddForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var errEl = document.getElementById("admCatErr");
+          var name = String(new FormData(ev.target).get("name") || "").trim();
+          if (!name) return;
+          var slug = slugify(name);
+          if (CATEGORIES.some(function (c) { return c.slug === slug; })) { errEl.textContent = "A category with that name already exists."; errEl.classList.add("show"); return; }
+          var cat = { _dbId: null, slug: slug, name: name };
+          CATEGORIES.push(cat);
+          renderCatNav();
+          renderAdminTab();
+          tryPayloads("categories", "POST", [{ slug: slug, name: name }, { slug: slug, label: name }, { name: name }]).then(function (r) {
+            if (r.ok) { categoriesFromDB = true; toast("Category added."); }
+            else toast("Category added on this page — the database write did not go through yet.");
+            if (isAdminOpen() && adminTab === "categories") renderAdminTab();
+          });
+        });
+        el.querySelectorAll("[data-catrename]").forEach(function (b) {
+          b.addEventListener("click", function () { adminCatRenameSlug = b.getAttribute("data-catrename"); adminCatDeleteArm = null; renderAdminTab(); var i = document.getElementById("admCatRenameInput"); if (i) { i.focus(); i.select(); } });
+        });
+        el.querySelectorAll("[data-catrename-cancel]").forEach(function (b) {
+          b.addEventListener("click", function () { adminCatRenameSlug = null; renderAdminTab(); });
+        });
+        el.querySelectorAll("[data-catrename-save]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var slug = b.getAttribute("data-catrename-save");
+            var input = document.getElementById("admCatRenameInput");
+            var newName = input ? input.value.trim() : "";
+            if (!newName) return;
+            var cat = CATEGORIES.filter(function (c) { return c.slug === slug; })[0];
+            if (!cat) return;
+            cat.name = newName;
+            ALL_PRODUCTS.forEach(function (p) { if (p.cat === slug) p.catLabel = newName; });
+            adminCatRenameSlug = null;
+            renderCatNav(); applyProductsToStore(); renderAdminTab();
+            var filter = cat._dbId != null ? "id=eq." + encodeURIComponent(cat._dbId) : "slug=eq." + encodeURIComponent(slug);
+            tryPayloads("categories?" + filter, "PATCH", [{ name: newName }, { label: newName }]).then(function (r) {
+              toast(r.ok ? "Category renamed." : "Renamed on this page — the database write did not go through yet.");
+            });
+          });
+        });
+        el.querySelectorAll("[data-catdel]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var slug = b.getAttribute("data-catdel");
+            if (adminCatDeleteArm !== slug) { adminCatDeleteArm = slug; renderAdminTab(); return; }
+            adminCatDeleteArm = null;
+            var cat = CATEGORIES.filter(function (c) { return c.slug === slug; })[0];
+            var inUse = ALL_PRODUCTS.some(function (p) { return p.cat === slug; });
+            if (inUse) { toast("That category still has products — move or delete them first."); renderAdminTab(); return; }
+            CATEGORIES = CATEGORIES.filter(function (c) { return c.slug !== slug; });
+            if (activeCat === slug) activeCat = "all";
+            renderCatNav(); renderGrid(); renderAdminTab();
+            if (cat) {
+              var filter = cat._dbId != null ? "id=eq." + encodeURIComponent(cat._dbId) : "slug=eq." + encodeURIComponent(slug);
+              sbWrite("categories?" + filter, "DELETE", null).then(function (r) { toast(r.ok ? "Category deleted." : "Deleted on this page — the database write did not go through yet."); });
+            }
+          });
+        });
+      }
+
+      /* ----- Admin: support inbox ----- */
+      function loadAdminSupport() {
+        if (!session) return;
+        fetchAllChat(session.access_token).then(function (data) {
+          if (data === null) { admChatFailed = true; admChatAll = null; }
+          else { admChatFailed = false; admChatAll = data; }
+          if (isAdminOpen() && adminTab === "support") renderAdminTab();
+        });
+      }
+      function renderAdminSupport(el) {
+        var head = '<div class="admin-sec-head"><div><h4>Support inbox</h4><p>Customer conversations from the store chat.</p></div><button type="button" class="mini-btn" id="admChatRefresh">Refresh</button></div>';
+        if (admChatFailed) { el.innerHTML = head + '<div class="profile-empty"><b>Could not load messages</b><p>The chat inbox could not be loaded right now — please try Refresh in a moment.</p></div>'; }
+        else if (!admChatAll) { el.innerHTML = head + '<div class="profile-loading">Loading conversations…</div>'; if (!admChatCustomer) loadAdminSupport(); }
+        else if (admChatCustomer) { renderAdminSupportThread(el, head); return; }
+        else {
+          var convos = groupConversations(admChatAll);
+          if (!convos.length) { el.innerHTML = head + '<div class="profile-empty"><b>No customer messages yet</b><p>When a customer writes in the store chat, their conversation will show up here.</p></div>'; }
+          else {
+            el.innerHTML = head + convos.map(function (c) {
+              var last = c.messages[c.messages.length - 1];
+              var initial = (c.name || "C").charAt(0).toUpperCase();
+              return '<button type="button" class="convo-item" data-aconvo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small>' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span></span></button>';
+            }).join("");
+            el.querySelectorAll("[data-aconvo]").forEach(function (b) {
+              b.addEventListener("click", function () { admChatCustomer = b.getAttribute("data-aconvo"); admPending = null; admUploading = null; renderAdminTab(); });
+            });
+          }
+        }
+        var rb = document.getElementById("admChatRefresh");
+        if (rb) rb.addEventListener("click", function () { admChatAll = null; renderAdminTab(); loadAdminSupport(); });
+        return;
+      }
+      function renderAdminSupportThread(el, head) {
+        var convos = groupConversations(admChatAll || []);
+        var c = null;
+        for (var i = 0; i < convos.length; i++) if (convos[i].email.toLowerCase() === String(admChatCustomer).toLowerCase()) c = convos[i];
+        if (!c) c = { email: admChatCustomer, name: admChatCustomer, messages: [] };
+        el.innerHTML = head +
+          '<button type="button" class="support-back" id="admChatBack">← All conversations</button>' +
+          '<div class="profile-head" style="margin-bottom:14px"><span class="avatar-lg">' + esc((c.name || "C").charAt(0).toUpperCase()) + '</span><div><h3 style="font-size:1.2rem">' + esc(c.name) + '</h3><p>' + esc(c.email) + '</p></div></div>' +
+          '<div class="support-thread" id="admChatMsgs">' +
+          (c.messages.length ? c.messages.map(function (m) { return bubbleHTML(m, isSupportSender(m), (c.name || "Customer").split(" ")[0]); }).join("") : '<div class="chat-note"><b>No messages yet</b>This conversation is empty.</div>') +
+          '</div>' +
+          '<div class="chat-attach-bar" id="admChatAttachBar" hidden style="border:1.5px solid var(--line);border-bottom:0;border-radius:14px 14px 0 0"></div>' +
+          '<form class="chat-form" id="admChatForm" style="border:1.5px solid var(--line);border-radius:14px;padding:10px">' +
+          '<div class="emoji-panel" id="admChatEmojiPanel" hidden></div>' +
+          '<button type="button" class="chat-tool" id="admChatEmojiBtn" aria-label="Insert emoji">' + SMILEY_SVG + '</button>' +
+          '<button type="button" class="chat-tool" id="admChatAttachBtn" aria-label="Attach a photo or video">' + CLIP_SVG + '</button>' +
+          '<input type="file" id="admChatFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" hidden>' +
+          '<textarea id="admChatInput" placeholder="Reply to ' + esc((c.name || "customer").split(" ")[0]) + '…" maxlength="2000" rows="1" aria-label="Your reply"></textarea>' +
+          '<button type="submit" class="chat-send" id="admChatSend">Reply</button></form>' +
+          '<div class="review-err" id="admChatErr"></div>';
+        var threadEl = document.getElementById("admChatMsgs"); if (threadEl) threadEl.scrollTop = threadEl.scrollHeight;
+        document.getElementById("admChatBack").addEventListener("click", function () { admChatCustomer = null; renderAdminTab(); });
+        document.getElementById("admChatForm").addEventListener("submit", sendAdminSupportReply);
+        document.getElementById("admChatInput").addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendAdminSupportReply(e); } });
+        wireEmojiToggle(document.getElementById("admChatEmojiBtn"), document.getElementById("admChatEmojiPanel"), document.getElementById("admChatInput"));
+        document.getElementById("admChatAttachBtn").addEventListener("click", function () { document.getElementById("admChatFile").click(); });
+        document.getElementById("admChatFile").addEventListener("change", function () { var f = this.files && this.files[0]; this.value = ""; handleAdminChatFile(f); });
+        renderAdminChatAttachBar();
+        var rb = document.getElementById("admChatRefresh");
+        if (rb) rb.addEventListener("click", function () { admChatAll = null; renderAdminTab(); loadAdminSupport(); });
+      }
+      function renderAdminChatAttachBar() {
+        var bar = document.getElementById("admChatAttachBar"); if (!bar) return;
+        if (!admPending && !admUploading) { bar.hidden = true; bar.innerHTML = ""; return; }
+        bar.hidden = false;
+        if (admUploading) { bar.innerHTML = '<span class="att-name">Uploading ' + esc(admUploading) + '…</span>'; return; }
+        var prev = admPending.type.indexOf("video") === 0
+          ? '<video src="' + esc(admPending.url) + '" muted preload="metadata"></video>'
+          : '<img src="' + esc(admPending.url) + '" alt="Attachment preview">';
+        bar.innerHTML = prev + '<span class="att-name">' + esc(admPending.name) + '</span><button type="button" class="att-rm" id="admChatAttachRm">Remove</button>';
+        document.getElementById("admChatAttachRm").addEventListener("click", function () { admPending = null; renderAdminChatAttachBar(); });
+      }
+      function handleAdminChatFile(file) {
+        var errEl = document.getElementById("admChatErr");
+        function showErr(m) { if (errEl) { if (m) { errEl.textContent = m; errEl.classList.add("show"); } else { errEl.textContent = ""; errEl.classList.remove("show"); } } }
+        showErr("");
+        if (!file || !session || !session.user) return;
+        if (!typeAllowed(file, CHAT_FILE_TYPES, ["jpg", "jpeg", "png", "webp", "mp4", "webm"])) { showErr("That file type isn't supported — send a JPG, PNG or WebP image, or an MP4/WebM video."); return; }
+        if (file.size > CHAT_MAX_BYTES) { showErr("That file is too big — the limit is 10 MB per file."); return; }
+        admUploading = file.name; renderAdminChatAttachBar();
+        var btn = document.getElementById("admChatSend"); if (btn) btn.disabled = true;
+        uploadToStorage("chat-attachments", storagePathFor(session.user.email, file), file, session.access_token).then(function (url) {
+          admPending = { url: url, type: mimeForFile(file), name: file.name };
+          admUploading = null; renderAdminChatAttachBar();
+          if (btn) btn.disabled = false;
+        }).catch(function () {
+          admUploading = null; renderAdminChatAttachBar();
+          if (btn) btn.disabled = false;
+          showErr("Couldn't upload that file — please try again.");
+        });
+      }
+      function sendAdminSupportReply(ev) {
+        if (ev) ev.preventDefault();
+        if (!isOwner() || !admChatCustomer) return;
+        var inp = document.getElementById("admChatInput"); if (!inp) return;
+        var errEl = document.getElementById("admChatErr");
+        if (admUploading) { if (errEl) { errEl.textContent = "Please wait for your file to finish uploading."; errEl.classList.add("show"); } return; }
+        var text = (inp.value || "").trim();
+        if (!text && !admPending) return;
+        var convos = groupConversations(admChatAll || []);
+        var c = null;
+        for (var i = 0; i < convos.length; i++) if (convos[i].email.toLowerCase() === String(admChatCustomer).toLowerCase()) c = convos[i];
+        var payload = { customer_email: admChatCustomer, customer_name: c ? c.name : admChatCustomer, sender: "support", message: text };
+        var local = { customer_email: payload.customer_email, customer_name: payload.customer_name, sender: "support", message: text, created_at: new Date().toISOString() };
+        if (admPending) { payload.attachment_url = admPending.url; payload.attachment_type = admPending.type; local.attachment_url = admPending.url; local.attachment_type = admPending.type; }
+        if (!admChatAll) admChatAll = [];
+        admChatAll.push(local);
+        inp.value = "";
+        admPending = null;
+        renderAdminTab();
+        postChatMessage(payload, session.access_token).then(function (r) {
+          if (!r.ok) toast("Couldn't send your reply — please try again.");
+          loadAdminSupport();
+        });
+      }
+
+      /* ----- Admin entry wiring ----- */
+      document.getElementById("adminDot").addEventListener("click", function () { openAdmin(); });
+      function checkAdminHash() { if (location.hash === "#admin") openAdmin(); }
+      window.addEventListener("hashchange", checkAdminHash);
+
       /* Password-reset return: the email link lands back here with
          #access_token=…&type=recovery in the URL hash. */
       (function () {
@@ -2198,6 +2932,8 @@
       updateAuthUI();
       paintThemeIcon();
       loadReviews();
+      loadCategories().then(function () { return loadProducts(); });
+      checkAdminHash();
     </script>
   </body>
 </html>
