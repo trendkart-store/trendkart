@@ -32,6 +32,8 @@
         --shadow: 0 16px 40px rgba(16, 18, 20, 0.12);
         --shadow-card: 0 12px 32px rgba(16, 18, 20, 0.10);
         --radius: 18px;
+        --star: #e8930c;
+        --star-empty: #ddd9d0;
       }
       @media (prefers-color-scheme: dark) {
         :root:not([data-theme="light"]) {
@@ -219,6 +221,162 @@
       .empty-msg { grid-column: 1 / -1; text-align: center; padding: 48px 16px; color: var(--ink-soft); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius); }
       .empty-msg h3 { margin-bottom: 6px; color: var(--ink); }
 
+      /* ---------- Reviews ---------- */
+      .card-rating { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 2px; min-height: 22px; }
+      .stars { display: inline-flex; gap: 1px; line-height: 1; letter-spacing: 0; }
+      .stars .st { font-size: 0.95rem; color: var(--star-empty); line-height: 1; }
+      .stars .st.filled { color: var(--star); }
+      .stars.lg .st { font-size: 1.35rem; }
+      .stars.sm .st { font-size: 0.82rem; }
+      .rating-num { font-weight: 800; font-size: 0.9rem; }
+      .rating-count { font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; }
+      .rating-none { font-size: 0.83rem; color: var(--ink-faint); font-weight: 600; }
+      .qv-reviews { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 22px; margin-top: 6px; }
+      .qv-reviews h4 { font-size: 1.25rem; margin-bottom: 14px; letter-spacing: -0.02em; }
+      .review-summary { display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: start; margin-bottom: 20px; }
+      .review-avg-box { text-align: center; background: var(--surface-2); border-radius: 16px; padding: 16px 10px; }
+      .review-avg-num { font-size: 2.4rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
+      .review-avg-box .stars { justify-content: center; margin: 8px 0 6px; }
+      .review-avg-box small { color: var(--ink-soft); font-weight: 600; font-size: 0.82rem; }
+      .breakdown { display: grid; gap: 6px; padding-top: 4px; }
+      .breakdown-row { display: flex; align-items: center; gap: 10px; font-size: 0.84rem; font-weight: 600; color: var(--ink-soft); }
+      .breakdown-row .blabel { width: 28px; flex: none; display: inline-flex; align-items: center; gap: 2px; color: var(--ink); }
+      .breakdown-row .blabel i { color: var(--star); font-style: normal; }
+      .bar-track { flex: 1; height: 8px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+      .bar-fill { height: 100%; background: var(--star); border-radius: 99px; min-width: 0; transition: width 0.3s ease; }
+      .breakdown-row .bcount { width: 28px; text-align: right; flex: none; }
+      .review-list { display: grid; gap: 14px; margin-top: 6px; }
+      .review-item { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); }
+      .review-item-head { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+      .review-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+      .review-meta b { font-size: 0.92rem; display: block; line-height: 1.2; }
+      .review-meta small { color: var(--ink-faint); font-size: 0.78rem; font-weight: 600; }
+      .review-item .stars { margin-left: auto; }
+      .review-text { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+      .no-reviews { text-align: center; padding: 22px 16px; background: var(--surface-2); border-radius: 14px; color: var(--ink-soft); }
+      .no-reviews b { color: var(--ink); display: block; margin-bottom: 4px; font-size: 0.98rem; }
+      .no-reviews p { font-size: 0.88rem; }
+      .review-form-wrap { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px; }
+      .review-form-wrap h5 { margin: 0 0 4px; font-size: 1rem; font-weight: 800; }
+      .review-form-wrap > p { color: var(--ink-soft); font-size: 0.88rem; margin-bottom: 12px; }
+      .star-input { display: flex; gap: 2px; margin: 8px 0 12px; }
+      .star-input button { border: 0; background: transparent; font-size: 2rem; line-height: 1; padding: 2px 3px; color: var(--star-empty); cursor: pointer; min-height: auto; transition: transform 0.1s, color 0.1s; }
+      .star-input button.active, .star-input button.hovered { color: var(--star); }
+      .star-input button:hover { transform: scale(1.12); }
+      .review-form-wrap textarea { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; font-family: inherit; font-size: 0.95rem; background: var(--surface); color: var(--ink); resize: vertical; min-height: 96px; }
+      .review-form-wrap textarea:focus { outline: none; border-color: var(--ink); }
+      .review-submit { margin-top: 12px; border: 0; background: var(--ink); color: var(--bg); border-radius: 12px; min-height: 46px; padding: 0 22px; font-weight: 700; font-size: 0.95rem; width: 100%; }
+      .review-submit:hover { background: var(--accent); color: #fff; }
+      .review-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+      .review-signin { margin-top: 20px; border: 1px dashed var(--line); border-radius: 14px; padding: 16px; text-align: center; background: var(--surface-2); }
+      .review-signin p { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 10px; }
+      .review-signin button { border: 0; background: var(--ink); color: var(--bg); border-radius: 99px; padding: 0 20px; min-height: 42px; font-weight: 700; }
+      .review-err { display: none; background: var(--danger-soft); color: var(--danger); border-radius: 10px; padding: 10px 12px; font-size: 0.88rem; font-weight: 600; margin-top: 10px; }
+      .review-err.show { display: block; }
+      .review-ok { display: none; background: var(--accent-soft); color: var(--accent-strong); border-radius: 10px; padding: 10px 12px; font-size: 0.88rem; font-weight: 600; margin-top: 10px; }
+      .review-ok.show { display: block; }
+      @media (max-width: 560px) { .review-summary { grid-template-columns: 1fr; } .review-avg-box { display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px 16px; } .review-avg-box .stars { margin: 4px 0; } }
+
+      /* ---------- Profile ---------- */
+      .profile-btn { width: 100%; border: 0; background: var(--ink); color: var(--bg); border-radius: 10px; min-height: 42px; font-weight: 700; font-size: 0.92rem; margin-bottom: 8px; }
+      .profile-btn:hover { background: var(--accent); color: #fff; }
+      .profile-head { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
+      .profile-head .avatar-lg { width: 58px; height: 58px; font-size: 1.5rem; }
+      .profile-head h3 { font-size: 1.45rem; line-height: 1.15; }
+      .profile-head p { color: var(--ink-soft); font-size: 0.92rem; word-break: break-all; }
+      .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+      .stat-card { background: var(--surface-2); border-radius: 16px; padding: 16px; }
+      .stat-card small { display: block; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+      .stat-card b { font-size: 1.65rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+      .stat-card span { display: block; margin-top: 5px; font-size: 0.84rem; color: var(--ink-soft); font-weight: 600; }
+      .profile-orders h4 { font-size: 1.1rem; margin-bottom: 12px; }
+      .order-card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 14px; background: var(--surface); }
+      .order-card-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; background: var(--surface-2); padding: 12px 16px; border-bottom: 1px solid var(--line); }
+      .order-card-head b { font-size: 0.95rem; }
+      .order-card-head small { display: block; color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+      .status-pill { background: var(--accent-soft); color: var(--accent-strong); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 5px 10px; border-radius: 99px; white-space: nowrap; }
+      .order-card-body { padding: 14px 16px; display: grid; gap: 10px; }
+      .order-line { display: flex; justify-content: space-between; gap: 14px; font-size: 0.92rem; }
+      .order-line span:first-child { color: var(--ink); font-weight: 600; }
+      .order-line span:last-child { font-weight: 700; white-space: nowrap; }
+      .order-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; border-top: 1px solid var(--line); padding-top: 12px; font-size: 0.86rem; }
+      .order-meta small { display: block; color: var(--ink-faint); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 2px; }
+      .order-meta b { font-weight: 700; color: var(--ink); }
+      .profile-empty { text-align: center; padding: 28px 16px; background: var(--surface-2); border-radius: 16px; color: var(--ink-soft); }
+      .profile-empty b { color: var(--ink); display: block; font-size: 1.02rem; margin-bottom: 5px; }
+      .profile-loading { text-align: center; padding: 28px 16px; color: var(--ink-soft); font-weight: 600; }
+      @media (max-width: 560px) { .profile-stats { grid-template-columns: 1fr 1fr; } .order-meta { grid-template-columns: 1fr; } .profile-head { align-items: flex-start; } }
+
+      /* ---------- Chat ---------- */
+      .chat-fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 65; border: 0; background: var(--ink); color: var(--bg); border-radius: 99px; min-height: 52px; padding: 0 20px 0 16px; display: inline-flex; align-items: center; gap: 9px; font-weight: 700; font-size: 0.95rem; box-shadow: var(--shadow); }
+      .chat-fab:hover { background: var(--accent); color: #fff; }
+      .chat-fab .ic { width: 22px; height: 22px; }
+      .chat-panel { position: fixed; right: 20px; bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 66; width: min(384px, calc(100vw - 32px)); height: min(560px, calc(100dvh - 120px)); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); display: none; flex-direction: column; overflow: hidden; }
+      .chat-panel.open { display: flex; animation: up 0.22s ease; }
+      .chat-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); background: var(--surface); }
+      .chat-head .avatar-lg { width: 40px; height: 40px; font-size: 1rem; }
+      .chat-head b { display: block; font-size: 0.98rem; line-height: 1.2; }
+      .chat-head small { color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+      .chat-head .x-btn { margin-left: auto; }
+      .chat-msgs { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-2); }
+      .chat-note { text-align: center; font-size: 0.84rem; color: var(--ink-soft); background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 12px; }
+      .chat-note b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 0.9rem; }
+      .bubble-row { display: flex; flex-direction: column; max-width: 82%; }
+      .bubble-row.mine { align-self: flex-end; align-items: flex-end; }
+      .bubble-row.theirs { align-self: flex-start; align-items: flex-start; }
+      .bubble { padding: 10px 13px; border-radius: 16px; font-size: 0.92rem; line-height: 1.45; white-space: pre-wrap; word-break: break-word; }
+      .bubble-row.mine .bubble { background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
+      .bubble-row.theirs .bubble { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+      .bubble-meta { font-size: 0.72rem; color: var(--ink-faint); font-weight: 600; margin-top: 4px; padding: 0 3px; }
+      .chat-form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: var(--surface); align-items: flex-end; }
+      .chat-form textarea { flex: 1; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; font-family: inherit; font-size: 0.94rem; background: var(--surface); color: var(--ink); resize: none; min-height: 44px; max-height: 110px; }
+      .chat-form textarea:focus { outline: none; border-color: var(--ink); }
+      .chat-send { border: 0; background: var(--ink); color: var(--bg); border-radius: 12px; min-height: 44px; padding: 0 18px; font-weight: 700; flex: none; }
+      .chat-send:hover { background: var(--accent); color: #fff; }
+      .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+      /* Support inbox */
+      .support-btn { background: var(--accent); color: #fff; }
+      .support-btn:hover { background: var(--accent-strong); color: #fff; }
+      .convo-item { width: 100%; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 13px 15px; display: flex; gap: 12px; align-items: center; margin-bottom: 10px; min-height: 0; }
+      .convo-item:hover { border-color: var(--ink-faint); }
+      .convo-item .review-avatar { width: 38px; height: 38px; }
+      .convo-item b { display: block; font-size: 0.94rem; line-height: 1.25; }
+      .convo-item small { display: block; color: var(--ink-soft); font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+      .convo-item .convo-time { margin-left: auto; flex: none; color: var(--ink-faint); font-size: 0.76rem; font-weight: 600; text-align: right; }
+      .convo-item .convo-count { display: block; margin-top: 3px; color: var(--accent-strong); font-size: 0.76rem; font-weight: 700; }
+      .support-back { border: 0; background: none; color: var(--accent-strong); font-weight: 700; font-size: 0.88rem; padding: 4px 0; min-height: 0; margin-bottom: 10px; }
+      .support-thread { background: var(--surface-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; max-height: 46dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; margin-bottom: 12px; }
+      @media (max-width: 560px) { .chat-panel { right: 16px; } .chat-fab { right: 16px; } .convo-item small { max-width: 170px; } }
+
+      /* ---------- Chat tools: emoji picker + attachments ---------- */
+      .chat-form { position: relative; }
+      .chat-tool { border: 0; background: transparent; color: var(--ink-soft); width: 42px; height: 44px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; flex: none; padding: 0; }
+      .chat-tool:hover { background: var(--surface-2); color: var(--ink); }
+      .chat-tool .ic { width: 21px; height: 21px; }
+      .emoji-panel { position: absolute; bottom: calc(100% + 8px); left: 8px; z-index: 6; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 8px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; width: min(324px, calc(100vw - 48px)); }
+      .emoji-panel[hidden] { display: none; }
+      .emoji-panel button { border: 0; background: transparent; font-size: 1.3rem; line-height: 1; padding: 5px 2px; min-height: 38px; border-radius: 9px; }
+      .emoji-panel button:hover { background: var(--surface-2); }
+      .chat-attach-bar { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--surface); border-top: 1px solid var(--line); font-size: 0.85rem; font-weight: 600; }
+      .chat-attach-bar[hidden] { display: none; }
+      .chat-attach-bar img, .chat-attach-bar video { width: 42px; height: 42px; object-fit: cover; border-radius: 9px; background: var(--surface-3); flex: none; }
+      .chat-attach-bar .att-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .chat-attach-bar .att-rm { margin-left: auto; flex: none; border: 0; background: var(--surface-2); color: var(--ink); border-radius: 99px; min-height: 32px; padding: 0 12px; font-weight: 700; font-size: 0.8rem; }
+      .chat-err { display: none; background: var(--danger-soft); color: var(--danger); font-size: 0.85rem; font-weight: 600; padding: 9px 12px; }
+      .chat-err.show { display: block; }
+      .bubble-media { display: block; width: 100%; max-width: 232px; border-radius: 12px; background: var(--surface-3); }
+      .bubble-row .bubble-media + .bubble, .bubble-row a + .bubble { margin-top: 6px; }
+
+      /* ---------- Avatars with photos + profile picture ---------- */
+      .avatar-sm, .avatar-lg { overflow: hidden; }
+      .avatar-sm img, .avatar-lg img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+      .profile-photo { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: var(--surface-2); border-radius: 16px; padding: 14px 16px; margin-bottom: 20px; }
+      .profile-photo b { display: block; font-size: 0.95rem; }
+      .profile-photo p { color: var(--ink-soft); font-size: 0.83rem; }
+      .photo-btn { margin-left: auto; border: 0; background: var(--ink); color: var(--bg); border-radius: 99px; min-height: 40px; padding: 0 18px; font-weight: 700; font-size: 0.88rem; }
+      .photo-btn:hover { background: var(--accent); color: #fff; }
+      .photo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
       /* ---------- Footer ---------- */
       footer.site { margin-top: 64px; background: var(--footer-bg); color: #a9adb3; }
       footer.site .cols { padding-top: 44px; padding-bottom: 36px; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 32px; }
@@ -356,7 +514,6 @@
         <div class="header-actions">
           <div class="cur-toggle" role="group" aria-label="Currency">
             <button type="button" id="curUSD" class="on">USD $</button>
-            <button type="button" id="curGBP">GBP £</button>
             <button type="button" id="curCAD">CAD CA$</button>
           </div>
           <button type="button" class="icon-btn" id="themeBtn" aria-label="Toggle light / dark mode">
@@ -373,6 +530,8 @@
                 <span class="avatar-lg" id="menuAvatar">?</span>
                 <div><b id="menuName">Account</b><small id="menuEmail"></small></div>
               </div>
+              <button type="button" class="profile-btn" id="profileBtn">My profile &amp; orders</button>
+              <button type="button" class="profile-btn support-btn" id="supportBtn" hidden>Support inbox</button>
               <button type="button" class="signout-btn" id="signOutBtn">Sign out</button>
             </div>
           </div>
@@ -467,7 +626,7 @@
           <ul>
             <li>30-day return window</li>
             <li>Secure checkout — Card &amp; PayPal</li>
-            <li>Prices shown in USD, GBP or CAD</li>
+            <li>Prices shown in USD or CAD</li>
             <li>Full details on every product page</li>
           </ul>
         </div>
@@ -556,6 +715,46 @@
       </div>
     </div>
 
+    <!-- Profile modal -->
+    <div class="modal" id="profileModal" role="dialog" aria-modal="true">
+      <div class="sheet">
+        <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
+        <div id="profileBody"></div>
+      </div>
+    </div>
+
+    <!-- Support inbox modal (store owner only) -->
+    <div class="modal" id="supportModal" role="dialog" aria-modal="true">
+      <div class="sheet">
+        <button type="button" class="x-btn" data-close aria-label="Close">✕</button>
+        <div id="supportBody"></div>
+      </div>
+    </div>
+
+    <!-- Customer chat -->
+    <button type="button" class="chat-fab" id="chatFab" aria-label="Chat with support">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chat
+    </button>
+    <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with Trend Karat support">
+      <div class="chat-head">
+        <span class="avatar-lg">T</span>
+        <div><b>Trend Karat Support</b><small>Questions about products or orders</small></div>
+        <button type="button" class="x-btn" id="chatClose" aria-label="Close chat">✕</button>
+      </div>
+      <div class="chat-msgs" id="chatMsgs"></div>
+      <div class="chat-attach-bar" id="chatAttachBar" hidden></div>
+      <div class="chat-err" id="chatErr" role="alert"></div>
+      <form class="chat-form" id="chatForm">
+        <div class="emoji-panel" id="chatEmojiPanel" hidden></div>
+        <button type="button" class="chat-tool" id="chatEmojiBtn" aria-label="Insert emoji"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c.8 1.2 2 1.8 3.5 1.8s2.7-.6 3.5-1.8"/><line x1="9" y1="9.5" x2="9.01" y2="9.5"/><line x1="15" y1="9.5" x2="15.01" y2="9.5"/></svg></button>
+        <button type="button" class="chat-tool" id="chatAttachBtn" aria-label="Attach a photo or video"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+        <input type="file" id="chatFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" hidden>
+        <textarea id="chatInput" placeholder="Type your message…" maxlength="2000" rows="1" aria-label="Your message"></textarea>
+        <button type="submit" class="chat-send" id="chatSend">Send</button>
+      </form>
+    </div>
+
     <div class="toast" id="toast" role="status"></div>
     <script>
       var PRODUCTS = [
@@ -600,26 +799,58 @@
           points: ["Ceramic element for fast, focused warmth", "Fan-assisted heat for the space around you", "Adjustable tilt with fold-out stand", "Tip-over and overheat protection", "Compact size for desks, bedside tables and small rooms", "Simple controls with selectable heat settings"] }
       ];
 
-      var GBP_RATE = 0.79;
       var CAD_RATE = 1.40;
       var FREE_SHIP = 50, SHIP_FEE = 4.99;
       var currency = "USD";
       var cart = {}; // id -> qty
       var activeCat = "all", searchQ = "", sortMode = "featured", lastOrder = null;
+      var reviewsByProduct = {}; // product_id -> [normalized reviews]
+      var reviewsLoaded = false;
 
       function money(usd) {
-        if (currency === "GBP") return "£" + (usd * GBP_RATE).toFixed(2);
         if (currency === "CAD") return "CA$" + (usd * CAD_RATE).toFixed(2);
         return "$" + usd.toFixed(2);
       }
       function curRate() {
-        if (currency === "GBP") return GBP_RATE;
         if (currency === "CAD") return CAD_RATE;
         return 1;
       }
 
       function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
       function byId(id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; }
+      function getReviewsFor(id) { return reviewsByProduct[id] || []; }
+      function reviewStats(id) {
+        var arr = getReviewsFor(id);
+        var breakdown = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+        var sum = 0;
+        arr.forEach(function (r) { var rt = Math.max(1, Math.min(5, parseInt(r.rating, 10) || 0)); if (breakdown[rt] != null) breakdown[rt]++; sum += rt; });
+        return { count: arr.length, avg: arr.length ? sum / arr.length : 0, breakdown: breakdown };
+      }
+      function starsHTML(avg, cls) {
+        var full = Math.round(avg || 0);
+        var h = '<span class="stars ' + (cls || "") + '" aria-hidden="true">';
+        for (var i = 1; i <= 5; i++) h += '<span class="st' + (i <= full ? " filled" : "") + '">★</span>';
+        h += '</span>';
+        return h;
+      }
+      function cardRatingHTML(id) {
+        var s = reviewStats(id);
+        if (!s.count) return '<div class="card-rating">' + starsHTML(0) + '<span class="rating-none">No reviews yet</span></div>';
+        return '<div class="card-rating">' + starsHTML(s.avg) + '<span class="rating-num">' + s.avg.toFixed(1) + '</span><span class="rating-count">(' + s.count + (s.count === 1 ? " review" : " reviews") + ')</span></div>';
+      }
+      function formatReviewDate(iso) {
+        if (!iso) return "";
+        try { var d = new Date(iso); if (isNaN(d.getTime())) return ""; return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); } catch (e) { return ""; }
+      }
+      function normalizeReview(row) {
+        return {
+          product_id: row.product_id || row.productId || "",
+          reviewer_name: row.reviewer_name || row.reviewer || row.name || row.author || "Customer",
+          rating: parseInt(row.rating || row.stars || 0, 10) || 0,
+          review_text: row.review_text || row.review || row.comment || row.text || row.body || "",
+          created_at: row.created_at || row.createdAt || row.date || null
+        };
+      }
       function cartCount() { var n = 0; for (var k in cart) n += cart[k]; return n; }
       function cartSubtotal() { var s = 0; for (var k in cart) s += byId(k).price * cart[k]; return s; }
 
@@ -648,6 +879,7 @@
             '<div class="body"><span class="cat">' + p.catLabel + '</span>' +
             '<h3 data-qv="' + p.id + '">' + p.name + '</h3>' +
             '<p class="desc">' + p.desc.split("—")[0].split(". ")[0].trim().replace(/[\s,;:]$/, "") + '.</p>' +
+            cardRatingHTML(p.id) +
             '<div class="price-row"><span class="price">' + money(p.price) + '</span><span class="was">' + money(p.was) + '</span></div>' +
             '<button type="button" class="add-btn" data-add="' + p.id + '">Add to cart</button>' +
             '</div></article>';
@@ -713,6 +945,105 @@
       });
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModals(); closeCart(); hideAcctMenu(); } });
 
+      /* Quick view — reviews */
+      function renderQVReviews(productId) {
+        var container = document.getElementById("qvReviews");
+        if (!container) return;
+        var s = reviewStats(productId);
+        var arr = getReviewsFor(productId).slice().sort(function (a, b) { return new Date(b.created_at || 0) - new Date(a.created_at || 0); });
+        var breakdownHTML = [5, 4, 3, 2, 1].map(function (star) {
+          var c = s.breakdown[star] || 0;
+          var pct = s.count ? Math.round((c / s.count) * 100) : 0;
+          return '<div class="breakdown-row"><span class="blabel">' + star + ' <i>★</i></span><span class="bar-track"><span class="bar-fill" style="width:' + pct + '%"></span></span><span class="bcount">' + c + '</span></div>';
+        }).join("");
+        var summaryHTML = "";
+        if (s.count) {
+          summaryHTML = '<div class="review-summary"><div class="review-avg-box"><div class="review-avg-num">' + s.avg.toFixed(1) + '</div>' + starsHTML(s.avg, "lg") + '<div><small>' + s.count + (s.count === 1 ? " review" : " reviews") + '</small></div></div><div class="breakdown">' + breakdownHTML + '</div></div>';
+        } else {
+          summaryHTML = '<div class="review-summary"><div class="review-avg-box"><div class="review-avg-num">—</div>' + starsHTML(0, "lg") + '<div><small>0 reviews</small></div></div><div class="breakdown">' + breakdownHTML + '</div></div>';
+        }
+        var listHTML = "";
+        if (!arr.length) {
+          listHTML = '<div class="no-reviews"><b>No reviews yet</b><p>Be the first to share what you think about this product.</p></div>';
+        } else {
+          listHTML = '<div class="review-list">' + arr.map(function (r) {
+            var initial = (r.reviewer_name || "C").charAt(0).toUpperCase();
+            var dateStr = formatReviewDate(r.created_at);
+            return '<article class="review-item"><div class="review-item-head"><span class="review-avatar">' + esc(initial) + '</span><span class="review-meta"><b>' + esc(r.reviewer_name) + '</b>' + (dateStr ? '<small>' + esc(dateStr) + '</small>' : '') + '</span>' + starsHTML(r.rating, "sm") + '</div>' + (r.review_text ? '<p class="review-text">' + esc(r.review_text) + '</p>' : '') + '</article>';
+          }).join("") + '</div>';
+        }
+        var formHTML = "";
+        if (typeof session !== "undefined" && session && session.user) {
+          formHTML = '<div class="review-form-wrap" id="reviewFormWrap"><h5>Write a review</h5><p>Share your experience — it helps other shoppers.</p>' +
+            '<div class="star-input" id="starInput" role="radiogroup" aria-label="Your rating">' +
+            [1,2,3,4,5].map(function (n) { return '<button type="button" data-star="' + n + '" aria-label="' + n + ' star' + (n>1?"s":"") + '">★</button>'; }).join("") + '</div>' +
+            '<textarea id="reviewText" placeholder="What did you like? How did it work for you?" maxlength="2000"></textarea>' +
+            '<div class="review-err" id="reviewErr"></div><div class="review-ok" id="reviewOk"></div>' +
+            '<button type="button" class="review-submit" id="reviewSubmit">Submit review</button></div>';
+        } else {
+          formHTML = '<div class="review-signin"><p>Sign in to write a review for this product.</p><button type="button" id="reviewSigninBtn">Sign in to review</button></div>';
+        }
+        container.innerHTML = '<h4>Ratings &amp; reviews</h4>' + summaryHTML + listHTML + formHTML;
+        // Bind sign-in prompt
+        var siBtn = document.getElementById("reviewSigninBtn");
+        if (siBtn) siBtn.addEventListener("click", function () { gateReview(productId); });
+        // Bind star input + submit when signed in
+        var starWrap = document.getElementById("starInput");
+        if (starWrap) {
+          var selected = 0;
+          var starBtns = starWrap.querySelectorAll("button[data-star]");
+          function paintStars(n) { starBtns.forEach(function (b) { var v = parseInt(b.getAttribute("data-star"), 10); b.classList.toggle("active", v <= n); }); }
+          starBtns.forEach(function (b) {
+            b.addEventListener("click", function () { selected = parseInt(b.getAttribute("data-star"), 10); paintStars(selected); });
+            b.addEventListener("mouseenter", function () { paintStars(parseInt(b.getAttribute("data-star"), 10)); });
+            b.addEventListener("mouseleave", function () { paintStars(selected); });
+          });
+          var submitBtn = document.getElementById("reviewSubmit");
+          if (submitBtn) submitBtn.addEventListener("click", function () {
+            var errEl = document.getElementById("reviewErr");
+            var okEl = document.getElementById("reviewOk");
+            function showErr(m) { if (errEl) { errEl.textContent = m; errEl.classList.add("show"); } if (okEl) okEl.classList.remove("show"); }
+            function showOk(m) { if (okEl) { okEl.textContent = m; okEl.classList.add("show"); } if (errEl) errEl.classList.remove("show"); }
+            if (errEl) errEl.classList.remove("show"); if (okEl) okEl.classList.remove("show");
+            var text = (document.getElementById("reviewText").value || "").trim();
+            if (!selected) { showErr("Please select a star rating (1 to 5)."); return; }
+            if (!text) { showErr("Please write a short review."); return; }
+            if (!session || !session.user) { gateReview(productId); return; }
+            submitBtn.disabled = true; submitBtn.textContent = "Posting…";
+            var payload = { product_id: productId, reviewer_name: displayName(session.user), rating: selected, review_text: text };
+            submitReviewToSupabase(payload, session.access_token).then(function (res) {
+              return res.text().then(function (txt) { return { ok: res.ok, status: res.status, txt: txt }; });
+            }).then(function (result) {
+              submitBtn.disabled = false; submitBtn.textContent = "Submit review";
+              if (result.ok) {
+                // Optimistic add + reload from server
+                var newReview = { product_id: productId, reviewer_name: payload.reviewer_name, rating: selected, review_text: text, created_at: new Date().toISOString() };
+                if (!reviewsByProduct[productId]) reviewsByProduct[productId] = [];
+                reviewsByProduct[productId].unshift(newReview);
+                renderGrid();
+                renderQVReviews(productId);
+                // Re-show success after re-render
+                var ok2 = document.getElementById("reviewOk"); if (ok2) { ok2.textContent = "Thank you — your review has been posted."; ok2.classList.add("show"); }
+                toast("Review posted — thank you!");
+                loadReviews();
+              } else {
+                // Table may not exist yet or RLS blocks — fail gracefully
+                if (result.status === 404 || result.status === 400 || result.status === 401 || result.status === 403) {
+                  showErr("Reviews aren't available just yet — please try again later.");
+                } else {
+                  showErr("Couldn't post your review — please try again.");
+                }
+                console.error("Trend Karat: review save failed", result.status, result.txt);
+              }
+            }).catch(function (err) {
+              submitBtn.disabled = false; submitBtn.textContent = "Submit review";
+              showErr("Couldn't reach the reviews service — check your connection and try again.");
+              console.error("Trend Karat: review save failed", err);
+            });
+          });
+        }
+      }
+
       /* Quick view */
       var qvId = null;
       function openQV(id) {
@@ -725,8 +1056,11 @@
           '<p class="desc">' + p.desc + '</p>' +
           '<ul>' + p.points.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul>' +
           '<div class="row"><span class="qty"><button type="button" id="qvDec" aria-label="Decrease quantity">−</button><b id="qvQty">1</b><button type="button" id="qvInc" aria-label="Increase quantity">+</button></span>' +
-          '<button type="button" class="add-btn" id="qvAdd">Add to cart</button></div></div>';
+          '<button type="button" class="add-btn" id="qvAdd">Add to cart</button></div></div>' +
+          '<div class="qv-reviews" id="qvReviews"></div>';
         openModal("qvModal");
+        renderQVReviews(id);
+        if (!reviewsLoaded) loadReviews();
         var q = 1;
         document.getElementById("qvDec").addEventListener("click", function () { q = Math.max(1, q - 1); document.getElementById("qvQty").textContent = q; });
         document.getElementById("qvInc").addEventListener("click", function () { q = Math.min(99, q + 1); document.getElementById("qvQty").textContent = q; });
@@ -775,7 +1109,6 @@
       function setCurrency(c) {
         currency = c;
         document.getElementById("curUSD").classList.toggle("on", c === "USD");
-        document.getElementById("curGBP").classList.toggle("on", c === "GBP");
         document.getElementById("curCAD").classList.toggle("on", c === "CAD");
         document.querySelectorAll("[data-price]").forEach(function (el) {
           el.textContent = money(parseFloat(el.getAttribute("data-price")));
@@ -783,7 +1116,6 @@
         renderGrid(); renderCart();
       }
       document.getElementById("curUSD").addEventListener("click", function () { setCurrency("USD"); });
-      document.getElementById("curGBP").addEventListener("click", function () { setCurrency("GBP"); });
       document.getElementById("curCAD").addEventListener("click", function () { setCurrency("CAD"); });
 
       /* Light / dark toggle */
@@ -815,9 +1147,629 @@
         fetch(SUPABASE_URL + "/rest/v1/orders", {
           method: "POST", headers: h, body: JSON.stringify(order)
         }).then(function (res) {
-          if (!res.ok) console.error("Trend Karat: order save to Supabase failed with status " + res.status);
+          if (!res.ok) {
+            console.error("Trend Karat: order save to Supabase failed with status " + res.status);
+            // If the table has no payment_method column yet, retry without it so the order still saves
+            if (order.payment_method) {
+              var copy = {}; for (var k in order) if (k !== "payment_method") copy[k] = order[k];
+              var h2 = sbHeaders(); h2["Prefer"] = "return=minimal";
+              fetch(SUPABASE_URL + "/rest/v1/orders", { method: "POST", headers: h2, body: JSON.stringify(copy) }).catch(function () {});
+            }
+          }
         }).catch(function (err) {
           console.error("Trend Karat: order save to Supabase failed", err);
+        });
+      }
+
+      /* ---------------- Reviews (Supabase public.reviews) ---------------- */
+      function loadReviews() {
+        fetch(SUPABASE_URL + "/rest/v1/reviews?select=*&order=created_at.desc", {
+          method: "GET", headers: sbHeaders()
+        }).then(function (res) {
+          if (!res.ok) { reviewsByProduct = {}; reviewsLoaded = true; renderGrid(); if (typeof qvId !== "undefined" && qvId) { var el = document.getElementById("qvReviews"); if (el) renderQVReviews(qvId); } return null; }
+          return res.json();
+        }).then(function (data) {
+          if (!data || !Array.isArray(data)) return;
+          var grouped = {};
+          data.forEach(function (row) {
+            var nr = normalizeReview(row);
+            if (!nr.product_id) return;
+            if (!grouped[nr.product_id]) grouped[nr.product_id] = [];
+            grouped[nr.product_id].push(nr);
+          });
+          reviewsByProduct = grouped;
+          reviewsLoaded = true;
+          renderGrid();
+          if (typeof qvId !== "undefined" && qvId) { var el2 = document.getElementById("qvReviews"); if (el2) renderQVReviews(qvId); }
+        }).catch(function () {
+          reviewsByProduct = {};
+          reviewsLoaded = true;
+          try { renderGrid(); } catch (e) {}
+        });
+      }
+      function submitReviewToSupabase(payload, token) {
+        var h = sbHeaders(token || null); h["Prefer"] = "return=representation";
+        return fetch(SUPABASE_URL + "/rest/v1/reviews", {
+          method: "POST", headers: h, body: JSON.stringify(payload)
+        });
+      }
+
+      /* ---------------- Profile / order history (Supabase public.orders) ---------------- */
+      function moneyInCurrency(amount, cur) {
+        var v = Number(amount) || 0;
+        if (cur === "CAD") return "CA$" + v.toFixed(2);
+        return "$" + v.toFixed(2);
+      }
+      function orderItemsArray(row) {
+        var raw = row.items;
+        if (!raw) return [];
+        if (Array.isArray(raw)) return raw;
+        if (typeof raw === "string") { try { var p = JSON.parse(raw); return Array.isArray(p) ? p : []; } catch (e) { return []; } }
+        return [];
+      }
+      function normalizeOrder(row) {
+        var items = orderItemsArray(row).map(function (it) {
+          return {
+            name: it.name || it.product_name || "Item",
+            quantity: parseInt(it.quantity || it.qty || 1, 10) || 1,
+            price: Number(it.price != null ? it.price : (it.total && it.quantity ? it.total / it.quantity : it.total || 0)) || 0,
+            total: it.total != null ? Number(it.total) : (Number(it.price || 0) * (parseInt(it.quantity || it.qty || 1, 10) || 1))
+          };
+        });
+        var cur = row.currency || "USD";
+        var total = Number(row.total != null ? row.total : row.grand_total) || 0;
+        if (!total && items.length) total = items.reduce(function (s, it) { return s + it.total; }, 0) + (Number(row.shipping) || 0);
+        return {
+          order_number: row.order_number || row.order_no || row.id || "—",
+          created_at: row.created_at || row.createdAt || row.date || row.ordered_at || null,
+          items: items,
+          subtotal: Number(row.subtotal) || 0,
+          shipping: Number(row.shipping) || 0,
+          total: total,
+          currency: cur,
+          payment_method: row.payment_method || row.payment || row.pay_method || row.payment_type || "",
+          status: row.status || row.order_status || "Order placed",
+          address: row.address || "", city: row.city || "", zip: row.zip || row.postcode || "", country: row.country || "",
+          customer_name: row.customer_name || "", customer_email: row.customer_email || ""
+        };
+      }
+      function orderTotalInUSD(o) {
+        if (o.currency === "CAD") return o.total / CAD_RATE;
+        return o.total;
+      }
+      function fetchUserOrders(email, token) {
+        var url = SUPABASE_URL + "/rest/v1/orders?select=*&customer_email=eq." + encodeURIComponent(email) + "&order=created_at.desc";
+        return fetch(url, { method: "GET", headers: sbHeaders(token || null) }).then(function (res) {
+          if (!res.ok) return [];
+          return res.json().catch(function () { return []; });
+        }).then(function (data) {
+          if (!Array.isArray(data)) return [];
+          return data.map(normalizeOrder);
+        }).catch(function () { return []; });
+      }
+      /* ---------------- Profile picture (Supabase Storage "avatars" + Auth user_metadata) ---------------- */
+      function userAvatarUrl(user) {
+        if (!user) return "";
+        var md = user.user_metadata || {};
+        return md.avatar_url || "";
+      }
+      function avatarInnerHTML(user, fallbackName) {
+        var url = userAvatarUrl(user);
+        if (url) return '<img src="' + esc(url) + '" alt="Profile picture">';
+        var nm = fallbackName || (user ? displayName(user) : "?");
+        return esc((nm || "?").charAt(0).toUpperCase() || "?");
+      }
+      function handleAvatarFile(file) {
+        var errEl = document.getElementById("avatarErr");
+        var okEl = document.getElementById("avatarOk");
+        function showErr(m) { if (errEl) { errEl.textContent = m; errEl.classList.add("show"); } if (okEl) okEl.classList.remove("show"); }
+        function showOk(m) { if (okEl) { okEl.textContent = m; okEl.classList.add("show"); } if (errEl) errEl.classList.remove("show"); }
+        if (errEl) errEl.classList.remove("show"); if (okEl) okEl.classList.remove("show");
+        if (!file || !session || !session.user) return;
+        if (!typeAllowed(file, CHAT_IMAGE_TYPES, ["jpg", "jpeg", "png", "webp"])) { showErr("Please choose a JPG, PNG or WebP image."); return; }
+        if (file.size > AVATAR_MAX_BYTES) { showErr("That image is too big — the limit is 5 MB."); return; }
+        var btn = document.getElementById("avatarBtn");
+        if (btn) { btn.disabled = true; btn.textContent = "Uploading…"; }
+        var uid = session.user.id || session.user.email || "user";
+        var path = String(uid).replace(/[^a-zA-Z0-9._-]+/g, "_") + "/avatar-" + Date.now() + "." + fileExt(file);
+        uploadToStorage("avatars", path, file, session.access_token).then(function (url) {
+          var publicUrl = url + "?v=" + Date.now(); // cache-bust so the new photo shows right away
+          return fetch(SUPABASE_URL + "/auth/v1/user", {
+            method: "PUT", headers: sbHeaders(session.access_token),
+            body: JSON.stringify({ data: { avatar_url: publicUrl } })
+          }).then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data }; });
+          }).then(function (r) {
+            if (btn) { btn.disabled = false; btn.textContent = "Change photo"; }
+            if (!r.ok) { showErr("Your photo uploaded but couldn't be saved to your account — please try again."); return; }
+            if (r.data && r.data.id) session.user = r.data;
+            else { if (!session.user.user_metadata) session.user.user_metadata = {}; session.user.user_metadata.avatar_url = publicUrl; }
+            var pa = document.getElementById("profAvatar"); if (pa) pa.innerHTML = avatarInnerHTML(session.user);
+            updateAuthUI();
+            showOk("Profile picture updated.");
+          });
+        }).catch(function (err) {
+          console.error("Trend Karat: avatar upload failed", err);
+          if (btn) { btn.disabled = false; btn.textContent = userAvatarUrl(session.user) ? "Change photo" : "Add photo"; }
+          showErr("Couldn't upload that photo — please try again.");
+        });
+      }
+      function openProfile() {
+        if (!session || !session.user) {
+          pendingAction = { type: "profile" };
+          openAuth("signin", "Please sign in to view your profile and orders.");
+          return;
+        }
+        hideAcctMenu();
+        var name = displayName(session.user);
+        var email = session.user.email || "";
+        var body = document.getElementById("profileBody");
+        body.innerHTML =
+          '<div class="profile-head"><span class="avatar-lg" id="profAvatar">' + avatarInnerHTML(session.user, name) + '</span><div><h3>' + esc(name) + '</h3><p>' + esc(email) + '</p></div></div>' +
+          '<div class="profile-photo"><div><b>Profile picture</b><p>JPG, PNG or WebP — up to 5 MB.</p></div>' +
+          '<button type="button" class="photo-btn" id="avatarBtn">' + (userAvatarUrl(session.user) ? "Change photo" : "Add photo") + '</button>' +
+          '<input type="file" id="avatarFile" accept="image/jpeg,image/png,image/webp" hidden></div>' +
+          '<div class="review-err" id="avatarErr"></div><div class="review-ok" id="avatarOk"></div>' +
+          '<div class="profile-stats"><div class="stat-card"><small>Total orders</small><b id="profOrderCount">—</b><span>All time</span></div>' +
+          '<div class="stat-card"><small>Total spent</small><b id="profTotalSpent">—</b><span>Across all orders</span></div></div>' +
+          '<div class="profile-orders"><h4>Order history</h4><div id="profOrders"><div class="profile-loading">Loading your orders…</div></div></div>';
+        openModal("profileModal");
+        var avatarBtn = document.getElementById("avatarBtn");
+        var avatarFile = document.getElementById("avatarFile");
+        if (avatarBtn && avatarFile) {
+          avatarBtn.addEventListener("click", function () { avatarFile.click(); });
+          avatarFile.addEventListener("change", function () { var f = this.files && this.files[0]; this.value = ""; handleAvatarFile(f); });
+        }
+        fetchUserOrders(email, session.access_token).then(function (orders) {
+          var countEl = document.getElementById("profOrderCount");
+          var spentEl = document.getElementById("profTotalSpent");
+          var listEl = document.getElementById("profOrders");
+          if (!countEl || !listEl) return; // modal closed / re-rendered
+          countEl.textContent = orders.length;
+          var spentUSD = orders.reduce(function (s, o) { return s + orderTotalInUSD(o); }, 0);
+          spentEl.textContent = money(spentUSD);
+          if (!orders.length) {
+            listEl.innerHTML = '<div class="profile-empty"><b>No orders yet</b><p>When you place an order, it will show up here with its date, items and total.</p></div>';
+            return;
+          }
+          listEl.innerHTML = orders.map(function (o) {
+            var dateStr = formatReviewDate(o.created_at) || "—";
+            var timeStr = "";
+            if (o.created_at) { try { var d = new Date(o.created_at); if (!isNaN(d.getTime())) timeStr = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }); } catch (e) {} }
+            var itemsHTML = o.items.length ? o.items.map(function (it) {
+              return '<div class="order-line"><span>' + esc(it.name) + ' × ' + it.quantity + '</span><span>' + moneyInCurrency(it.total, o.currency) + '</span></div>';
+            }).join("") : '<div class="order-line"><span>Items</span><span>—</span></div>';
+            var deliver = [o.address, o.city, o.zip, o.country].filter(Boolean).join(", ");
+            return '<article class="order-card"><div class="order-card-head"><div><b>Order ' + esc(String(o.order_number)) + '</b><small>' + esc(dateStr + (timeStr ? " · " + timeStr : "")) + '</small></div><span class="status-pill">' + esc(o.status) + '</span></div>' +
+              '<div class="order-card-body">' + itemsHTML +
+              (o.shipping ? '<div class="order-line"><span>Shipping</span><span>' + moneyInCurrency(o.shipping, o.currency) + '</span></div>' : '<div class="order-line"><span>Shipping</span><span>FREE</span></div>') +
+              '<div class="order-meta"><div><small>Payment method</small><b>' + esc(o.payment_method || "—") + '</b></div>' +
+              '<div><small>Total</small><b>' + moneyInCurrency(o.total, o.currency) + '</b></div>' +
+              (deliver ? '<div style="grid-column:1/-1"><small>Deliver to</small><b>' + esc(deliver) + '</b></div>' : '') +
+              '</div></div></article>';
+          }).join("");
+        });
+      }
+
+      /* ---------------- Chat (Supabase public.chat_messages) ---------------- */
+      var OWNER_EMAIL = "trendkarat.official@gmail.com";
+      function isOwner() {
+        return !!(typeof session !== "undefined" && session && session.user && (session.user.email || "").toLowerCase() === OWNER_EMAIL);
+      }
+      function normalizeChatMessage(row) {
+        var sender = row.sender || row.sender_type || row.sent_by || (row.is_support ? "support" : "customer");
+        return {
+          customer_email: row.customer_email || row.email || row.user_email || "",
+          customer_name: row.customer_name || row.name || row.customer || "",
+          sender: String(sender || "customer").toLowerCase(),
+          message: row.message != null ? row.message : (row.message_text != null ? row.message_text : (row.text || row.body || "")),
+          attachment_url: row.attachment_url || row.file_url || row.media_url || "",
+          attachment_type: row.attachment_type || row.file_type || row.media_type || "",
+          created_at: row.created_at || row.createdAt || row.time || null
+        };
+      }
+      function isSupportSender(m) { return m.sender === "support" || m.sender === "owner" || m.sender === "admin"; }
+      function formatChatTime(iso) {
+        if (!iso) return "";
+        try {
+          var d = new Date(iso); if (isNaN(d.getTime())) return "";
+          return formatReviewDate(iso) + " · " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+        } catch (e) { return ""; }
+      }
+      function postChatMessage(payload, token) {
+        var url = SUPABASE_URL + "/rest/v1/chat_messages";
+        function attempt(body) {
+          var h = sbHeaders(token || null); h["Prefer"] = "return=representation";
+          return fetch(url, { method: "POST", headers: h, body: JSON.stringify(body) }).then(function (res) {
+            if (res.ok) return { ok: true, status: res.status };
+            return res.text().catch(function () { return ""; }).then(function (txt) {
+              console.error("Trend Karat: chat save failed", res.status, txt);
+              return { ok: false, status: res.status };
+            });
+          }).catch(function (err) { console.error("Trend Karat: chat save failed", err); return { ok: false, status: 0 }; });
+        }
+        return attempt(payload).then(function (r1) {
+          if (r1.ok || r1.status !== 400) return r1;
+          // If the table uses message_text instead of message, retry with that column name
+          var alt = {}; for (var k in payload) alt[k === "message" ? "message_text" : k] = payload[k];
+          return attempt(alt).then(function (r2) {
+            if (r2.ok || !payload.attachment_url) return r2.ok ? r2 : r1;
+            // If the table has no attachment columns yet, keep the file link in the message text
+            var bare = { customer_email: payload.customer_email, customer_name: payload.customer_name, sender: payload.sender, message: (payload.message ? payload.message + "\n" : "") + payload.attachment_url };
+            return attempt(bare).then(function (r3) { return r3.ok ? r3 : r1; });
+          });
+        });
+      }
+      function fetchChatThread(email, token) {
+        var url = SUPABASE_URL + "/rest/v1/chat_messages?select=*&customer_email=eq." + encodeURIComponent(email) + "&order=created_at.asc";
+        return fetch(url, { method: "GET", headers: sbHeaders(token || null) }).then(function (res) {
+          if (!res.ok) return null;
+          return res.json().catch(function () { return null; });
+        }).then(function (data) {
+          if (!Array.isArray(data)) return null;
+          return data.map(normalizeChatMessage).sort(function (a, b) { return new Date(a.created_at || 0) - new Date(b.created_at || 0); });
+        }).catch(function () { return null; });
+      }
+      function fetchAllChat(token) {
+        var url = SUPABASE_URL + "/rest/v1/chat_messages?select=*&order=created_at.asc";
+        return fetch(url, { method: "GET", headers: sbHeaders(token || null) }).then(function (res) {
+          if (!res.ok) return null;
+          return res.json().catch(function () { return null; });
+        }).then(function (data) {
+          if (!Array.isArray(data)) return null;
+          return data.map(normalizeChatMessage).sort(function (a, b) { return new Date(a.created_at || 0) - new Date(b.created_at || 0); });
+        }).catch(function () { return null; });
+      }
+      function bubbleHTML(m, mine, otherLabel) {
+        var meta = (mine ? "You" : otherLabel) + (m.created_at ? " · " + formatChatTime(m.created_at) : "");
+        var media = "";
+        if (m.attachment_url) {
+          if ((m.attachment_type || "").toLowerCase().indexOf("video") === 0) {
+            media = '<video class="bubble-media" src="' + esc(m.attachment_url) + '" controls preload="metadata" playsinline></video>';
+          } else {
+            media = '<a href="' + esc(m.attachment_url) + '" target="_blank" rel="noopener"><img class="bubble-media" src="' + esc(m.attachment_url) + '" alt="Attached photo" loading="lazy"></a>';
+          }
+        }
+        var text = m.message ? '<div class="bubble">' + esc(m.message) + '</div>' : "";
+        return '<div class="bubble-row ' + (mine ? "mine" : "theirs") + '">' + media + text + '<span class="bubble-meta">' + esc(meta) + '</span></div>';
+      }
+
+      /* ---------------- Storage uploads + emoji picker ---------------- */
+      var CHAT_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+      var CHAT_FILE_TYPES = CHAT_IMAGE_TYPES.concat(["video/mp4", "video/webm"]);
+      var CHAT_MAX_BYTES = 10 * 1024 * 1024;   // 10 MB per chat file
+      var AVATAR_MAX_BYTES = 5 * 1024 * 1024;  // 5 MB per profile picture
+      var SMILEY_SVG = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c.8 1.2 2 1.8 3.5 1.8s2.7-.6 3.5-1.8"/><line x1="9" y1="9.5" x2="9.01" y2="9.5"/><line x1="15" y1="9.5" x2="15.01" y2="9.5"/></svg>';
+      var CLIP_SVG = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>';
+      function fileExt(file) {
+        var n = (file.name || "").toLowerCase();
+        var dot = n.lastIndexOf(".");
+        if (dot > -1) { var e = n.slice(dot + 1).replace(/[^a-z0-9]/g, ""); if (e) return e; }
+        var map = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "video/mp4": "mp4", "video/webm": "webm" };
+        return map[file.type] || "bin";
+      }
+      function typeAllowed(file, types, exts) {
+        if (file.type) return types.indexOf(file.type) !== -1;
+        return exts.indexOf(fileExt(file)) !== -1;
+      }
+      function mimeForFile(file) {
+        if (file.type) return file.type;
+        var e = fileExt(file);
+        if (e === "mp4" || e === "webm") return "video/" + e;
+        if (e === "jpg" || e === "jpeg") return "image/jpeg";
+        return "image/" + e;
+      }
+      function uploadToStorage(bucket, path, file, token) {
+        return fetch(SUPABASE_URL + "/storage/v1/object/" + bucket + "/" + path, {
+          method: "POST",
+          headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + (token || SUPABASE_ANON_KEY), "Content-Type": file.type || "application/octet-stream", "x-upsert": "true" },
+          body: file
+        }).then(function (res) {
+          if (!res.ok) return res.text().catch(function () { return ""; }).then(function (t) { console.error("Trend Karat: storage upload failed", res.status, t); throw new Error("Storage upload failed (" + res.status + ")"); });
+          return SUPABASE_URL + "/storage/v1/object/public/" + bucket + "/" + path;
+        });
+      }
+      function storagePathFor(email, file) {
+        var safe = String(email || "user").toLowerCase().replace(/[^a-z0-9._-]+/g, "_");
+        return safe + "/" + Date.now() + "-" + Math.floor(Math.random() * 1e6) + "." + fileExt(file);
+      }
+      var EMOJIS = ["😀","😄","😂","🤣","😊","😍","😘","😎","🤔","🙂","😅","😭","😡","👍","👎","🙏","👏","🤝","👋","💪","🔥","🎉","🥳","🤩","⭐","💯","✅","❤️","💔","📦","🚚","💰","🛒","🏠","📱","💡","⏰","🎁","☕","👀"];
+      function insertAtCursor(textarea, text) {
+        if (!textarea) return;
+        var start = textarea.selectionStart != null ? textarea.selectionStart : textarea.value.length;
+        var end = textarea.selectionEnd != null ? textarea.selectionEnd : textarea.value.length;
+        textarea.value = textarea.value.slice(0, start) + text + textarea.value.slice(end);
+        textarea.focus();
+        var pos = start + text.length;
+        try { textarea.setSelectionRange(pos, pos); } catch (err) {}
+      }
+      function fillEmojiPanel(panel, textarea) {
+        if (!panel || panel._filled) return;
+        panel._filled = true;
+        EMOJIS.forEach(function (e) {
+          var b = document.createElement("button");
+          b.type = "button"; b.textContent = e; b.setAttribute("aria-label", "Insert emoji");
+          b.addEventListener("click", function () { insertAtCursor(textarea, e); });
+          panel.appendChild(b);
+        });
+      }
+      function wireEmojiToggle(btn, panel, textarea) {
+        if (!btn || !panel) return;
+        fillEmojiPanel(panel, textarea);
+        btn.addEventListener("click", function () { panel.hidden = !panel.hidden; });
+      }
+
+      /* Customer chat window */
+      var chatMessages = [], chatLoadFailed = false, chatPoll = null;
+      function renderChatMessages() {
+        var box = document.getElementById("chatMsgs"); if (!box) return;
+        if (chatLoadFailed && !chatMessages.length) {
+          box.innerHTML = '<div class="chat-note"><b>Could not load messages</b>Chat is not available just yet — please try again later. You can still type below and press Send to retry.</div>';
+          return;
+        }
+        if (!chatMessages.length) {
+          box.innerHTML = '<div class="chat-note"><b>Hi' + (session && session.user ? " " + esc(displayName(session.user).split(" ")[0]) : "") + ' — how can we help?</b>Ask about a product, delivery or an order and we will reply here.</div>';
+          return;
+        }
+        box.innerHTML = chatMessages.map(function (m) { return bubbleHTML(m, !isSupportSender(m), "Support"); }).join("");
+        box.scrollTop = box.scrollHeight;
+      }
+      function loadChatThread() {
+        if (!session || !session.user) return;
+        fetchChatThread(session.user.email || "", session.access_token).then(function (data) {
+          if (data === null) { chatLoadFailed = true; }
+          else { chatLoadFailed = false; chatMessages = data; }
+          if (document.getElementById("chatPanel").classList.contains("open")) renderChatMessages();
+        });
+      }
+      function startChatPoll() {
+        stopChatPoll();
+        chatPoll = setInterval(function () {
+          var p = document.getElementById("chatPanel");
+          if (!p || !p.classList.contains("open")) { stopChatPoll(); return; }
+          loadChatThread();
+        }, 8000);
+      }
+      function stopChatPoll() { if (chatPoll) { clearInterval(chatPoll); chatPoll = null; } }
+      function openChat() {
+        if (!session || !session.user) {
+          pendingAction = { type: "chat" };
+          openAuth("signin", "Please sign in or create an account to chat with support — it only takes a moment.");
+          return;
+        }
+        if (isOwner()) { openSupportInbox(); return; }
+        document.getElementById("chatPanel").classList.add("open");
+        renderChatMessages();
+        loadChatThread();
+        startChatPoll();
+        var inp = document.getElementById("chatInput"); if (inp) inp.focus();
+      }
+      function closeChatPanel() {
+        var p = document.getElementById("chatPanel"); if (p) p.classList.remove("open");
+        var ep = document.getElementById("chatEmojiPanel"); if (ep) ep.hidden = true;
+        stopChatPoll();
+      }
+      /* Customer chat attachment state */
+      var chatPending = null, chatUploading = null; // chatUploading = file name while an upload is in flight
+      function showChatErr(msg) {
+        var el = document.getElementById("chatErr"); if (!el) return;
+        if (msg) { el.textContent = msg; el.classList.add("show"); } else { el.textContent = ""; el.classList.remove("show"); }
+      }
+      function renderChatAttachBar() {
+        var bar = document.getElementById("chatAttachBar"); if (!bar) return;
+        if (!chatPending && !chatUploading) { bar.hidden = true; bar.innerHTML = ""; return; }
+        bar.hidden = false;
+        if (chatUploading) { bar.innerHTML = '<span class="att-name">Uploading ' + esc(chatUploading) + '…</span>'; return; }
+        var prev = chatPending.type.indexOf("video") === 0
+          ? '<video src="' + esc(chatPending.url) + '" muted preload="metadata"></video>'
+          : '<img src="' + esc(chatPending.url) + '" alt="Attachment preview">';
+        bar.innerHTML = prev + '<span class="att-name">' + esc(chatPending.name) + '</span><button type="button" class="att-rm" id="chatAttachRm">Remove</button>';
+        document.getElementById("chatAttachRm").addEventListener("click", function () { chatPending = null; renderChatAttachBar(); });
+      }
+      function handleChatFile(file) {
+        showChatErr("");
+        if (!file || !session || !session.user) return;
+        if (!typeAllowed(file, CHAT_FILE_TYPES, ["jpg", "jpeg", "png", "webp", "mp4", "webm"])) { showChatErr("That file type isn't supported — send a JPG, PNG or WebP image, or an MP4/WebM video."); return; }
+        if (file.size > CHAT_MAX_BYTES) { showChatErr("That file is too big — the limit is 10 MB per file."); return; }
+        chatUploading = file.name; renderChatAttachBar();
+        var sendBtn = document.getElementById("chatSend"); if (sendBtn) sendBtn.disabled = true;
+        uploadToStorage("chat-attachments", storagePathFor(session.user.email, file), file, session.access_token).then(function (url) {
+          chatPending = { url: url, type: mimeForFile(file), name: file.name };
+          chatUploading = null; renderChatAttachBar();
+          if (sendBtn) sendBtn.disabled = false;
+        }).catch(function (err) {
+          chatUploading = null; renderChatAttachBar();
+          if (sendBtn) sendBtn.disabled = false;
+          showChatErr("Couldn't upload that file — please try again.");
+        });
+      }
+      function sendChatMessage(ev) {
+        if (ev) ev.preventDefault();
+        if (!session || !session.user) { closeChatPanel(); openChat(); return; }
+        if (chatUploading) { showChatErr("Please wait for your file to finish uploading."); return; }
+        var inp = document.getElementById("chatInput");
+        var text = (inp.value || "").trim();
+        if (!text && !chatPending) return;
+        showChatErr("");
+        var btn = document.getElementById("chatSend");
+        var payload = { customer_email: session.user.email || "", customer_name: displayName(session.user), sender: "customer", message: text };
+        var local = { customer_email: payload.customer_email, customer_name: payload.customer_name, sender: "customer", message: text, created_at: new Date().toISOString() };
+        if (chatPending) { payload.attachment_url = chatPending.url; payload.attachment_type = chatPending.type; local.attachment_url = chatPending.url; local.attachment_type = chatPending.type; }
+        chatMessages.push(local);
+        chatLoadFailed = false;
+        renderChatMessages();
+        inp.value = "";
+        chatPending = null; renderChatAttachBar();
+        var ep = document.getElementById("chatEmojiPanel"); if (ep) ep.hidden = true;
+        btn.disabled = true;
+        postChatMessage(payload, session.access_token).then(function (r) {
+          btn.disabled = false;
+          if (!r.ok) { toast("Couldn't send your message — please try again."); chatLoadFailed = true; }
+          loadChatThread();
+        });
+      }
+
+      /* Support inbox (owner only) */
+      var supportAll = null, supportLoadFailed = false, supportCustomer = null, supportPoll = null;
+      function groupConversations(msgs) {
+        var map = {}, order = [];
+        (msgs || []).forEach(function (m) {
+          var key = (m.customer_email || "").toLowerCase(); if (!key) return;
+          if (!map[key]) { map[key] = { email: m.customer_email, name: m.customer_name || m.customer_email, messages: [] }; order.push(key); }
+          map[key].messages.push(m);
+          if (m.customer_name) map[key].name = m.customer_name;
+        });
+        return order.map(function (k) { return map[k]; }).sort(function (a, b) {
+          var la = a.messages[a.messages.length - 1], lb = b.messages[b.messages.length - 1];
+          return new Date((lb && lb.created_at) || 0) - new Date((la && la.created_at) || 0);
+        });
+      }
+      function openSupportInbox() {
+        if (!isOwner()) return;
+        hideAcctMenu();
+        closeChatPanel();
+        supportCustomer = null;
+        document.getElementById("supportBody").innerHTML = '<h3 style="margin:0 0 4px;font-size:1.45rem">Support inbox</h3><p style="color:var(--ink-soft);margin:0 0 16px">Customer conversations from the store chat.</p><div class="profile-loading">Loading conversations…</div>';
+        openModal("supportModal");
+        loadSupportData();
+        startSupportPoll();
+      }
+      function startSupportPoll() {
+        stopSupportPoll();
+        supportPoll = setInterval(function () {
+          var m = document.getElementById("supportModal");
+          if (!m || !m.classList.contains("open")) { stopSupportPoll(); return; }
+          loadSupportData(true);
+        }, 10000);
+      }
+      function stopSupportPoll() { if (supportPoll) { clearInterval(supportPoll); supportPoll = null; } }
+      function loadSupportData(fromPoll) {
+        if (!session) return;
+        fetchAllChat(session.access_token).then(function (data) {
+          if (data === null) { supportLoadFailed = true; supportAll = null; }
+          else { supportLoadFailed = false; supportAll = data; }
+          var modal = document.getElementById("supportModal");
+          if (!modal || !modal.classList.contains("open")) return;
+          if (supportCustomer) {
+            var threadEl = document.getElementById("supportMsgs");
+            if (threadEl) renderSupportThreadMessages(threadEl);
+            else renderSupportThread();
+          } else if (!fromPoll || supportLoadFailed || (supportAll && supportAll.length)) {
+            renderSupportList();
+          } else if (fromPoll) { renderSupportList(); }
+        });
+      }
+      function renderSupportList() {
+        var body = document.getElementById("supportBody"); if (!body) return;
+        var head = '<h3 style="margin:0 0 4px;font-size:1.45rem">Support inbox</h3><p style="color:var(--ink-soft);margin:0 0 16px">Customer conversations from the store chat.</p>';
+        if (supportLoadFailed) { body.innerHTML = head + '<div class="profile-empty"><b>Could not load messages</b><p>Chat is not available just yet — the inbox will work once the chat table is ready.</p></div>'; return; }
+        if (!supportAll) { body.innerHTML = head + '<div class="profile-loading">Loading conversations…</div>'; return; }
+        var convos = groupConversations(supportAll);
+        if (!convos.length) { body.innerHTML = head + '<div class="profile-empty"><b>No customer messages yet</b><p>When a customer writes in the store chat, their conversation will show up here.</p></div>'; return; }
+        body.innerHTML = head + convos.map(function (c) {
+          var last = c.messages[c.messages.length - 1];
+          var initial = (c.name || "C").charAt(0).toUpperCase();
+          return '<button type="button" class="convo-item" data-convo="' + esc(c.email) + '"><span class="review-avatar">' + esc(initial) + '</span><span style="min-width:0"><b>' + esc(c.name) + '</b><small>' + esc(c.email) + '</small><small>' + esc(((last && last.message) || (last && last.attachment_url ? "📎 Attachment" : "")).slice(0, 90)) + '</small></span><span class="convo-time">' + esc(last ? formatChatTime(last.created_at) : "") + '<span class="convo-count">' + c.messages.length + (c.messages.length === 1 ? " message" : " messages") + '</span></span></button>';
+        }).join("");
+        body.querySelectorAll("[data-convo]").forEach(function (b) {
+          b.addEventListener("click", function () { supportCustomer = b.getAttribute("data-convo"); renderSupportThread(); });
+        });
+      }
+      function currentConvo() {
+        if (!supportCustomer || !supportAll) return null;
+        var convos = groupConversations(supportAll);
+        for (var i = 0; i < convos.length; i++) if (convos[i].email.toLowerCase() === supportCustomer.toLowerCase()) return convos[i];
+        return { email: supportCustomer, name: supportCustomer, messages: [] };
+      }
+      function renderSupportThreadMessages(el) {
+        var c = currentConvo(); if (!c || !el) return;
+        if (supportLoadFailed && !c.messages.length) { el.innerHTML = '<div class="chat-note"><b>Could not load messages</b>Please try again later.</div>'; return; }
+        if (!c.messages.length) { el.innerHTML = '<div class="chat-note"><b>No messages yet</b>This conversation is empty.</div>'; return; }
+        el.innerHTML = c.messages.map(function (m) { return bubbleHTML(m, isSupportSender(m), c.name.split(" ")[0] || "Customer"); }).join("");
+        el.scrollTop = el.scrollHeight;
+      }
+      function renderSupportThread() {
+        var body = document.getElementById("supportBody"); if (!body) return;
+        var c = currentConvo(); if (!c) { renderSupportList(); return; }
+        body.innerHTML =
+          '<button type="button" class="support-back" id="supportBack">← All conversations</button>' +
+          '<div class="profile-head" style="margin-bottom:14px"><span class="avatar-lg">' + esc((c.name || "C").charAt(0).toUpperCase()) + '</span><div><h3 style="font-size:1.2rem">' + esc(c.name) + '</h3><p>' + esc(c.email) + '</p></div></div>' +
+          '<div class="support-thread" id="supportMsgs"></div>' +
+          '<div class="chat-attach-bar" id="supportAttachBar" hidden style="border:1.5px solid var(--line);border-bottom:0;border-radius:14px 14px 0 0"></div>' +
+          '<form class="chat-form" id="supportReplyForm" style="border:1.5px solid var(--line);border-radius:14px;padding:10px">' +
+          '<div class="emoji-panel" id="supportEmojiPanel" hidden></div>' +
+          '<button type="button" class="chat-tool" id="supportEmojiBtn" aria-label="Insert emoji">' + SMILEY_SVG + '</button>' +
+          '<button type="button" class="chat-tool" id="supportAttachBtn" aria-label="Attach a photo or video">' + CLIP_SVG + '</button>' +
+          '<input type="file" id="supportFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" hidden>' +
+          '<textarea id="supportReplyInput" placeholder="Reply to ' + esc(c.name.split(" ")[0]) + '…" maxlength="2000" rows="1" aria-label="Your reply"></textarea><button type="submit" class="chat-send" id="supportReplySend">Reply</button></form>' +
+          '<div class="review-err" id="supportReplyErr"></div>';
+        renderSupportThreadMessages(document.getElementById("supportMsgs"));
+        document.getElementById("supportBack").addEventListener("click", function () { supportCustomer = null; renderSupportList(); });
+        document.getElementById("supportReplyForm").addEventListener("submit", sendSupportReply);
+        supportPending = null; supportUploading = null; renderSupportAttachBar();
+        wireEmojiToggle(document.getElementById("supportEmojiBtn"), document.getElementById("supportEmojiPanel"), document.getElementById("supportReplyInput"));
+        document.getElementById("supportAttachBtn").addEventListener("click", function () { document.getElementById("supportFile").click(); });
+        document.getElementById("supportFile").addEventListener("change", function () { var f = this.files && this.files[0]; this.value = ""; handleSupportFile(f); });
+        document.getElementById("supportReplyInput").addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendSupportReply(e); } });
+      }
+      /* Support reply attachment state */
+      var supportPending = null, supportUploading = null;
+      function supportErr(msg) {
+        var err = document.getElementById("supportReplyErr"); if (!err) return;
+        if (msg) { err.textContent = msg; err.classList.add("show"); } else { err.textContent = ""; err.classList.remove("show"); }
+      }
+      function renderSupportAttachBar() {
+        var bar = document.getElementById("supportAttachBar"); if (!bar) return;
+        if (!supportPending && !supportUploading) { bar.hidden = true; bar.innerHTML = ""; return; }
+        bar.hidden = false;
+        if (supportUploading) { bar.innerHTML = '<span class="att-name">Uploading ' + esc(supportUploading) + '…</span>'; return; }
+        var prev = supportPending.type.indexOf("video") === 0
+          ? '<video src="' + esc(supportPending.url) + '" muted preload="metadata"></video>'
+          : '<img src="' + esc(supportPending.url) + '" alt="Attachment preview">';
+        bar.innerHTML = prev + '<span class="att-name">' + esc(supportPending.name) + '</span><button type="button" class="att-rm" id="supportAttachRm">Remove</button>';
+        document.getElementById("supportAttachRm").addEventListener("click", function () { supportPending = null; renderSupportAttachBar(); });
+      }
+      function handleSupportFile(file) {
+        supportErr("");
+        if (!file || !session || !session.user) return;
+        if (!typeAllowed(file, CHAT_FILE_TYPES, ["jpg", "jpeg", "png", "webp", "mp4", "webm"])) { supportErr("That file type isn't supported — send a JPG, PNG or WebP image, or an MP4/WebM video."); return; }
+        if (file.size > CHAT_MAX_BYTES) { supportErr("That file is too big — the limit is 10 MB per file."); return; }
+        supportUploading = file.name; renderSupportAttachBar();
+        var btn = document.getElementById("supportReplySend"); if (btn) btn.disabled = true;
+        uploadToStorage("chat-attachments", storagePathFor(session.user.email, file), file, session.access_token).then(function (url) {
+          supportPending = { url: url, type: mimeForFile(file), name: file.name };
+          supportUploading = null; renderSupportAttachBar();
+          if (btn) btn.disabled = false;
+        }).catch(function (err) {
+          supportUploading = null; renderSupportAttachBar();
+          if (btn) btn.disabled = false;
+          supportErr("Couldn't upload that file — please try again.");
+        });
+      }
+      function sendSupportReply(ev) {
+        if (ev) ev.preventDefault();
+        if (!isOwner() || !supportCustomer) return;
+        var inp = document.getElementById("supportReplyInput"); if (!inp) return;
+        if (supportUploading) { supportErr("Please wait for your file to finish uploading."); return; }
+        var text = (inp.value || "").trim();
+        if (!text && !supportPending) return;
+        supportErr("");
+        var c = currentConvo();
+        var payload = { customer_email: supportCustomer, customer_name: c ? c.name : supportCustomer, sender: "support", message: text };
+        var local = { customer_email: payload.customer_email, customer_name: payload.customer_name, sender: "support", message: text, created_at: new Date().toISOString() };
+        if (supportPending) { payload.attachment_url = supportPending.url; payload.attachment_type = supportPending.type; local.attachment_url = supportPending.url; local.attachment_type = supportPending.type; }
+        var btn = document.getElementById("supportReplySend");
+        if (!supportAll) supportAll = [];
+        supportAll.push(local);
+        var threadEl = document.getElementById("supportMsgs"); if (threadEl) renderSupportThreadMessages(threadEl);
+        inp.value = "";
+        supportPending = null; renderSupportAttachBar();
+        var ep = document.getElementById("supportEmojiPanel"); if (ep) ep.hidden = true;
+        if (btn) btn.disabled = true;
+        postChatMessage(payload, session.access_token).then(function (r) {
+          if (btn) btn.disabled = false;
+          if (!r.ok) supportErr("Couldn't send your reply — please try again.");
+          loadSupportData();
         });
       }
 
@@ -856,6 +1808,7 @@
         try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
         hideAcctMenu();
         closeCart();
+        try { closeChatPanel(); stopSupportPoll(); } catch (e) {}
         renderCart();
         updateAuthUI();
         toast("You've been signed out. See you soon!");
@@ -867,10 +1820,10 @@
         if (session && session.user) {
           var nm = displayName(session.user);
           label.textContent = nm.split(" ")[0];
-          avatar.textContent = nm.charAt(0).toUpperCase();
+          avatar.innerHTML = avatarInnerHTML(session.user, nm);
           avatar.style.display = "inline-flex";
           icon.style.display = "none";
-          document.getElementById("menuAvatar").textContent = nm.charAt(0).toUpperCase();
+          document.getElementById("menuAvatar").innerHTML = avatarInnerHTML(session.user, nm);
           document.getElementById("menuName").textContent = nm;
           document.getElementById("menuEmail").textContent = session.user.email || "";
         } else {
@@ -879,6 +1832,8 @@
           icon.style.display = "";
           hideAcctMenu();
         }
+        var supportBtnEl = document.getElementById("supportBtn");
+        if (supportBtnEl) supportBtnEl.hidden = !isOwner();
       }
       function hideAcctMenu() { document.getElementById("acctMenu").hidden = true; }
       document.getElementById("acctBtn").addEventListener("click", function (e) {
@@ -891,6 +1846,19 @@
         if (!e.target.closest(".acct")) hideAcctMenu();
       });
       document.getElementById("signOutBtn").addEventListener("click", signOut);
+      document.getElementById("profileBtn").addEventListener("click", function () { hideAcctMenu(); openProfile(); });
+      document.getElementById("supportBtn").addEventListener("click", function () { hideAcctMenu(); openSupportInbox(); });
+      document.getElementById("chatFab").addEventListener("click", function () {
+        var p = document.getElementById("chatPanel");
+        if (p.classList.contains("open")) closeChatPanel(); else openChat();
+      });
+      document.getElementById("chatClose").addEventListener("click", closeChatPanel);
+      document.getElementById("chatForm").addEventListener("submit", sendChatMessage);
+      wireEmojiToggle(document.getElementById("chatEmojiBtn"), document.getElementById("chatEmojiPanel"), document.getElementById("chatInput"));
+      document.getElementById("chatAttachBtn").addEventListener("click", function () { document.getElementById("chatFile").click(); });
+      document.getElementById("chatFile").addEventListener("change", function () { var f = this.files && this.files[0]; this.value = ""; handleChatFile(f); });
+      document.getElementById("chatInput").addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChatMessage(e); } });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeChatPanel(); });
 
       /* Auth modal views */
       var AUTH_VIEWS = {
@@ -948,12 +1916,18 @@
         btn.textContent = busy ? "Please wait…" : (label || btn._label);
       }
       function afterAuth() {
-        closeModals();
-        toast("Welcome, " + displayName(session.user).split(" ")[0] + "!");
         var a = pendingAction; pendingAction = null;
+        closeModals();
+        // closeModals clears pendingAction when the auth modal was open; restore the saved action
+        pendingAction = null;
+        toast("Welcome, " + displayName(session.user).split(" ")[0] + "!");
         if (!a) return;
         if (a.type === "add") { addToCart(a.id, a.qty); if (a.openCart) openCart(); }
         else if (a.type === "checkout") { openCheckout(); }
+        else if (a.type === "review") { openQV(a.id); setTimeout(function () { var w = document.getElementById("reviewFormWrap"); if (w) w.scrollIntoView({ behavior: "smooth", block: "center" }); }, 80); }
+        else if (a.type === "profile") { openProfile(); }
+        else if (a.type === "chat") { openChat(); }
+        else if (a.type === "support") { openSupportInbox(); }
       }
       function gateAdd(id, qty, openCartAfter) {
         if (session) {
@@ -962,6 +1936,15 @@
         } else {
           pendingAction = { type: "add", id: id, qty: qty, openCart: openCartAfter };
           openAuth("signin", "Please sign in or create an account to add items to your cart — it only takes a moment.");
+        }
+      }
+      function gateReview(id) {
+        if (session) {
+          var w = document.getElementById("reviewFormWrap");
+          if (w) w.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          pendingAction = { type: "review", id: id };
+          openAuth("signin", "Please sign in or create an account to write a review — it only takes a moment.");
         }
       }
 
@@ -1098,7 +2081,7 @@
           '<label>Street address<input required name="address" autocomplete="street-address" placeholder="House, street, town"></label>' +
           '<div class="two"><label>Phone<input required type="tel" name="phone" autocomplete="tel" placeholder="e.g. +1 555 123 4567"></label>' +
           '<label>City<input required name="city" autocomplete="address-level2" placeholder="e.g. New York"></label></div>' +
-          '<div class="two"><label>Country<select name="country"><option>United States</option><option>United Kingdom</option><option>Canada</option></select></label>' +
+          '<div class="two"><label>Country<select name="country"><option>United States</option><option>Canada</option></select></label>' +
           '<label>Postcode / ZIP<input required name="zip" autocomplete="postal-code" placeholder="e.g. 10001"></label></div>' +
           '<div><label style="margin-bottom:6px">Payment</label><div class="pay-opts">' +
           '<label><input type="radio" name="pay" value="Card" checked> Card (via Stripe)</label>' +
@@ -1143,7 +2126,8 @@
             subtotal: inCur(sub),
             shipping: inCur(ship),
             total: inCur(sub + ship),
-            currency: currency
+            currency: currency,
+            payment_method: fd.get("pay")
           });
           cart = {};
           renderCart();
@@ -1176,8 +2160,8 @@
 
       function downloadReceipt() {
         if (!lastOrder) return;
-        var sym = lastOrder.cur === "GBP" ? "£" : (lastOrder.cur === "CAD" ? "CA$" : "$");
-        var rate = lastOrder.cur === "GBP" ? GBP_RATE : (lastOrder.cur === "CAD" ? CAD_RATE : 1);
+        var sym = lastOrder.cur === "CAD" ? "CA$" : "$";
+        var rate = lastOrder.cur === "CAD" ? CAD_RATE : 1;
         function m(v) { return sym + (v * rate).toFixed(2); }
         var txt = "Trend Karat — Order " + lastOrder.no + "\n" +
           "Customer: " + lastOrder.name + " (" + lastOrder.email + ")\n" +
@@ -1213,6 +2197,7 @@
       renderCart();
       updateAuthUI();
       paintThemeIcon();
+      loadReviews();
     </script>
   </body>
 </html>
