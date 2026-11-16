@@ -153,6 +153,12 @@
       .cart-btn { position: relative; border: 0; background: var(--ink); color: var(--bg); border-radius: 99px; font-weight: 700; padding: 0 18px; min-height: 42px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; }
       .cart-btn .ic { width: 18px; height: 18px; }
       .cart-count { background: var(--accent); color: #fff; border-radius: 99px; min-width: 21px; height: 21px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.76rem; font-weight: 800; padding: 0 5px; }
+      /* Shopify SHOP NOW — reuses existing pill button design, accent colour for visibility */
+      .shop-now-btn { border: 0; background: var(--accent); color: #fff; border-radius: 99px; font-weight: 800; letter-spacing: 0.04em; padding: 0 20px; min-height: 42px; display: inline-flex; align-items: center; gap: 7px; font-size: 0.88rem; text-decoration: none; white-space: nowrap; transition: background 0.15s; }
+      .shop-now-btn:hover { background: var(--accent-strong); color: #fff; }
+      .shop-now-btn .ic { width: 16px; height: 16px; }
+      .shop-now-nav { margin-left: auto; align-self: center; min-height: 36px; padding: 0 16px; font-size: 0.84rem; }
+      @media (max-width: 760px) { .shop-now-btn { padding: 0 16px; min-height: 40px; font-size: 0.84rem; } .shop-now-nav { margin-left: 0; } }
       nav.cats { border-top: 1px solid var(--line); }
       nav.cats .wrap { display: flex; gap: 2px; padding-top: 0; padding-bottom: 0; }
       nav.cats button { border: 0; background: transparent; color: var(--ink-soft); font-weight: 600; font-size: 0.92rem; padding: 12px 14px; white-space: nowrap; min-height: 44px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
@@ -637,6 +643,10 @@
               <button type="button" class="signout-btn" id="signOutBtn">Sign out</button>
             </div>
           </div>
+          <a class="shop-now-btn" href="https://aju9vp-0i.myshopify.com" aria-label="Shop now on Shopify">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            SHOP NOW
+          </a>
           <button type="button" class="cart-btn" id="openCart">
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7L5 3H2"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/></svg>
             Cart <span class="cart-count" id="cartCount">0</span>
@@ -650,6 +660,7 @@
           <button type="button" data-cat="home">Home &amp; Living</button>
           <button type="button" data-cat="kitchen">Kitchen</button>
           <button type="button" data-cat="wellness">Wellness</button>
+          <a class="shop-now-btn shop-now-nav" href="https://aju9vp-0i.myshopify.com">SHOP NOW →</a>
         </div>
       </nav>
     </header>
@@ -661,7 +672,8 @@
           <h1>Useful products for <em>everyday living</em></h1>
           <p class="lede">A focused range of gadgets and home essentials — lighting, cleaning, kitchen and wellness products chosen for practical design, clear features and everyday value. Browse the full range below and view complete details for every product.</p>
           <div class="hero-cta">
-            <a class="btn btn-ink" href="#shop">Browse products</a>
+            <a class="btn btn-ink" href="https://aju9vp-0i.myshopify.com" style="background:var(--accent);color:#fff">SHOP NOW</a>
+            <a class="btn btn-ghost" href="#shop">Browse products</a>
             <a class="btn btn-ghost" href="#shop">View all categories</a>
           </div>
           <div class="hero-points">
@@ -717,6 +729,7 @@
         <div>
           <h4>Shop</h4>
           <ul>
+            <li><a href="https://aju9vp-0i.myshopify.com">Shop Now — Shopify Store</a></li>
             <li><a href="#shop">All products</a></li>
             <li><a href="#shop">Gadgets &amp; Tech</a></li>
             <li><a href="#shop">Home &amp; Living</a></li>
