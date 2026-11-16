@@ -2569,6 +2569,14 @@
         CATEGORIES.forEach(function (c) {
           html += '<button type="button" data-cat="' + esc(c.slug) + '"' + (activeCat === c.slug ? ' class="on"' : '') + '>' + esc(c.name) + '</button>';
         });
+        /* SHOP NOW must be part of the generated HTML: this function replaces
+           the nav's innerHTML on every render (initial load, category/product
+           loads from Supabase, admin category changes), so a static link placed
+           only in the markup gets wiped. Appending it here keeps it visible
+           and working after every re-render, on desktop and mobile (the nav
+           wraps). It is an <a>, so the delegated button[data-cat] click
+           handler above ignores it and it navigates normally, same tab. */
+        html += '<a class="shop-now-btn shop-now-nav" href="https://aju9vp-0i.myshopify.com">SHOP NOW →</a>';
         nav.innerHTML = html;
       }
       function parsePoints(v) {
