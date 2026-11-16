@@ -1522,9 +1522,11 @@
       }
 
       /* ---------------- Chat (Supabase public.chat_messages) ---------------- */
-      var OWNER_EMAIL = "trendkarat.official@gmail.com";
+      var OWNER_EMAILS = ["trendkarat.official@gmail.com", "chaudharyahmad587@gmail.com"];
       function isOwner() {
-        return !!(typeof session !== "undefined" && session && session.user && (session.user.email || "").toLowerCase() === OWNER_EMAIL);
+        if (!(typeof session !== "undefined" && session && session.user)) return false;
+        var email = (session.user.email || "").toLowerCase();
+        return OWNER_EMAILS.indexOf(email) !== -1;
       }
       function normalizeChatMessage(row) {
         var sender = row.sender || row.sender_type || row.sent_by || (row.is_support ? "support" : "customer");
@@ -2321,7 +2323,7 @@
         ev.preventDefault();
         /* The admin panel has no sign-up path — never create an account
            from an admin sign-in dialog, even if the form is reached. */
-        if (authAdminOnly) { showAuthView("signin"); showMsg("siErr", "Sign-up isn't available for the admin panel — please sign in with the store owner account."); return; }
+        if (authAdminOnly) { showAuthView("signin"); showMsg("siErr", "Sign-up isn't available for the admin panel — please sign in with an admin account."); return; }
         clearAuthMsgs();
         var fd = new FormData(ev.target);
         var name = (fd.get("name") || "").trim();
@@ -2545,7 +2547,7 @@
 
       /* ---------------- Admin panel (owner only) ----------------
          Entry: a tiny dot in the footer, or the URL hash #admin.
-         Access: only the signed-in owner account (OWNER_EMAIL above).
+         Access: only a signed-in admin account (OWNER_EMAILS above).
          Anyone else gets nothing — no panel, no message.
          Sign-in for the panel is sign-in ONLY: the auth dialog opened
          from here offers no sign-up / create-account option at all.
@@ -2755,7 +2757,7 @@
         if (!session || !session.user) {
           pendingAction = { type: "admin" };
           /* Sign-in only for the admin panel — no sign-up option here. */
-          openAuth("signin", "Please sign in with the store owner account to open the admin panel.", true);
+          openAuth("signin", "Please sign in with an admin account to open the admin panel.", true);
           return;
         }
         if (!isOwner()) return; // no access for anyone else — nothing is shown
@@ -2769,7 +2771,7 @@
         var body = document.getElementById("adminBody"); if (!body) return;
         var tabs = [["dashboard", "Dashboard"], ["orders", "Orders"], ["products", "Products"], ["categories", "Categories"], ["support", "Support inbox"]];
         body.innerHTML =
-          '<div class="admin-head"><p style="font-size:0.74rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin:0 0 4px">Seller dashboard</p><h3>Admin panel</h3><p>Store owner · ' + esc(session.user.email || "") + ' · Sales, orders, products and support in one place</p></div>' +
+          '<div class="admin-head"><p style="font-size:0.74rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin:0 0 4px">Seller dashboard</p><h3>Admin panel</h3><p>Admin · ' + esc(session.user.email || "") + ' · Sales, orders, products and support in one place</p></div>' +
           '<div class="admin-tabs" role="tablist">' + tabs.map(function (t) {
             return '<button type="button" role="tab" data-atab="' + t[0] + '"' + (adminTab === t[0] ? ' class="on"' : '') + '>' + t[1] + (t[0] === "support" ? '<span class="count-badge" id="adminTabBadge" hidden></span>' : '') + '</button>';
           }).join("") + '</div>' +
