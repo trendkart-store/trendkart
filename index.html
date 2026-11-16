@@ -450,15 +450,39 @@
       .confirm-resend:disabled { opacity: 0.5; cursor: not-allowed; text-decoration: none; }
 
       /* ---------- Admin dashboard charts ---------- */
-      .dash-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
-      .dash-kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow-sm); }
-      .dash-kpi small { display: block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+      .dash-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+      .dash-kpi { --kc: var(--ink-soft); --ksoft: var(--surface); position: relative; overflow: hidden; background: var(--ksoft); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow-sm); }
+      .dash-kpi::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--kc); }
+      .dash-kpi .kpi-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+      .dash-kpi .kpi-ic { flex: none; width: 40px; height: 40px; border-radius: 11px; background: var(--kc); color: #fff; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(16, 18, 20, 0.18); }
+      .dash-kpi .kpi-ic svg { width: 21px; height: 21px; }
+      .dash-kpi small { display: block; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
       .dash-kpi b { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; display: block; }
-      .dash-kpi span { display: block; margin-top: 6px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; line-height: 1.4; }
-      .dash-kpi .up { color: var(--accent-strong); font-weight: 800; }
+      .dash-kpi .kpi-note { display: block; margin-top: 6px; font-size: 0.83rem; color: var(--ink-soft); font-weight: 600; line-height: 1.4; }
+      .k-green { --kc: #059669; --ksoft: #e7f6ef; }
+      .k-blue { --kc: #2563eb; --ksoft: #e8effc; }
+      .k-violet { --kc: #7c3aed; --ksoft: #f0eafd; }
+      .k-amber { --kc: #d97706; --ksoft: #fdf1e0; }
+      .k-rose { --kc: #db2777; --ksoft: #fce9f2; }
+      .k-cyan { --kc: #0891b2; --ksoft: #e3f4f8; }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .k-green { --ksoft: #0d2b21; }
+        :root:not([data-theme="light"]) .k-blue { --ksoft: #12233f; }
+        :root:not([data-theme="light"]) .k-violet { --ksoft: #251741; }
+        :root:not([data-theme="light"]) .k-amber { --ksoft: #33230a; }
+        :root:not([data-theme="light"]) .k-rose { --ksoft: #33121f; }
+        :root:not([data-theme="light"]) .k-cyan { --ksoft: #0b2831; }
+      }
+      :root[data-theme="dark"] .k-green { --ksoft: #0d2b21; }
+      :root[data-theme="dark"] .k-blue { --ksoft: #12233f; }
+      :root[data-theme="dark"] .k-violet { --ksoft: #251741; }
+      :root[data-theme="dark"] .k-amber { --ksoft: #33230a; }
+      :root[data-theme="dark"] .k-rose { --ksoft: #33121f; }
+      :root[data-theme="dark"] .k-cyan { --ksoft: #0b2831; }
       .dash-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 14px; margin-bottom: 14px; }
       .chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: var(--shadow-sm); min-width: 0; }
-      .chart-card h4 { font-size: 1.02rem; margin: 0; letter-spacing: -0.01em; }
+      .chart-card h4 { font-size: 1.02rem; margin: 0; letter-spacing: -0.01em; display: flex; align-items: center; }
+      .ch-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; display: inline-block; margin-right: 9px; }
       .chart-card .chart-sub { color: var(--ink-soft); font-size: 0.84rem; font-weight: 600; margin: 3px 0 14px; }
       .chart-empty { text-align: center; padding: 26px 12px; color: var(--ink-soft); font-size: 0.9rem; background: var(--surface-2); border-radius: 12px; line-height: 1.55; }
       .chart-empty b { color: var(--ink); display: block; margin-bottom: 3px; font-size: 0.95rem; }
@@ -472,9 +496,11 @@
       .top-list { display: grid; gap: 4px; }
       .top-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; padding: 9px 4px; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
       .top-row:last-child { border-bottom: 0; }
-      .top-row .rank { width: 24px; height: 24px; border-radius: 50%; background: var(--surface-2); color: var(--ink-soft); font-size: 0.78rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+      .top-row .rank { width: 24px; height: 24px; border-radius: 50%; background: var(--surface-2); color: #fff; font-size: 0.78rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
       .top-row .tname { font-weight: 700; line-height: 1.3; min-width: 0; }
       .top-row .tname small { display: block; color: var(--ink-soft); font-weight: 600; font-size: 0.8rem; }
+      .top-bar { display: block; height: 6px; background: var(--surface-2); border-radius: 99px; margin-top: 6px; overflow: hidden; }
+      .top-bar i { display: block; height: 100%; border-radius: 99px; }
       .top-row .tval { font-weight: 800; white-space: nowrap; }
       .cat-bars { display: grid; gap: 12px; }
       .cat-bar-row { font-size: 0.88rem; }
@@ -482,8 +508,7 @@
       .cat-bar-row .cb-head span:last-child { color: var(--ink-soft); font-weight: 600; }
       .cat-bar-track { height: 9px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
       .cat-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; }
-      @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
-      @media (max-width: 760px) { .dash-kpis { grid-template-columns: 1fr 1fr; } }
+      @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } .dash-kpis { grid-template-columns: 1fr 1fr; } }
 
       /* ---------- Footer ---------- */
       footer.site { margin-top: 64px; background: var(--footer-bg); color: #a9adb3; }
@@ -2841,6 +2866,7 @@
         });
         return days;
       }
+      var BAR_COLORS = ["#0891b2", "#2563eb", "#7c3aed", "#db2777", "#d97706", "#0d9488", "#059669"];
       function revenueBarChartSVG(days) {
         var W = 640, H = 240, padL = 52, padR = 10, padT = 18, padB = 34;
         var cw = W - padL - padR, ch = H - padT - padB;
@@ -2860,8 +2886,8 @@
           var bx = padL + bw * i + bw * 0.22, bwid = bw * 0.56;
           var by = padT + ch - bh;
           var isToday = i === days.length - 1;
-          bars += '<rect x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + bwid.toFixed(1) + '" height="' + Math.max(bh, d.total > 0 ? 3 : 0).toFixed(1) + '" rx="5" fill="' + (isToday ? "var(--accent)" : "var(--ink)") + '" opacity="' + (isToday ? "1" : "0.82") + '"><title>' + esc(d.full) + ': ' + money(d.total) + ' · ' + d.count + (d.count === 1 ? " order" : " orders") + '</title></rect>' +
-            (d.total > 0 ? '<text x="' + (bx + bwid / 2).toFixed(1) + '" y="' + (by - 6).toFixed(1) + '" text-anchor="middle" font-size="11.5" font-weight="800" fill="var(--ink)">' + money(d.total) + '</text>' : '');
+          bars += '<rect x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + bwid.toFixed(1) + '" height="' + Math.max(bh, d.total > 0 ? 3 : 0).toFixed(1) + '" rx="5" fill="' + BAR_COLORS[i % BAR_COLORS.length] + '" opacity="' + (isToday ? "1" : "0.92") + '"><title>' + esc(d.full) + ': ' + money(d.total) + ' · ' + d.count + (d.count === 1 ? " order" : " orders") + '</title></rect>' +
+            (d.total > 0 ? '<text x="' + (bx + bwid / 2).toFixed(1) + '" y="' + (by - 6).toFixed(1) + '" text-anchor="middle" font-size="11.5" font-weight="800" fill="' + BAR_COLORS[i % BAR_COLORS.length] + '">' + money(d.total) + '</text>' : '');
           labels += '<text x="' + (padL + bw * i + bw / 2).toFixed(1) + '" y="' + (H - 18) + '" text-anchor="middle" font-size="11.5" font-weight="' + (isToday ? "800" : "600") + '" fill="' + (isToday ? "var(--ink)" : "var(--ink-faint)") + '">' + esc(d.label) + '</text>' +
             '<text x="' + (padL + bw * i + bw / 2).toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle" font-size="10" fill="var(--ink-faint)">' + esc(d.full) + '</text>';
         });
@@ -2869,10 +2895,10 @@
       }
       function statusDonutSVG(counts) {
         var segs = [
-          { key: "pending", label: "Pending", color: "#e8930c" },
+          { key: "pending", label: "Pending", color: "#f59e0b" },
           { key: "shipped", label: "Shipped", color: "#2563eb" },
-          { key: "delivered", label: "Delivered", color: "#0b6b4f" },
-          { key: "cancelled", label: "Cancelled", color: "#b3261e" }
+          { key: "delivered", label: "Delivered", color: "#059669" },
+          { key: "cancelled", label: "Cancelled", color: "#dc2626" }
         ];
         var total = segs.reduce(function (s, x) { return s + (counts[x.key] || 0); }, 0);
         var cx = 80, cy = 80, r = 62, sw = 26, circ = 2 * Math.PI * r;
@@ -2909,6 +2935,20 @@
         });
         return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return b.qty - a.qty || b.revenueUSD - a.revenueUSD; }).slice(0, 5);
       }
+      function kpiIcon(paths) {
+        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + '</svg>';
+      }
+      var ICON_REVENUE = '<path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>';
+      var ICON_ORDERS = '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>';
+      var ICON_RECEIPT = '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/>';
+      var ICON_TREND = '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>';
+      var ICON_BOX = '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>';
+      var ICON_GRID = '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>';
+      function kpiCard(cls, icon, label, value, note) {
+        return '<div class="dash-kpi ' + cls + '"><div class="kpi-top"><span class="kpi-ic">' + kpiIcon(icon) + '</span><small>' + label + '</small></div><b>' + value + '</b><span class="kpi-note">' + note + '</span></div>';
+      }
+      var RANK_COLORS = ["#d97706", "#2563eb", "#7c3aed", "#0891b2", "#db2777"];
+      var CAT_COLORS = ["#059669", "#2563eb", "#7c3aed", "#db2777", "#d97706", "#0891b2", "#dc2626", "#0d9488"];
       function renderAdminDashboard(el) {
         var orders = adminOrders || [];
         var revenue = 0, pendingCount = 0;
@@ -2929,33 +2969,33 @@
         var loading = !adminOrders && !adminOrdersFailed;
         el.innerHTML =
           '<div class="dash-kpis">' +
-          '<div class="dash-kpi"><small>Total revenue</small><b>' + (adminOrders ? money(revenue) : "—") + '</b><span>All time · excluding cancelled orders</span></div>' +
-          '<div class="dash-kpi"><small>Orders</small><b>' + (adminOrders ? orders.length : "—") + '</b><span>' + (adminOrders ? pendingCount + (pendingCount === 1 ? " order" : " orders") + ' waiting as pending' : 'All time') + '</span></div>' +
-          '<div class="dash-kpi"><small>Average order value</small><b>' + (adminOrders ? money(avgOrder) : "—") + '</b><span>Across non-cancelled orders</span></div>' +
-          '<div class="dash-kpi"><small>Last 7 days</small><b>' + (adminOrders ? money(weekRevenue) : "—") + '</b><span>' + (adminOrders ? weekOrders + (weekOrders === 1 ? " order" : " orders") + ' in the last 7 days' : 'Revenue') + '</span></div>' +
-          '</div>' +
-          '<div class="dash-kpis" style="grid-template-columns:repeat(2,1fr)">' +
-          '<div class="dash-kpi"><small>Products live</small><b>' + ALL_PRODUCTS.filter(function (p) { return !p.hidden; }).length + '</b><span>' + ALL_PRODUCTS.length + ' total · ' + ALL_PRODUCTS.filter(function (p) { return p.hidden; }).length + ' hidden</span></div>' +
-          '<div class="dash-kpi"><small>Categories</small><b>' + CATEGORIES.length + '</b><span>Shown in the store filter bar</span></div>' +
+          kpiCard("k-green", ICON_REVENUE, "Total revenue", adminOrders ? money(revenue) : "—", "All time · excluding cancelled orders") +
+          kpiCard("k-blue", ICON_ORDERS, "Orders", adminOrders ? orders.length : "—", adminOrders ? pendingCount + (pendingCount === 1 ? " order" : " orders") + " waiting as pending" : "All time") +
+          kpiCard("k-violet", ICON_RECEIPT, "Average order value", adminOrders ? money(avgOrder) : "—", "Across non-cancelled orders") +
+          kpiCard("k-amber", ICON_TREND, "Last 7 days", adminOrders ? money(weekRevenue) : "—", adminOrders ? weekOrders + (weekOrders === 1 ? " order" : " orders") + " in the last 7 days" : "Revenue") +
+          kpiCard("k-rose", ICON_BOX, "Products live", ALL_PRODUCTS.filter(function (p) { return !p.hidden; }).length, ALL_PRODUCTS.length + " total · " + ALL_PRODUCTS.filter(function (p) { return p.hidden; }).length + " hidden") +
+          kpiCard("k-cyan", ICON_GRID, "Categories", CATEGORIES.length, "Shown in the store filter bar") +
           '</div>' +
           (productsNote ? '<div class="admin-note"><b>Products:</b> ' + esc(productsNote) + '</div>' : '') +
           (adminOrdersFailed ? '<div class="profile-empty"><b>Could not load orders</b><p>The sales charts need your orders — please try Refresh in a moment.</p></div>'
             : loading ? '<div class="profile-loading">Loading your sales data…</div>'
             : '<div class="dash-grid">' +
-              '<div class="chart-card"><h4>Revenue — last 7 days</h4><p class="chart-sub">' + money(weekRevenue) + ' from ' + weekOrders + (weekOrders === 1 ? ' order' : ' orders') + ' · cancelled orders excluded</p>' +
+              '<div class="chart-card"><h4><span class="ch-dot" style="background:#059669"></span>Revenue — last 7 days</h4><p class="chart-sub">' + money(weekRevenue) + ' from ' + weekOrders + (weekOrders === 1 ? ' order' : ' orders') + ' · cancelled orders excluded</p>' +
               (weekRevenue > 0 || weekOrders > 0 ? revenueBarChartSVG(days) : '<div class="chart-empty"><b>No sales in the last 7 days yet</b>When orders come in, daily revenue will appear here as a chart.</div>') + '</div>' +
-              '<div class="chart-card"><h4>Orders by status</h4><p class="chart-sub">Where every order stands right now</p>' + statusDonutSVG(statusCounts) + '</div>' +
+              '<div class="chart-card"><h4><span class="ch-dot" style="background:#2563eb"></span>Orders by status</h4><p class="chart-sub">Where every order stands right now</p>' + statusDonutSVG(statusCounts) + '</div>' +
               '</div>' +
               '<div class="dash-grid">' +
-              '<div class="chart-card"><h4>Top products</h4><p class="chart-sub">Best sellers by quantity ordered</p>' +
+              '<div class="chart-card"><h4><span class="ch-dot" style="background:#d97706"></span>Top products</h4><p class="chart-sub">Best sellers by quantity ordered</p>' +
               (top.length ? '<div class="top-list">' + top.map(function (t, i) {
-                return '<div class="top-row"><span class="rank">' + (i + 1) + '</span><span class="tname">' + esc(t.name) + '<small>' + t.qty + (t.qty === 1 ? ' sold' : ' sold') + '</small></span><span class="tval">' + money(t.revenueUSD) + '</span></div>';
+                var rc = RANK_COLORS[i % RANK_COLORS.length];
+                var pct = top[0].qty > 0 ? Math.round((t.qty / top[0].qty) * 100) : 0;
+                return '<div class="top-row"><span class="rank" style="background:' + rc + '">' + (i + 1) + '</span><span class="tname">' + esc(t.name) + '<small>' + t.qty + ' sold</small><span class="top-bar"><i style="width:' + pct + '%;background:' + rc + '"></i></span></span><span class="tval">' + money(t.revenueUSD) + '</span></div>';
               }).join("") + '</div>' : '<div class="chart-empty"><b>No product sales yet</b>Your best sellers will be ranked here once orders come in.</div>') + '</div>' +
-              '<div class="chart-card"><h4>Catalogue by category</h4><p class="chart-sub">Products in each category</p><div class="cat-bars">' +
-              CATEGORIES.map(function (c) {
+              '<div class="chart-card"><h4><span class="ch-dot" style="background:#7c3aed"></span>Catalogue by category</h4><p class="chart-sub">Products in each category</p><div class="cat-bars">' +
+              CATEGORIES.map(function (c, ci) {
                 var n = ALL_PRODUCTS.filter(function (p) { return p.cat === c.slug; }).length;
                 var pct = Math.round((n / maxCatCount) * 100);
-                return '<div class="cat-bar-row"><div class="cb-head"><span>' + esc(c.name) + '</span><span>' + n + (n === 1 ? ' product' : ' products') + '</span></div><div class="cat-bar-track"><div class="cat-bar-fill" style="width:' + pct + '%"></div></div></div>';
+                return '<div class="cat-bar-row"><div class="cb-head"><span>' + esc(c.name) + '</span><span>' + n + (n === 1 ? ' product' : ' products') + '</span></div><div class="cat-bar-track"><div class="cat-bar-fill" style="width:' + pct + '%;background:' + CAT_COLORS[ci % CAT_COLORS.length] + '"></div></div></div>';
               }).join("") + '</div></div>' +
               '</div>') +
           '<div class="admin-sec-head"><h4>Recent orders</h4><button type="button" class="mini-btn" id="admRefreshOrders">Refresh</button></div>' +
